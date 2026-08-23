@@ -1,0 +1,26 @@
+[
+  {
+    "id": "tweet-1",
+    "date": "AUG 15",
+    "text": "Writing a custom compiler in Rust from scratch. Register allocation is absolute pain but the performance gains are worth every line of unsafe SIMD code.",
+    "url": "https://x.com/johndoe/status/1",
+    "likes": 42,
+    "retweets": 8
+  },
+  {
+    "id": "tweet-2",
+    "date": "JUL 22",
+    "text": "Go Garbage Collection is amazing until you hit p99 latency spikes on a high-throughput network service. Tuned GOGC and memory arenas to flatline the latency graph.",
+    "url": "https://x.com/johndoe/status/2",
+    "likes": 31,
+    "retweets": 4
+  },
+  {
+    "id": "tweet-3",
+    "date": "JUN 05",
+    "text": "Speculative decoding locally on mobile GPUs is a wild frontier. Getting 40 token/sec on old phone chips using custom WebGPU compute shaders.",
+    "url": "https://x.com/johndoe/status/3",
+    "likes": 88,
+    "retweets": 12
+  }
+]

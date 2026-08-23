@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default dark (Monochrome) */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --text: #FFFFFF;
+  --muted: #7D7D7D;
+  --border: #202020;
+  --accent: #FFFFFF;
+}
+
+.dark {
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --text: #FFFFFF;
+  --muted: #7D7D7D;
+  --border: #202020;
+  --accent: #FFFFFF;
+}
+.light {
+  --bg: #FFFFFF;
+  --surface: #F5F5F5;
+  --text: #000000;
+  --muted: #666666;
+  --border: #E5E5E5;
+  --accent: #000000;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-geist-sans), Inter, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease;
+  }
+
+  /* Make all elements transition theme colors smoothly */
+  *, *::before, *::after {
+    transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease;
+  }
+
+  /* Exclude interactive states to prevent laggy hover feels */
+  button:hover,
+  button:active,
+  a:hover,
+  a:active,
+  .hover\:scale-105:hover,
+  .hover\:scale-105:active,
+  .transition-none {
+    transition: none !important;
+  }
+
+  /* Custom scrollbar matching dark minimal style */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* high-craft micro noise texture overlay */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Link underline animate from left */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--text);
+  transform-origin: bottom left;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── MOBILE: Prevent iOS Safari zoom on input focus ─── */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* ─── Hide scrollbar utility ─── */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Drag-and-drop drop zone states ─── */
+.dropzone-base {
+  border: 1px dashed var(--border);
+  transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+}
+.dropzone-hover {
+  border-color: var(--accent);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.dropzone-dragover {
+  border-style: solid;
+  border-color: var(--accent);
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+/* ─── Hero name — fluid font size ─── */
+.hero-name {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 0.92;
+}
+
+/* ─── Swipe hint for lightbox on mobile ─── */
+@media (max-width: 768px) {
+  .lightbox-nav-hint {
+    display: flex;
+  }
+}

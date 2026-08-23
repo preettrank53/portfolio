@@ -1,0 +1,23 @@
+[
+  {
+    "id": "exp-1",
+    "date": "2025 - PRES",
+    "category": "@INFRASTRUCTURE",
+    "title": "TECH CORP LABS",
+    "body": "Software Engineer Intern. Optimizing model compilation pipelines for production servers. Reduced container spin-up latencies by 50% and implemented custom cache eviction layers to improve latency SLAs.",
+    "codeSnippet": {
+      "title": "latency_sla_metrics.json",
+      "lang": "JSON",
+      "content": "{\n  \"spin_up_ms_before\": 1420,\n  \"spin_up_ms_after\": 710,\n  \"cache_hit_ratio\": 0.94,\n  \"p99_latency_sla_status\": \"COMPLIANT\"\n}"
+    },
+    "tags": ["NEXT.JS", "DOCKER", "KUBERNETES", "LINUX"]
+  },
+  {
+    "id": "exp-2",
+    "date": "2024 - 2025",
+    "category": "@COMPILERS",
+    "title": "OPEN SOURCE ORG",
+    "body": "Core Contributor. Maintained core memory management modules. Refactored array buffer allocations and fixed 14 memory leak bottlenecks in Key-Value data structures.",
+    "tags": ["C", "VALGRIND", "WASM-RUNTIME"]
+  }
+]

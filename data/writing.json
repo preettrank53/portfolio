@@ -1,0 +1,20 @@
+[
+  {
+    "id": "write-1",
+    "date": "JUL 2026",
+    "category": "@COMPILERS",
+    "title": "UNDER THE HOOD OF A Custom WASM Compiler",
+    "body": "A deep dive into register allocation algorithms and compilation benchmarks. Exploring why traditional graph-coloring techniques fail in edge environments.",
+    "liveUrl": "https://johndoe.dev/blog/wasm-compiler",
+    "tags": ["COMPILERS", "WASM", "RUST"]
+  },
+  {
+    "id": "write-2",
+    "date": "FEB 2026",
+    "category": "@PERFORMANCE",
+    "title": "OPTIMIZING GO GARBAGE COLLECTION FOR REAL-TIME LATENCY",
+    "body": "How we tuned GC environment variables and memory layout pools to achieve flat p99 latency graphs under peak network loads.",
+    "liveUrl": "https://johndoe.dev/blog/go-gc",
+    "tags": ["GO", "GC-TUNING", "PERFORMANCE"]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stack-1",
+    "date": "ACTIVE",
+    "category": "@LANGUAGES",
+    "title": "SYSTEMS & WEB LANGUAGES",
+    "body": "High-performance programming languages utilized for engineering systems and toolchains.",
+    "codeSnippet": {
+      "title": "languages.txt",
+      "lang": "TEXT",
+      "content": "- Rust (SIMD Vectorization, Safe Systems)\n- Go (Backend Networks, Concurrency, Serving)\n- C++ (Performance Core, Shared Memory Kernels)\n- Python (PyTorch scripts, model validation)\n- TypeScript / JS (Vite, Next.js toolchains)"
+    }
+  },
+  {
+    "id": "stack-2",
+    "date": "ACTIVE",
+    "category": "@INFRASTRUCTURE",
+    "title": "ECOSYSTEM TOOLS",
+    "body": "Virtualization, serving runtimes, and local container orchestration pipelines.",
+    "codeSnippet": {
+      "title": "infra_config.json",
+      "lang": "JSON",
+      "content": "{\n  \"orchestration\": [\"Kubernetes\", \"Docker Compose\"],\n  \"inference_engines\": [\"ONNX Runtime\", \"TFLite\", \"llama.cpp\"],\n  \"databases\": [\"PostgreSQL\", \"Redis\", \"DuckDB\"],\n  \"ci_cd\": [\"GitHub Actions\", \"Wasm Bindings\"]\n}"
+    }
+  }
+]
