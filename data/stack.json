@@ -1,38 +1,172 @@
 [
   {
-    "id": "stack-1",
-    "title": "LANGUAGES",
-    "description": "High-performance programming languages utilized for engineering systems and toolchains.",
+    "id": "skill-1",
+    "title": "PROGRAMMING & DATABASES",
+    "description": "Core languages and relational datastores.",
     "tools": [
-      { "name": "JAVASCRIPT", "iconName": "SiJavascript", "color": "#F7DF1E" },
-      { "name": "TYPESCRIPT", "iconName": "SiTypescript", "color": "#3178C6" },
-      { "name": "RUST", "iconName": "SiRust", "color": "#E5730A" },
-      { "name": "PYTHON", "iconName": "SiPython", "color": "#3776AB" },
-      { "name": "GO", "iconName": "SiGo", "color": "#00ADD8" }
+      {
+        "name": "JAVA",
+        "iconName": "SiJava",
+        "color": "#ED8B00"
+      },
+      {
+        "name": "PYTHON",
+        "iconName": "SiPython",
+        "color": "#3776AB"
+      },
+      {
+        "name": "POSTGRESQL",
+        "iconName": "SiPostgresql",
+        "color": "#4169E1"
+      },
+      {
+        "name": "MYSQL",
+        "iconName": "SiMysql",
+        "color": "#4479A1"
+      }
     ]
   },
   {
-    "id": "stack-2",
-    "title": "FRONTEND",
-    "description": "Modern technologies and frameworks for building responsive user interfaces.",
+    "id": "skill-2",
+    "title": "MACHINE LEARNING & DEEP LEARNING",
+    "description": "Data processing, statistical modeling, and neural networks.",
     "tools": [
-      { "name": "REACT", "iconName": "SiReact", "color": "#61DAFB" },
-      { "name": "TAILWIND CSS", "iconName": "SiTailwindcss", "color": "#06B6D4" },
-      { "name": "VERCEL", "iconName": "SiVercel", "color": "#FFFFFF" }
+      {
+        "name": "SCIKIT-LEARN",
+        "iconName": "SiScikitlearn",
+        "color": "#F7931E"
+      },
+      {
+        "name": "TENSORFLOW",
+        "iconName": "SiTensorflow",
+        "color": "#FF6F00"
+      },
+      {
+        "name": "PANDAS",
+        "iconName": "SiPandas",
+        "color": "#150458"
+      },
+      {
+        "name": "NUMPY",
+        "iconName": "SiNumpy",
+        "color": "#013243"
+      },
+      {
+        "name": "SCIPY",
+        "iconName": "SiScipy",
+        "color": "#8CAAEE"
+      },
+      {
+        "name": "CNNs",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "RNN",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      }
     ]
   },
   {
-    "id": "stack-3",
-    "title": "BACKEND & INFRASTRUCTURE",
-    "description": "Virtualization, datastores, serving runtimes, and local container orchestration pipelines.",
+    "id": "skill-3",
+    "title": "AI & GENERATIVE FRAMEWORKS",
+    "description": "LLM orchestration, agents, and retrieval architectures.",
     "tools": [
-      { "name": "NODE.JS", "iconName": "SiNodedotjs", "color": "#339933" },
-      { "name": "DOCKER", "iconName": "SiDocker", "color": "#2496ED" },
-      { "name": "AWS", "iconName": "SiAmazonwebservices", "color": "#FF9900" },
-      { "name": "POSTGRESQL", "iconName": "SiPostgresql", "color": "#4169E1" },
-      { "name": "MONGODB", "iconName": "SiMongodb", "color": "#47A248" },
-      { "name": "PRISMA", "iconName": "SiPrisma", "color": "#2D3748" },
-      { "name": "GIT", "iconName": "SiGit", "color": "#F05032" }
+      {
+        "name": "LANGCHAIN",
+        "iconName": "SiLangchain",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "LANGGRAPH",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "CREWAI",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "RAG",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "MULTI-AGENT",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "MCP",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "id": "skill-4",
+    "title": "BACKEND & CORE CONCEPTS",
+    "description": "API development, caching, and fundamental computer science.",
+    "tools": [
+      {
+        "name": "FASTAPI",
+        "iconName": "SiFastapi",
+        "color": "#009688"
+      },
+      {
+        "name": "FLASK",
+        "iconName": "SiFlask",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "REDIS",
+        "iconName": "SiRedis",
+        "color": "#DC382D"
+      },
+      {
+        "name": "DSA",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "OOP",
+        "iconName": "TextFallback",
+        "color": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "id": "skill-5",
+    "title": "TOOLS & PLATFORMS",
+    "description": "Version control, containerization, and interactive notebooks.",
+    "tools": [
+      {
+        "name": "GIT",
+        "iconName": "SiGit",
+        "color": "#F05032"
+      },
+      {
+        "name": "GITHUB",
+        "iconName": "SiGithub",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "STREAMLIT",
+        "iconName": "SiStreamlit",
+        "color": "#FF4B4B"
+      },
+      {
+        "name": "JUPYTER",
+        "iconName": "SiJupyter",
+        "color": "#F37626"
+      },
+      {
+        "name": "COLAB",
+        "iconName": "SiGooglecolab",
+        "color": "#F9AB00"
+      }
     ]
   }
 ]

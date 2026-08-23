@@ -9,7 +9,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { 
   Pin,
@@ -92,10 +92,24 @@ import {
   SiMongodb,
   SiPrisma,
   SiGit,
-  SiX
+  SiX,
+  SiMysql,
+  SiScikitlearn,
+  SiTensorflow,
+  SiPandas,
+  SiNumpy,
+  SiScipy,
+  SiLangchain,
+  SiFastapi,
+  SiFlask,
+  SiRedis,
+  SiGithub,
+  SiStreamlit,
+  SiJupyter,
+  SiGooglecolab
 } from "react-icons/si";
 
-import { FaAws } from "react-icons/fa";
+import { FaAws, FaJava } from "react-icons/fa";
 
 const IconMapping: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   SiJavascript,
@@ -112,11 +126,26 @@ const IconMapping: Record<string, React.ComponentType<{ className?: string; styl
   SiPostgresql,
   SiMongodb,
   SiPrisma,
-  SiGit
+  SiGit,
+  SiJava: FaJava,
+  SiMysql,
+  SiScikitlearn,
+  SiTensorflow,
+  SiPandas,
+  SiNumpy,
+  SiScipy,
+  SiLangchain,
+  SiFastapi,
+  SiFlask,
+  SiRedis,
+  SiGithub,
+  SiStreamlit,
+  SiJupyter,
+  SiGooglecolab
 };
 
 const StackIconBox = ({ name, iconName, color }: { name: string; iconName: string; color: string }) => {
-  const IconComponent = IconMapping[iconName];
+  const IconComponent = iconName !== "TextFallback" ? IconMapping[iconName] : undefined;
 
   return (
     <div className="group relative flex h-12 w-12 md:h-14 md:w-auto max-w-[48px] md:max-w-[56px] md:hover:max-w-[200px] items-center overflow-hidden border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--text)] transition-[max-width] duration-300 ease-out rounded-none cursor-pointer z-10 hover:z-20 select-none">
@@ -124,7 +153,9 @@ const StackIconBox = ({ name, iconName, color }: { name: string; iconName: strin
         {IconComponent ? (
           <IconComponent className="text-2xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color }} />
         ) : (
-          <span className="font-mono text-[9px] text-ash">{name.slice(0, 3)}</span>
+          <span className="font-mono text-sm font-bold text-[var(--text)] uppercase">
+            {name.slice(0, 3)}
+          </span>
         )}
       </div>
       <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
@@ -192,7 +223,12 @@ interface DevLogItem {
   category: string;
   title: string;
   body: string;
-  description?: string;
+  description?: string | string[];
+  logoUrl?: string;
+  company?: string;
+  type?: string;
+  duration?: string;
+  location?: string;
   tools?: {
     name: string;
     iconName: string;
@@ -213,14 +249,106 @@ interface DevLogItem {
   }[];
 }
 
+function LogoUploader({
+  logoUrl,
+  onChange
+}: {
+  logoUrl?: string;
+  onChange: (url: string) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+
+  const processFile = async (file: File) => {
+    const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp"];
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      toast("Unsupported image format", {
+        className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
+      });
+      return;
+    }
+    if (file.size > MAX_SIZE) {
+      toast("File size exceeds 5MB limit", {
+        className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
+      });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        onChange(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      processFile(file);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="block font-mono text-[9px] text-ash uppercase tracking-widest">COMPANY LOGO</label>
+      <div className="flex items-center gap-4">
+        {logoUrl ? (
+          <div className="w-24 h-24 bg-white border border-[var(--border)] rounded-none relative flex items-center justify-center p-1 group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src={logoUrl} 
+              alt="Logo Preview" 
+              className="w-full h-full object-contain bg-white"
+            />
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow hover:bg-red-700 transition-colors"
+              title="Remove logo"
+            >
+              ×
+            </button>
+          </div>
+        ) : (
+          <div
+            onDragOver={e => { e.preventDefault(); setDragging(true); }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current?.click()}
+            className={`w-24 h-24 border border-dashed flex flex-col items-center justify-center cursor-pointer transition-colors duration-150 select-none bg-canvas/30
+              ${dragging ? "border-accent bg-canvas/60" : "border-[var(--border)] hover:border-accent"}`}
+          >
+            <input 
+              type="file" 
+              ref={fileInputRef}
+              accept="image/png,image/jpeg,image/webp"
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) processFile(file);
+              }}
+              className="hidden"
+            />
+            <span className="font-mono text-[9px] text-ash font-bold tracking-widest text-center">DROP LOGO</span>
+            <span className="font-mono text-[7px] text-ash/40 mt-1 uppercase text-center">OR CLICK</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 const TABS = [
-  { id: "projects", label: "PROJECTS" },
   { id: "experience", label: "EXPERIENCE" },
-  { id: "stack", label: "STACK" }
+  { id: "stack", label: "SKILLS" },
+  { id: "projects", label: "PROJECTS" }
 ];
 
 export default function PortfolioSplitPane() {
-  const [activeTab, setActiveTab] = useState<string>("projects");
+  const [activeTab, setActiveTab] = useState<string>("experience");
   const [tabData, setTabData] = useState<DevLogItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [adminMode, setAdminMode] = useState<boolean>(false);
@@ -285,9 +413,9 @@ export default function PortfolioSplitPane() {
       }
       // Quick tabs jumps
       if (e.altKey) {
-        if (e.key === "1") { setActiveTab("projects"); e.preventDefault(); }
-        if (e.key === "2") { setActiveTab("experience"); e.preventDefault(); }
-        if (e.key === "3") { setActiveTab("stack"); e.preventDefault(); }
+        if (e.key === "1") { setActiveTab("experience"); e.preventDefault(); }
+        if (e.key === "2") { setActiveTab("stack"); e.preventDefault(); }
+        if (e.key === "3") { setActiveTab("projects"); e.preventDefault(); }
       }
       // Escape closes open modals
       if (e.key === "Escape") {
@@ -435,9 +563,18 @@ export default function PortfolioSplitPane() {
   // Inline edit save
   const handleSaveEdit = async () => {
     if (!editForm) return;
-    const updated = tabData.map(item => item.id === editingId ? editForm : item);
+
+    const finalForm = { ...editForm };
+    if (activeTab === "experience" && Array.isArray(finalForm.description)) {
+      finalForm.description = finalForm.description
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+    }
+
+    const updated = tabData.map(item => item.id === editingId ? finalForm : item);
     setTabData(updated);
     setEditingId(null);
+    setEditForm(null);
     
     const res = await saveDevData(activeTab, updated);
     if (res.success) {
@@ -486,13 +623,32 @@ export default function PortfolioSplitPane() {
       title: "",
       body: "",
       tags: [],
-      screenshots: []
+      screenshots: [],
+      ...(activeTab === "experience" ? {
+        company: "",
+        type: "",
+        duration: "",
+        location: "",
+        logoUrl: "",
+        description: []
+      } : activeTab === "stack" ? {
+        description: "",
+        tools: []
+      } : {})
     });
   };
 
   const handleSaveNewEntry = async () => {
     if (!editForm) return;
-    const updated = [editForm, ...tabData];
+
+    const finalForm = { ...editForm };
+    if (activeTab === "experience" && Array.isArray(finalForm.description)) {
+      finalForm.description = finalForm.description
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+    }
+
+    const updated = [finalForm, ...tabData];
     setTabData(updated);
     setIsAddingNew(false);
     setEditForm(null);
@@ -507,6 +663,25 @@ export default function PortfolioSplitPane() {
         className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
       });
     }
+  };
+
+  const handleUpdateTool = (index: number, field: string, value: string) => {
+    if (!editForm) return;
+    const updatedTools = [...(editForm.tools || [])];
+    updatedTools[index] = { ...updatedTools[index], [field]: value };
+    setEditForm({ ...editForm, tools: updatedTools });
+  };
+
+  const handleRemoveTool = (index: number) => {
+    if (!editForm) return;
+    const updatedTools = (editForm.tools || []).filter((_, i) => i !== index);
+    setEditForm({ ...editForm, tools: updatedTools });
+  };
+
+  const handleAddTool = () => {
+    if (!editForm) return;
+    const updatedTools = [...(editForm.tools || []), { name: "", iconName: "TextFallback", color: "#FFFFFF" }];
+    setEditForm({ ...editForm, tools: updatedTools });
   };
 
   // Export JSON locally (Client-side)
@@ -708,153 +883,327 @@ export default function PortfolioSplitPane() {
                     DEPLOY NEW ENTRY
                   </span>
                   
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                      <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
-                      <input 
-                        type="text" 
-                        placeholder="PROJECT ALPHA V2"
-                        value={editForm.title || ""} 
-                        onChange={e => setEditForm({ ...editForm, title: e.target.value })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
-                      />
-                    </div>
-                    <div className="w-full sm:w-32">
-                      <label className="block font-mono text-[9px] text-ash mb-1">DATE</label>
-                      <input 
-                        type="text" 
-                        placeholder="JUL 2025"
-                        value={editForm.date || ""} 
-                        onChange={e => setEditForm({ ...editForm, date: e.target.value })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                      <label className="block font-mono text-[9px] text-ash mb-1">CATEGORY</label>
-                      <input 
-                        type="text" 
-                        placeholder="@SYSTEMS"
-                        value={editForm.category || ""} 
-                        onChange={e => setEditForm({ ...editForm, category: e.target.value })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="block font-mono text-[9px] text-ash mb-1">TAGS (COMMA SEPARATED)</label>
-                      <input 
-                        type="text" 
-                        placeholder="rust, wasm, compiler"
-                        value={editForm.tags ? editForm.tags.join(", ") : ""} 
-                        onChange={e => setEditForm({ ...editForm, tags: e.target.value.split(",").map(t => t.trim()).filter(Boolean) })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block font-mono text-[9px] text-ash mb-1">BODY TEXT</label>
-                    <textarea 
-                      placeholder="Describe what you built, the problem it solves, and what you learned..."
-                      value={editForm.body || ""} 
-                      onChange={e => setEditForm({ ...editForm, body: e.target.value })}
-                      className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                  {activeTab === "experience" && (
+                    <LogoUploader 
+                      logoUrl={editForm.logoUrl}
+                      onChange={url => setEditForm({ ...editForm, logoUrl: url })}
                     />
-                  </div>
+                  )}
 
-                  {/* Screenshots Section — drag-and-drop */}
-                  <div className="border-t border-charcoal/30 pt-4 mt-2">
-                    <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">SCREENSHOTS</span>
-                    <ScreenshotEditor
-                      screenshots={editForm.screenshots ?? []}
-                      onChange={(shots) => setEditForm({ ...editForm, screenshots: shots })}
-                    />
-                  </div>
-
-                  <div className="border border-charcoal p-4 bg-canvas/50">
-                    <span className="block font-mono text-[9px] text-ash mb-2">CODE SNIPPET (OPTIONAL)</span>
-                    <div className="flex gap-4 mb-2">
-                      <div className="flex-1">
+                  {activeTab === "stack" ? (
+                    <>
+                      {/* Top-level Title input */}
+                      <div>
+                        <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
                         <input 
                           type="text" 
-                          placeholder="File name (e.g. main.rs)"
-                          value={editForm.codeSnippet?.title || ""} 
-                          onChange={e => {
-                            if (!editForm) return;
-                            setEditForm({ 
-                              ...editForm, 
-                              codeSnippet: {
-                                title: e.target.value,
-                                lang: editForm.codeSnippet?.lang || "",
-                                content: editForm.codeSnippet?.content || ""
-                              }
-                            });
-                          }}
-                          className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                          placeholder="PROGRAMMING & DATABASES"
+                          value={editForm.title || ""} 
+                          onChange={e => setEditForm({ ...editForm, title: e.target.value })}
+                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
                         />
                       </div>
-                      <div className="w-32">
-                        <input 
-                          type="text" 
-                          placeholder="Language"
-                          value={editForm.codeSnippet?.lang || ""} 
-                          onChange={e => {
-                            if (!editForm) return;
-                            setEditForm({ 
-                              ...editForm, 
-                              codeSnippet: {
-                                title: editForm.codeSnippet?.title || "",
-                                lang: e.target.value,
-                                content: editForm.codeSnippet?.content || ""
-                              }
-                            });
-                          }}
-                          className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                    <textarea 
-                      placeholder="Code content"
-                      value={editForm.codeSnippet?.content || ""} 
-                      onChange={e => {
-                         if (!editForm) return;
-                         setEditForm({ 
-                           ...editForm, 
-                           codeSnippet: {
-                             title: editForm.codeSnippet?.title || "",
-                             lang: editForm.codeSnippet?.lang || "",
-                             content: e.target.value
-                           }
-                         });
-                      }}
-                      className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none h-20 focus:outline-none font-mono"
-                    />
-                  </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                      <label className="block font-mono text-[9px] text-ash mb-1">LIVE LINK</label>
-                      <input 
-                        type="text" 
-                        placeholder="https://your-project.vercel.app"
-                        value={editForm.liveUrl || ""} 
-                        onChange={e => setEditForm({ ...editForm, liveUrl: e.target.value })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none font-sans"
+                      {/* Description textarea */}
+                      <div>
+                        <label className="block font-mono text-[9px] text-ash mb-1">DESCRIPTION</label>
+                        <textarea 
+                          placeholder="Core languages and relational datastores."
+                          value={editForm.description || ""} 
+                          onChange={e => setEditForm({ ...editForm, description: e.target.value, body: e.target.value })}
+                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-20 focus:outline-none focus:border-accent font-sans resize-y"
+                        />
+                      </div>
+
+                      {/* Dynamic Tools array editor */}
+                      <div className="border border-charcoal p-4 bg-canvas/30">
+                        <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">
+                          TOOLS & ICONS
+                        </span>
+                        <div className="flex flex-col gap-2">
+                          {(editForm.tools || []).map((tool, idx) => (
+                            <div key={idx} className="flex flex-col sm:flex-row gap-2 items-center border border-charcoal/50 p-2 bg-canvas/10">
+                              {/* Tool Name */}
+                              <div className="flex-1 w-full">
+                                <label className="block font-mono text-[8px] text-ash mb-0.5">TOOL NAME</label>
+                                <input
+                                  type="text"
+                                  placeholder="E.g., PYTHON"
+                                  value={tool.name || ""}
+                                  onChange={e => handleUpdateTool(idx, "name", e.target.value.toUpperCase())}
+                                  className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-sans"
+                                />
+                              </div>
+                              {/* Icon Name */}
+                              <div className="flex-1 w-full">
+                                <label className="block font-mono text-[8px] text-ash mb-0.5">ICON CLASS (OR TextFallback)</label>
+                                <input
+                                  type="text"
+                                  placeholder="E.g., SiPython"
+                                  value={tool.iconName || ""}
+                                  onChange={e => handleUpdateTool(idx, "iconName", e.target.value)}
+                                  className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-mono"
+                                />
+                              </div>
+                              {/* Color */}
+                              <div className="w-full sm:w-28 flex gap-1 items-end">
+                                <div className="flex-1">
+                                  <label className="block font-mono text-[8px] text-ash mb-0.5">COLOR (HEX)</label>
+                                  <input
+                                    type="text"
+                                    placeholder="#FFFFFF"
+                                    value={tool.color || ""}
+                                    onChange={e => handleUpdateTool(idx, "color", e.target.value)}
+                                    className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-mono"
+                                  />
+                                </div>
+                                <input
+                                  type="color"
+                                  value={tool.color && tool.color.startsWith("#") ? tool.color : "#FFFFFF"}
+                                  onChange={e => handleUpdateTool(idx, "color", e.target.value.toUpperCase())}
+                                  className="w-8 h-[29px] border border-charcoal cursor-pointer bg-transparent p-0 rounded-none shrink-0"
+                                />
+                              </div>
+                              {/* Remove Button */}
+                              <div className="w-full sm:w-auto self-end sm:self-center">
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveTool(idx)}
+                                  className="w-full sm:w-auto px-2 py-1.5 border border-charcoal hover:border-red-500 hover:text-red-500 font-mono text-[10px] text-ash transition-colors rounded-none min-h-[30px]"
+                                >
+                                  [X]
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleAddTool}
+                          className="mt-3 w-full py-2 border border-dashed border-charcoal hover:border-accent hover:text-accent font-mono text-[10px] text-ash transition-colors rounded-none min-h-[36px]"
+                        >
+                          [+ ADD TOOL]
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex-1">
+                          <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
+                          <input 
+                            type="text" 
+                            placeholder={activeTab === "experience" ? "Open Source Contributor" : "PROJECT ALPHA V2"}
+                            value={editForm.title || ""} 
+                            onChange={e => setEditForm({ ...editForm, title: e.target.value })}
+                            className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                          />
+                        </div>
+                        <div className="w-full sm:w-32">
+                          <label className="block font-mono text-[9px] text-ash mb-1">DATE</label>
+                          <input 
+                            type="text" 
+                            placeholder={activeTab === "experience" ? "Jun 2026 - Aug 2026" : "JUL 2025"}
+                            value={editForm.date || ""} 
+                            onChange={e => setEditForm({ ...editForm, date: e.target.value })}
+                            className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <label className="block font-mono text-[9px] text-ash mb-1">TAGS (COMMA SEPARATED)</label>
+                          <input 
+                            type="text" 
+                            placeholder={activeTab === "experience" ? "git, github" : "rust, wasm, compiler"}
+                            value={editForm.tags ? editForm.tags.join(", ") : ""} 
+                            onChange={e => setEditForm({ ...editForm, tags: e.target.value.split(",").map(t => t.trim()).filter(Boolean) })}
+                            className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      {activeTab === "experience" ? (
+                        <>
+                          <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">COMPANY</label>
+                              <input 
+                                type="text" 
+                                placeholder="Elite Coders"
+                                value={editForm.company || ""} 
+                                onChange={e => setEditForm({ ...editForm, company: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">JOB TYPE</label>
+                              <input 
+                                type="text" 
+                                placeholder="Apprenticeship"
+                                value={editForm.type || ""} 
+                                onChange={e => setEditForm({ ...editForm, type: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">DURATION</label>
+                              <input 
+                                type="text" 
+                                placeholder="3 mos"
+                                value={editForm.duration || ""} 
+                                onChange={e => setEditForm({ ...editForm, duration: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">LOCATION</label>
+                              <input 
+                                type="text" 
+                                placeholder="Bengaluru, Karnataka, India"
+                                value={editForm.location || ""} 
+                                onChange={e => setEditForm({ ...editForm, location: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block font-mono text-[9px] text-ash mb-1">DESCRIPTION (ONE BULLET PER LINE)</label>
+                            <textarea 
+                              placeholder="Selected as a Contributor...&#10;Contributing to production-grade software..."
+                              value={Array.isArray(editForm.description) ? editForm.description.join("\n") : (editForm.description || "")} 
+                              onChange={e => {
+                                const lines = e.target.value.split("\n");
+                                setEditForm({ ...editForm, description: lines });
+                              }}
+                              className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">CATEGORY</label>
+                              <input 
+                                type="text" 
+                                placeholder="@SYSTEMS"
+                                value={editForm.category || ""} 
+                                onChange={e => setEditForm({ ...editForm, category: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-mono"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block font-mono text-[9px] text-ash mb-1">BODY TEXT</label>
+                            <textarea 
+                              placeholder="Describe what you built, the problem it solves, and what you learned..."
+                              value={editForm.body || ""} 
+                              onChange={e => setEditForm({ ...editForm, body: e.target.value })}
+                              className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                            />
+                          </div>
+
+                          <div className="border border-charcoal p-4 bg-canvas/50">
+                            <span className="block font-mono text-[9px] text-ash mb-2">CODE SNIPPET (OPTIONAL)</span>
+                            <div className="flex gap-4 mb-2">
+                              <div className="flex-1">
+                                <input 
+                                  type="text" 
+                                  placeholder="File name (e.g. main.rs)"
+                                  value={editForm.codeSnippet?.title || ""} 
+                                  onChange={e => {
+                                    if (!editForm) return;
+                                    setEditForm({ 
+                                      ...editForm, 
+                                      codeSnippet: {
+                                        title: e.target.value,
+                                        lang: editForm.codeSnippet?.lang || "",
+                                        content: editForm.codeSnippet?.content || ""
+                                      }
+                                    });
+                                  }}
+                                  className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                                />
+                              </div>
+                              <div className="w-32">
+                                <input 
+                                  type="text" 
+                                  placeholder="Language"
+                                  value={editForm.codeSnippet?.lang || ""} 
+                                  onChange={e => {
+                                    if (!editForm) return;
+                                    setEditForm({ 
+                                      ...editForm, 
+                                      codeSnippet: {
+                                        title: editForm.codeSnippet?.title || "",
+                                        lang: e.target.value,
+                                        content: editForm.codeSnippet?.content || ""
+                                      }
+                                    });
+                                  }}
+                                  className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <textarea 
+                              placeholder="Code content"
+                              value={editForm.codeSnippet?.content || ""} 
+                              onChange={e => {
+                                 if (!editForm) return;
+                                 setEditForm({ 
+                                   ...editForm, 
+                                   codeSnippet: {
+                                     title: editForm.codeSnippet?.title || "",
+                                     lang: editForm.codeSnippet?.lang || "",
+                                     content: e.target.value
+                                   }
+                                 });
+                              }}
+                              className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none h-20 focus:outline-none font-mono"
+                            />
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">LIVE LINK</label>
+                              <input 
+                                type="text" 
+                                placeholder="https://your-project.vercel.app"
+                                value={editForm.liveUrl || ""} 
+                                onChange={e => setEditForm({ ...editForm, liveUrl: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none font-sans"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <label className="block font-mono text-[9px] text-ash mb-1">CODE LINK</label>
+                              <input 
+                                type="text" 
+                                placeholder="https://github.com/you/repo"
+                                value={editForm.codeUrl || ""} 
+                                onChange={e => setEditForm({ ...editForm, codeUrl: e.target.value })}
+                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none font-mono"
+                              />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
+
+                  {/* Screenshots Section (Both share it!) */}
+                  {activeTab !== "stack" && (
+                    <div className="border-t border-charcoal/30 pt-4 mt-2">
+                      <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">SCREENSHOTS</span>
+                      <ScreenshotEditor
+                        screenshots={editForm.screenshots ?? []}
+                        onChange={(shots) => setEditForm({ ...editForm, screenshots: shots })}
                       />
                     </div>
-                    <div className="flex-1">
-                      <label className="block font-mono text-[9px] text-ash mb-1">CODE LINK</label>
-                      <input 
-                        type="text" 
-                        placeholder="https://github.com/you/repo"
-                        value={editForm.codeUrl || ""} 
-                        onChange={e => setEditForm({ ...editForm, codeUrl: e.target.value })}
-                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none font-mono"
-                      />
-                    </div>
-                  </div>
+                  )}
 
                   <div className="flex gap-3 justify-end pt-2">
                     <button 
@@ -934,147 +1283,320 @@ export default function PortfolioSplitPane() {
                               EDIT ENTRY: {post.title}
                             </span>
                             
-                            <div className="flex gap-4">
-                              <div className="flex-1">
-                                <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.title || ""} 
-                                  onChange={e => setEditForm({ ...editForm, title: e.target.value })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-sans"
-                                />
-                              </div>
-                              <div className="w-32">
-                                <label className="block font-mono text-[9px] text-ash mb-1">DATE</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.date || ""} 
-                                  onChange={e => setEditForm({ ...editForm, date: e.target.value })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="flex gap-4">
-                              <div className="flex-1">
-                                <label className="block font-mono text-[9px] text-ash mb-1">CATEGORY</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.category || ""} 
-                                  onChange={e => setEditForm({ ...editForm, category: e.target.value })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
-                                />
-                              </div>
-                              <div className="flex-1">
-                                <label className="block font-mono text-[9px] text-ash mb-1">TAGS (COMMA SEPARATED)</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.tags ? editForm.tags.join(", ") : ""} 
-                                  onChange={e => setEditForm({ ...editForm, tags: e.target.value.split(",").map(t => t.trim()) })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="block font-mono text-[9px] text-ash mb-1">BODY TEXT</label>
-                              <textarea 
-                                placeholder="Describe what you built, the problem it solves, and what you learned..."
-                                value={editForm.body || ""} 
-                                onChange={e => setEditForm({ ...editForm, body: e.target.value })}
-                                className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                            {activeTab === "experience" && (
+                              <LogoUploader 
+                                logoUrl={editForm.logoUrl}
+                                onChange={url => setEditForm({ ...editForm, logoUrl: url })}
                               />
-                            </div>
+                            )}
 
-                            {/* Screenshots Section — drag-and-drop */}
-                            <div className="border-t border-charcoal/30 pt-4 mt-2">
-                              <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">SCREENSHOTS</span>
-                              <ScreenshotEditor
-                                screenshots={editForm.screenshots ?? []}
-                                onChange={(shots) => setEditForm({ ...editForm, screenshots: shots })}
-                              />
-                            </div>
-
-                            <div className="border border-charcoal p-4 bg-canvas/50">
-                              <span className="block font-mono text-[9px] text-ash mb-2">CODE SNIPPET (OPTIONAL)</span>
-                              <div className="flex gap-4 mb-2">
-                                <div className="flex-1">
+                            {activeTab === "stack" ? (
+                              <>
+                                {/* Top-level Title input */}
+                                <div>
+                                  <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
                                   <input 
                                     type="text" 
-                                    placeholder="File name (e.g. main.rs)"
-                                    value={editForm.codeSnippet?.title || ""} 
-                                    onChange={e => {
-                                      if (!editForm) return;
-                                      setEditForm({ 
-                                        ...editForm, 
-                                        codeSnippet: {
-                                          title: e.target.value,
-                                          lang: editForm.codeSnippet?.lang || "",
-                                          content: editForm.codeSnippet?.content || ""
-                                        }
-                                      });
-                                    }}
-                                    className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                                    value={editForm.title || ""} 
+                                    onChange={e => setEditForm({ ...editForm, title: e.target.value })}
+                                    className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-sans"
                                   />
                                 </div>
-                                <div className="w-32">
-                                  <input 
-                                    type="text" 
-                                    placeholder="Language"
-                                    value={editForm.codeSnippet?.lang || ""} 
-                                    onChange={e => {
-                                      if (!editForm) return;
-                                      setEditForm({ 
-                                        ...editForm, 
-                                        codeSnippet: {
-                                          title: editForm.codeSnippet?.title || "",
-                                          lang: e.target.value,
-                                          content: editForm.codeSnippet?.content || ""
-                                        }
-                                      });
-                                    }}
-                                    className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
-                                  />
-                                </div>
-                              </div>
-                              <textarea 
-                                placeholder="Code content"
-                                value={editForm.codeSnippet?.content || ""} 
-                                onChange={e => {
-                                  if (!editForm) return;
-                                  setEditForm({ 
-                                    ...editForm, 
-                                    codeSnippet: {
-                                      title: editForm.codeSnippet?.title || "",
-                                      lang: editForm.codeSnippet?.lang || "",
-                                      content: e.target.value
-                                    }
-                                  });
-                                }}
-                                className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none h-20 focus:outline-none font-mono"
-                              />
-                            </div>
 
-                            <div className="flex gap-4">
-                              <div className="flex-1">
-                                <label className="block font-mono text-[9px] text-ash mb-1">LIVE LINK</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.liveUrl || ""} 
-                                  onChange={e => setEditForm({ ...editForm, liveUrl: e.target.value })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none font-sans"
+                                {/* Description textarea */}
+                                <div>
+                                  <label className="block font-mono text-[9px] text-ash mb-1">DESCRIPTION</label>
+                                  <textarea 
+                                    placeholder="Core languages and relational datastores."
+                                    value={editForm.description || ""} 
+                                    onChange={e => setEditForm({ ...editForm, description: e.target.value, body: e.target.value })}
+                                    className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-20 focus:outline-none focus:border-accent font-sans resize-y"
+                                  />
+                                </div>
+
+                                {/* Dynamic Tools array editor */}
+                                <div className="border border-charcoal p-4 bg-canvas/30">
+                                  <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">
+                                    TOOLS & ICONS
+                                  </span>
+                                  <div className="flex flex-col gap-2">
+                                    {(editForm.tools || []).map((tool, idx) => (
+                                      <div key={idx} className="flex flex-col sm:flex-row gap-2 items-center border border-charcoal/50 p-2 bg-canvas/10">
+                                        {/* Tool Name */}
+                                        <div className="flex-1 w-full">
+                                          <label className="block font-mono text-[8px] text-ash mb-0.5">TOOL NAME</label>
+                                          <input
+                                            type="text"
+                                            placeholder="E.g., PYTHON"
+                                            value={tool.name || ""}
+                                            onChange={e => handleUpdateTool(idx, "name", e.target.value.toUpperCase())}
+                                            className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-sans"
+                                          />
+                                        </div>
+                                        {/* Icon Name */}
+                                        <div className="flex-1 w-full">
+                                          <label className="block font-mono text-[8px] text-ash mb-0.5">ICON CLASS (OR TextFallback)</label>
+                                          <input
+                                            type="text"
+                                            placeholder="E.g., SiPython"
+                                            value={tool.iconName || ""}
+                                            onChange={e => handleUpdateTool(idx, "iconName", e.target.value)}
+                                            className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-mono"
+                                          />
+                                        </div>
+                                        {/* Color */}
+                                        <div className="w-full sm:w-28 flex gap-1 items-end">
+                                          <div className="flex-1">
+                                            <label className="block font-mono text-[8px] text-ash mb-0.5">COLOR (HEX)</label>
+                                            <input
+                                              type="text"
+                                              placeholder="#FFFFFF"
+                                              value={tool.color || ""}
+                                              onChange={e => handleUpdateTool(idx, "color", e.target.value)}
+                                              className="w-full bg-canvas border border-charcoal p-1.5 text-xs text-purewhite rounded-none focus:outline-none font-mono"
+                                            />
+                                          </div>
+                                          <input
+                                            type="color"
+                                            value={tool.color && tool.color.startsWith("#") ? tool.color : "#FFFFFF"}
+                                            onChange={e => handleUpdateTool(idx, "color", e.target.value.toUpperCase())}
+                                            className="w-8 h-[29px] border border-charcoal cursor-pointer bg-transparent p-0 rounded-none shrink-0"
+                                          />
+                                        </div>
+                                        {/* Remove Button */}
+                                        <div className="w-full sm:w-auto self-end sm:self-center">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleRemoveTool(idx)}
+                                            className="w-full sm:w-auto px-2 py-1.5 border border-charcoal hover:border-red-500 hover:text-red-500 font-mono text-[10px] text-ash transition-colors rounded-none min-h-[30px]"
+                                          >
+                                            [X]
+                                          </button>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={handleAddTool}
+                                    className="mt-3 w-full py-2 border border-dashed border-charcoal hover:border-accent hover:text-accent font-mono text-[10px] text-ash transition-colors rounded-none min-h-[36px]"
+                                  >
+                                    [+ ADD TOOL]
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                  <div className="flex-1">
+                                    <label className="block font-mono text-[9px] text-ash mb-1">TITLE</label>
+                                    <input 
+                                      type="text" 
+                                      value={editForm.title || ""} 
+                                      onChange={e => setEditForm({ ...editForm, title: e.target.value })}
+                                      className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-sans"
+                                    />
+                                  </div>
+                                  <div className="w-full sm:w-32">
+                                    <label className="block font-mono text-[9px] text-ash mb-1">DATE</label>
+                                    <input 
+                                      type="text" 
+                                      value={editForm.date || ""} 
+                                      onChange={e => setEditForm({ ...editForm, date: e.target.value })}
+                                      className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
+                                    />
+                                  </div>
+                                  <div className="flex-1">
+                                    <label className="block font-mono text-[9px] text-ash mb-1">TAGS (COMMA SEPARATED)</label>
+                                    <input 
+                                      type="text" 
+                                      value={editForm.tags ? editForm.tags.join(", ") : ""} 
+                                      onChange={e => setEditForm({ ...editForm, tags: e.target.value.split(",").map(t => t.trim()).filter(Boolean) })}
+                                      className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
+                                    />
+                                  </div>
+                                </div>
+
+                                {activeTab === "experience" ? (
+                                  <>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">COMPANY</label>
+                                        <input 
+                                          type="text" 
+                                          placeholder="Elite Coders"
+                                          value={editForm.company || ""} 
+                                          onChange={e => setEditForm({ ...editForm, company: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                                        />
+                                      </div>
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">JOB TYPE</label>
+                                        <input 
+                                          type="text" 
+                                          placeholder="Apprenticeship"
+                                          value={editForm.type || ""} 
+                                          onChange={e => setEditForm({ ...editForm, type: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">DURATION</label>
+                                        <input 
+                                          type="text" 
+                                          placeholder="3 mos"
+                                          value={editForm.duration || ""} 
+                                          onChange={e => setEditForm({ ...editForm, duration: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                                        />
+                                      </div>
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">LOCATION</label>
+                                        <input 
+                                          type="text" 
+                                          placeholder="Bengaluru, Karnataka, India"
+                                          value={editForm.location || ""} 
+                                          onChange={e => setEditForm({ ...editForm, location: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div>
+                                      <label className="block font-mono text-[9px] text-ash mb-1">DESCRIPTION (ONE BULLET PER LINE)</label>
+                                      <textarea 
+                                        placeholder="Selected as a Contributor...&#10;Contributing to production-grade software..."
+                                        value={Array.isArray(editForm.description) ? editForm.description.join("\n") : (editForm.description || "")} 
+                                        onChange={e => {
+                                          const lines = e.target.value.split("\n");
+                                          setEditForm({ ...editForm, description: lines });
+                                        }}
+                                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                                      />
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">CATEGORY</label>
+                                        <input 
+                                          type="text" 
+                                          value={editForm.category || ""} 
+                                          onChange={e => setEditForm({ ...editForm, category: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none focus:border-accent font-mono"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div>
+                                      <label className="block font-mono text-[9px] text-ash mb-1">BODY TEXT</label>
+                                      <textarea 
+                                        placeholder="Describe what you built, the problem it solves, and what you learned..."
+                                        value={editForm.body || ""} 
+                                        onChange={e => setEditForm({ ...editForm, body: e.target.value })}
+                                        className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite placeholder:text-ash/40 rounded-none h-28 focus:outline-none focus:border-accent font-sans resize-y"
+                                      />
+                                    </div>
+
+                                    <div className="border border-charcoal p-4 bg-canvas/50">
+                                      <span className="block font-mono text-[9px] text-ash mb-2">CODE SNIPPET (OPTIONAL)</span>
+                                      <div className="flex gap-4 mb-2">
+                                        <div className="flex-1">
+                                          <input 
+                                            type="text" 
+                                            placeholder="File name (e.g. main.rs)"
+                                            value={editForm.codeSnippet?.title || ""} 
+                                            onChange={e => {
+                                              if (!editForm) return;
+                                              setEditForm({ 
+                                                ...editForm, 
+                                                codeSnippet: {
+                                                  title: e.target.value,
+                                                  lang: editForm.codeSnippet?.lang || "",
+                                                  content: editForm.codeSnippet?.content || ""
+                                                }
+                                              });
+                                            }}
+                                            className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                                          />
+                                        </div>
+                                        <div className="w-32">
+                                          <input 
+                                            type="text" 
+                                            placeholder="Language"
+                                            value={editForm.codeSnippet?.lang || ""} 
+                                            onChange={e => {
+                                              if (!editForm) return;
+                                              setEditForm({ 
+                                                ...editForm, 
+                                                codeSnippet: {
+                                                  title: editForm.codeSnippet?.title || "",
+                                                  lang: e.target.value,
+                                                  content: editForm.codeSnippet?.content || ""
+                                                }
+                                              });
+                                            }}
+                                            className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none focus:outline-none"
+                                          />
+                                        </div>
+                                      </div>
+                                      <textarea 
+                                        placeholder="Code content"
+                                        value={editForm.codeSnippet?.content || ""} 
+                                        onChange={e => {
+                                          if (!editForm) return;
+                                          setEditForm({ 
+                                            ...editForm, 
+                                            codeSnippet: {
+                                              title: editForm.codeSnippet?.title || "",
+                                              lang: editForm.codeSnippet?.lang || "",
+                                              content: e.target.value
+                                            }
+                                          });
+                                        }}
+                                        className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite rounded-none h-20 focus:outline-none font-mono"
+                                      />
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">LIVE LINK</label>
+                                        <input 
+                                          type="text" 
+                                          value={editForm.liveUrl || ""} 
+                                          onChange={e => setEditForm({ ...editForm, liveUrl: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none font-sans"
+                                        />
+                                      </div>
+                                      <div className="flex-1">
+                                        <label className="block font-mono text-[9px] text-ash mb-1">CODE LINK</label>
+                                        <input 
+                                          type="text" 
+                                          value={editForm.codeUrl || ""} 
+                                          onChange={e => setEditForm({ ...editForm, codeUrl: e.target.value })}
+                                          className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none font-mono"
+                                        />
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                              </>
+                            )}
+
+                            {/* Screenshots Section (Both share it!) */}
+                            {activeTab !== "stack" && (
+                              <div className="border-t border-charcoal/30 pt-4 mt-2">
+                                <span className="block font-mono text-[10px] text-ash uppercase tracking-widest mb-3">SCREENSHOTS</span>
+                                <ScreenshotEditor
+                                  screenshots={editForm.screenshots ?? []}
+                                  onChange={(shots) => setEditForm({ ...editForm, screenshots: shots })}
                                 />
                               </div>
-                              <div className="flex-1">
-                                <label className="block font-mono text-[9px] text-ash mb-1">CODE LINK</label>
-                                <input 
-                                  type="text" 
-                                  value={editForm.codeUrl || ""} 
-                                  onChange={e => setEditForm({ ...editForm, codeUrl: e.target.value })}
-                                  className="w-full bg-canvas border border-charcoal p-2 text-sm text-purewhite rounded-none focus:outline-none font-mono"
-                                />
-                              </div>
-                            </div>
+                            )}
 
                             <div className="flex gap-3 justify-end pt-2">
                               <button 
@@ -1137,6 +1659,198 @@ export default function PortfolioSplitPane() {
                             ))}
                           </div>
                         </motion.div>
+                      );
+                    }
+
+                    if (activeTab === "experience") {
+                      const hasUserAppreciated = userAppreciated[post.id] || false;
+                      const appCount = appreciations[post.id] ?? 0;
+
+                      return (
+                        <motion.article 
+                          key={post.id} 
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ duration: 0.4, delay: index * 0.05 }}
+                          className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col rounded-none group relative"
+                        >
+                          {/* Inline Admin Edit & Pin Buttons */}
+                          {adminMode && (
+                            <div className="absolute top-8 right-0 hidden group-hover:flex items-center gap-1.5 z-10">
+                              <button
+                                onClick={() => handleTogglePin(post)}
+                                className={`border px-2.5 py-1 transition-all duration-150 rounded-none flex items-center justify-center min-h-[30px] ${
+                                  post.isPinned 
+                                    ? "border-accent bg-accent text-canvas" 
+                                    : "border-charcoal bg-canvas text-ash hover:border-accent hover:text-accent"
+                                }`}
+                                title={post.isPinned ? "Unpin item" : "Pin item to top"}
+                              >
+                                <Pin className={`w-3 h-3 ${post.isPinned ? "fill-current" : ""} rotate-[45deg]`} />
+                              </button>
+                              <button
+                                onClick={() => handleStartEdit(post)}
+                                className="border border-accent bg-canvas px-3 py-1 font-mono text-[9px] text-purewhite hover:bg-accent hover:text-canvas transition-all duration-150 uppercase tracking-widest rounded-none min-h-[30px]"
+                              >
+                                EDIT
+                              </button>
+                            </div>
+                          )}
+
+                          {/* Pinned Flag */}
+                          {post.isPinned && (
+                            <div className="flex items-center gap-1.5 text-ash font-mono text-[9px] uppercase tracking-widest mb-3">
+                              <Pin className="w-3 h-3 text-accent fill-current rotate-[45deg]" />
+                              <span>PINNED FLAGSHIP</span>
+                            </div>
+                          )}
+
+                          {/* CARD HEADER LAYOUT */}
+                          <div className="flex flex-row gap-4 items-start mb-2">
+                            {/* LEFT: Company Logo box */}
+                            <div className="w-12 h-12 md:w-14 md:h-14 border border-[var(--border)] rounded-md overflow-hidden bg-white flex-shrink-0 relative">
+                              {post.logoUrl ? (
+                                <Image 
+                                  src={post.logoUrl} 
+                                  alt={`${post.company || "Company"} logo`}
+                                  fill
+                                  sizes="(max-width: 768px) 48px, 56px"
+                                  className="object-contain p-1 bg-white"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-zinc-800 flex items-center justify-center font-bold text-ash text-lg uppercase font-sans">
+                                  {post.company?.charAt(0) || "E"}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* RIGHT: Job Details (stack vertically) */}
+                            <div className="flex-1 flex flex-col min-w-0">
+                              <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--text)] leading-snug">
+                                {post.title}
+                              </h3>
+                              <div className="text-sm text-[var(--muted)] mt-0.5">
+                                {post.company}{post.type ? ` · ${post.type}` : ""}
+                              </div>
+                              <div className="text-xs font-mono text-[var(--muted)] mt-1 uppercase">
+                                {post.date}{post.duration ? ` · ${post.duration}` : ""}
+                              </div>
+                              {post.location && (
+                                <div className="text-xs font-mono text-[var(--muted)] mt-0.5">
+                                  {post.location}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* CARD BODY */}
+                          {post.description && Array.isArray(post.description) && (
+                            <ul className="list-disc list-outside pl-4 space-y-2 mt-4 mb-4">
+                              {post.description.map((bullet, idx) => (
+                                <li key={idx} className="text-sm text-[var(--muted)] leading-relaxed font-sans font-medium">
+                                  {bullet}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {/* Screenshots Section */}
+                          {post.screenshots && post.screenshots.length > 0 && (
+                            <div className="mt-4 mb-4 overflow-hidden select-none">
+                              {post.screenshots.length === 1 ? (
+                                <AdaptiveSingleImage
+                                  src={post.screenshots[0].src}
+                                  alt={post.screenshots[0].alt}
+                                  onClick={() => {
+                                    setScreenshotList(post.screenshots || []);
+                                    setScreenshotIndex(0);
+                                    setSelectedScreenshot(post.screenshots![0]);
+                                  }}
+                                />
+                              ) : post.screenshots.length === 2 ? (
+                                <div className="grid grid-cols-2 gap-1">
+                                  {post.screenshots.map((img, idx) => (
+                                    <div 
+                                      key={img.src}
+                                      onClick={() => {
+                                        setScreenshotList(post.screenshots || []);
+                                        setScreenshotIndex(idx);
+                                        setSelectedScreenshot(img);
+                                      }}
+                                      className="relative aspect-[4/3] cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-[var(--surface)]"
+                                    >
+                                      <ImageWithFallback 
+                                        src={img.src} 
+                                        alt={img.alt} 
+                                        fill
+                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                        className="object-cover transition-transform duration-350 group-hover:scale-105"
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gap-1">
+                                  {post.screenshots.map((img, idx) => (
+                                    <div 
+                                      key={img.src}
+                                      onClick={() => {
+                                        setScreenshotList(post.screenshots || []);
+                                        setScreenshotIndex(idx);
+                                        setSelectedScreenshot(img);
+                                      }}
+                                      className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-[var(--surface)]"
+                                    >
+                                      <ImageWithFallback 
+                                        src={img.src} 
+                                        alt={img.alt} 
+                                        fill
+                                        loading="lazy"
+                                        className="object-cover group-hover:brightness-110 transition-all duration-300"
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {post.screenshots.length === 1 && post.screenshots[0].caption && (
+                                <div className="border-t border-charcoal/40 bg-darkiron/10 px-3 py-1.5 font-mono text-[9px] text-ash">
+                                  {post.screenshots[0].caption}
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Tags Row */}
+                          {post.tags && post.tags.length > 0 && (
+                            <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-2 mb-4 select-none">
+                              {post.tags.map(tag => (
+                                <span 
+                                  key={tag} 
+                                  className="flex-none font-mono text-[10px] tracking-wider uppercase border border-charcoal px-2 py-1 text-ash rounded-none bg-canvas hover:border-accent hover:text-accent transition-colors duration-150"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Footer with Like Button only */}
+                          <div className="flex items-center justify-end border-t border-charcoal/30 pt-4 mt-1 text-ash">
+                            <div className="flex items-center gap-4">
+                              <button 
+                                onClick={() => handleAppreciate(post.id)}
+                                disabled={hasUserAppreciated}
+                                className={`flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[44px] ${
+                                  hasUserAppreciated ? "text-accent cursor-not-allowed" : "text-ash hover:text-accent"
+                                }`}
+                              >
+                                <Heart className={`w-3.5 h-3.5 ${hasUserAppreciated ? "fill-current" : ""}`} strokeWidth={1.5} />
+                                <span>{appCount}</span>
+                              </button>
+                            </div>
+                          </div>
+                        </motion.article>
                       );
                     }
 

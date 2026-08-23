@@ -56,7 +56,7 @@ export function GitHubActivity() {
       try {
         setLoading(true);
         setError(false);
-        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
+        const res = await fetch(`/api/github-contributions?username=${username}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const json: ApiResponse = await res.json();
         
