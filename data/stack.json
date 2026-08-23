@@ -1,26 +1,38 @@
 [
   {
     "id": "stack-1",
-    "date": "ACTIVE",
-    "category": "@LANGUAGES",
-    "title": "SYSTEMS & WEB LANGUAGES",
-    "body": "High-performance programming languages utilized for engineering systems and toolchains.",
-    "codeSnippet": {
-      "title": "languages.txt",
-      "lang": "TEXT",
-      "content": "- Rust (SIMD Vectorization, Safe Systems)\n- Go (Backend Networks, Concurrency, Serving)\n- C++ (Performance Core, Shared Memory Kernels)\n- Python (PyTorch scripts, model validation)\n- TypeScript / JS (Vite, Next.js toolchains)"
-    }
+    "title": "LANGUAGES",
+    "description": "High-performance programming languages utilized for engineering systems and toolchains.",
+    "tools": [
+      { "name": "JAVASCRIPT", "iconName": "SiJavascript", "color": "#F7DF1E" },
+      { "name": "TYPESCRIPT", "iconName": "SiTypescript", "color": "#3178C6" },
+      { "name": "RUST", "iconName": "SiRust", "color": "#E5730A" },
+      { "name": "PYTHON", "iconName": "SiPython", "color": "#3776AB" },
+      { "name": "GO", "iconName": "SiGo", "color": "#00ADD8" }
+    ]
   },
   {
     "id": "stack-2",
-    "date": "ACTIVE",
-    "category": "@INFRASTRUCTURE",
-    "title": "ECOSYSTEM TOOLS",
-    "body": "Virtualization, serving runtimes, and local container orchestration pipelines.",
-    "codeSnippet": {
-      "title": "infra_config.json",
-      "lang": "JSON",
-      "content": "{\n  \"orchestration\": [\"Kubernetes\", \"Docker Compose\"],\n  \"inference_engines\": [\"ONNX Runtime\", \"TFLite\", \"llama.cpp\"],\n  \"databases\": [\"PostgreSQL\", \"Redis\", \"DuckDB\"],\n  \"ci_cd\": [\"GitHub Actions\", \"Wasm Bindings\"]\n}"
-    }
+    "title": "FRONTEND",
+    "description": "Modern technologies and frameworks for building responsive user interfaces.",
+    "tools": [
+      { "name": "REACT", "iconName": "SiReact", "color": "#61DAFB" },
+      { "name": "TAILWIND CSS", "iconName": "SiTailwindcss", "color": "#06B6D4" },
+      { "name": "VERCEL", "iconName": "SiVercel", "color": "#FFFFFF" }
+    ]
+  },
+  {
+    "id": "stack-3",
+    "title": "BACKEND & INFRASTRUCTURE",
+    "description": "Virtualization, datastores, serving runtimes, and local container orchestration pipelines.",
+    "tools": [
+      { "name": "NODE.JS", "iconName": "SiNodedotjs", "color": "#339933" },
+      { "name": "DOCKER", "iconName": "SiDocker", "color": "#2496ED" },
+      { "name": "AWS", "iconName": "SiAmazonwebservices", "color": "#FF9900" },
+      { "name": "POSTGRESQL", "iconName": "SiPostgresql", "color": "#4169E1" },
+      { "name": "MONGODB", "iconName": "SiMongodb", "color": "#47A248" },
+      { "name": "PRISMA", "iconName": "SiPrisma", "color": "#2D3748" },
+      { "name": "GIT", "iconName": "SiGit", "color": "#F05032" }
+    ]
   }
 ]

@@ -12,10 +12,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { 
-  MapPin, 
-  GraduationCap, 
-  Calendar, 
-  Link2, 
   Pin,
   Plus,
   Heart
@@ -24,6 +20,9 @@ import {
 import Image from "next/image";
 
 // Inline brand icon SVGs to avoid dependency versions issues with brand icons
+// ImageWithFallback — wraps next/image with error handling.
+// Uses `unoptimized` for base64 data: URLs (from drag-and-drop editor)
+// so Next.js image optimization pipeline doesn't reject them.
 const ImageWithFallback = ({ src, alt, ...props }: React.ComponentProps<typeof Image>) => {
   const [error, setError] = useState(false);
   
@@ -35,25 +34,111 @@ const ImageWithFallback = ({ src, alt, ...props }: React.ComponentProps<typeof I
     );
   }
 
+  // Detect base64 data URLs — bypass Next.js optimizer for them
+  const isDataUrl = typeof src === "string" && src.startsWith("data:");
+
   return (
     <Image
       src={src}
       alt={alt}
       onError={() => setError(true)}
+      unoptimized={isDataUrl}
       {...props}
     />
   );
 };
+
+const AdaptiveSingleImage = ({ src, alt, onClick }: { src: string; alt: string; onClick?: () => void }) => {
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null);
+
+  const objectFitClass =
+    aspectRatio && aspectRatio >= 1.3 && aspectRatio <= 1.8
+      ? "object-cover"
+      : "object-contain";
+
+  return (
+    <div
+      onClick={onClick}
+      className="relative w-full cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-black/20 flex items-center justify-center rounded-none"
+    >
+      <ImageWithFallback
+        src={src}
+        alt={alt}
+        width={1200}
+        height={800}
+        onLoadingComplete={(img) => {
+          if (img.naturalWidth && img.naturalHeight) {
+            setAspectRatio(img.naturalWidth / img.naturalHeight);
+          }
+        }}
+        className={`w-full h-auto max-h-[380px] md:max-h-[520px] transition-all duration-300 group-hover:brightness-110 ${objectFitClass}`}
+      />
+    </div>
+  );
+};
+
+import {
+  SiJavascript,
+  SiTypescript,
+  SiRust,
+  SiPython,
+  SiGo,
+  SiReact,
+  SiTailwindcss,
+  SiVercel,
+  SiNodedotjs,
+  SiDocker,
+  SiPostgresql,
+  SiMongodb,
+  SiPrisma,
+  SiGit,
+  SiX
+} from "react-icons/si";
+
+import { FaAws } from "react-icons/fa";
+
+const IconMapping: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
+  SiJavascript,
+  SiTypescript,
+  SiRust,
+  SiPython,
+  SiGo,
+  SiReact,
+  SiTailwindcss,
+  SiVercel,
+  SiNodedotjs,
+  SiDocker,
+  SiAmazonwebservices: FaAws,
+  SiPostgresql,
+  SiMongodb,
+  SiPrisma,
+  SiGit
+};
+
+const StackIconBox = ({ name, iconName, color }: { name: string; iconName: string; color: string }) => {
+  const IconComponent = IconMapping[iconName];
+
+  return (
+    <div className="group relative flex h-12 w-12 md:h-14 md:w-auto max-w-[48px] md:max-w-[56px] md:hover:max-w-[200px] items-center overflow-hidden border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--text)] transition-[max-width] duration-300 ease-out rounded-none cursor-pointer z-10 hover:z-20 select-none">
+      <div className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center">
+        {IconComponent ? (
+          <IconComponent className="text-2xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color }} />
+        ) : (
+          <span className="font-mono text-[9px] text-ash">{name.slice(0, 3)}</span>
+        )}
+      </div>
+      <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
+        {name}
+      </span>
+    </div>
+  );
+};
+
+
 const Github = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
     <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-
-const Twitter = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
   </svg>
 );
 
@@ -73,8 +158,15 @@ const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 import { Toaster, toast } from "sonner";
-import { Command } from "cmdk";
 import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
+
+// cmdk is heavy (~30KB gzipped). Lazy load it so it doesn't block initial render.
+// We use a wrapper component because cmdk exports as a namespace (Command.Dialog etc.)
+const CommandPalette = dynamic(
+  () => import("./_CommandPalette"),
+  { ssr: false }
+);
 
 import { 
   getDevData, 
@@ -87,6 +179,7 @@ import {
 } from "./actions";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ScreenshotEditor } from "./ScreenshotEditor";
+import { GitHubActivity } from "./GitHubActivity";
 
 // =========================================================
 // TYPES
@@ -99,6 +192,12 @@ interface DevLogItem {
   category: string;
   title: string;
   body: string;
+  description?: string;
+  tools?: {
+    name: string;
+    iconName: string;
+    color: string;
+  }[];
   codeSnippet?: {
     title: string;
     lang: string;
@@ -232,6 +331,7 @@ export default function PortfolioSplitPane() {
 
   // Load local appreciates from localStorage on client mount
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const localAppreciated: Record<string, boolean> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -273,7 +373,7 @@ export default function PortfolioSplitPane() {
   // =========================================================
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("john.doe@johndoe.dev");
+    navigator.clipboard.writeText("preetrank53@gmail.com");
     toast("EMAIL COPIED TO CLIPBOARD", {
       className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs tracking-wider"
     });
@@ -442,81 +542,74 @@ export default function PortfolioSplitPane() {
           <aside className="w-full md:w-[35%] md:sticky md:top-0 md:h-screen flex flex-col justify-between py-8 md:py-12 px-6 md:pr-12 md:px-0 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden border-b md:border-b-0 md:border-r border-charcoal select-none">
           <div className="flex flex-col gap-6 md:gap-8">
             {/* Avatar icon */}
-            <div className="w-16 h-16 md:w-24 md:h-24 border border-charcoal bg-darkiron rounded-none flex items-center justify-center select-none flex-shrink-0 group">
-              <svg viewBox="0 0 100 100" fill="currentColor" className="w-8 h-8 md:w-12 md:h-12 text-ash group-hover:text-accent transition-colors duration-300">
-                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="none" stroke="currentColor" strokeWidth="4"/>
-                <polygon points="50,22 80,38 80,62 50,78 20,62 20,38" fill="currentColor"/>
-              </svg>
+            <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
+              <img
+                src="/profile.png"
+                alt="PREET RANK"
+                className="w-full h-full object-cover rounded-[14px] md:rounded-xl border border-white/10"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  if (target.src.endsWith(".png")) {
+                    target.src = "/profile.jpg";
+                  }
+                }}
+              />
             </div>
 
             {/* Display Name — fluid clamp size */}
             <div className="flex flex-col">
-              <h1 className="hero-name font-sans font-extrabold tracking-tighter uppercase text-purewhite">
-                JOHN DOE
+              <h1 className="font-sans font-extrabold tracking-tighter uppercase text-purewhite whitespace-nowrap text-2xl sm:text-3xl lg:text-3xl">
+                PREET RANK
               </h1>
               <span className="font-mono text-xs text-ash uppercase tracking-widest mt-1">
-                @johndoe
+                @preettrank
               </span>
             </div>
 
             {/* Bio */}
             <p className="text-sm md:text-base text-ash leading-relaxed font-sans font-medium">
-              Systems developer interested in high-performance compilers, custom memory runtimes, and speculative inference serving layers. Wielding compilers like tools, breaking hardware limits.
+              21, figuring out code, AI/ML & LLMs.<br />
+              currently learning LLM inference, looking for an internship.
             </p>
 
             {/* CTA Buttons — full width, touch-friendly */}
             <div className="flex flex-col gap-3 w-full">
-              <button
-                onClick={handleCopyEmail}
-                className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[44px]"
+              <a
+                href="mailto:preetrank53@gmail.com"
+                className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[44px] flex items-center justify-center"
               >
                 EMAIL ME
-              </button>
-              <button className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[44px]">
+              </a>
+              <a
+                href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[44px] flex items-center justify-center"
+              >
                 VIEW RESUME
-              </button>
+              </a>
             </div>
 
             {/* Social Media Icons — larger on mobile for tapping */}
             <div className="flex gap-6 items-center">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
+              <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
-                <Twitter className="w-5 h-5" />
+              <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
+                <SiX className="w-[18px] h-[18px]" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
+              <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
+              <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] flex items-center">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
+          </div>
 
-            {/* Meta Links */}
-            <div className="flex flex-col gap-3 font-mono text-[10px] text-ash uppercase tracking-widest">
-              <div className="flex items-center gap-2 py-1">
-                <MapPin className="w-3.5 h-3.5 text-charcoal flex-shrink-0" strokeWidth={1.5} />
-                <span>SAN FRANCISCO, CA</span>
-              </div>
-              <div className="flex items-center gap-2 py-1">
-                <GraduationCap className="w-3.5 h-3.5 text-charcoal flex-shrink-0" strokeWidth={1.5} />
-                <span>STANFORD UNIVERSITY</span>
-              </div>
-              <div className="flex items-center gap-2 py-1">
-                <Calendar className="w-3.5 h-3.5 text-charcoal flex-shrink-0" strokeWidth={1.5} />
-                <span>JOINED OCT 2023</span>
-              </div>
-              <div className="flex items-center gap-2 py-1">
-                <Link2 className="w-3.5 h-3.5 text-charcoal flex-shrink-0" strokeWidth={1.5} />
-                <span
-                  className="text-purewhite hover:underline cursor-pointer normal-case transition-colors duration-150"
-                  onClick={handleCopyEmail}
-                >
-                  john.doe@johndoe.dev
-                </span>
-              </div>
-            </div>
+          {/* GitHub Activity Chart */}
+          <div className="mt-6">
+            <GitHubActivity />
           </div>
 
           {/* Theme Switcher + Recruiting Status */}
@@ -545,15 +638,7 @@ export default function PortfolioSplitPane() {
               </div>
             )}
 
-            <div className="bg-darkiron border border-charcoal p-4 md:p-5 rounded-none flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-none bg-accent animate-pulse"></div>
-                <span className="font-mono text-[9px] text-ash uppercase tracking-widest">RECRUITING STATUS</span>
-              </div>
-              <p className="font-sans text-xs text-ash leading-relaxed">
-                Open to Software Engineering internships and full-time systems roles.
-              </p>
-            </div>
+
           </div>
         </aside>
       </ErrorBoundary>
@@ -1010,6 +1095,51 @@ export default function PortfolioSplitPane() {
                       );
                     }
 
+                    if (activeTab === "stack") {
+                      return (
+                        <motion.div
+                          key={post.id} 
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ duration: 0.4, delay: index * 0.05 }}
+                          className="border-b border-charcoal py-8 md:py-10 flex flex-col gap-4 rounded-none group relative"
+                        >
+                          {/* Inline Admin Edit Button */}
+                          {adminMode && (
+                            <div className="absolute top-8 right-0 hidden group-hover:flex items-center gap-1.5 z-10">
+                              <button
+                                onClick={() => handleStartEdit(post)}
+                                className="border border-accent bg-canvas px-3 py-1 font-mono text-[9px] text-purewhite hover:bg-accent hover:text-canvas transition-all duration-150 uppercase tracking-widest rounded-none min-h-[30px]"
+                              >
+                                EDIT
+                              </button>
+                            </div>
+                          )}
+
+                          <div>
+                            <h3 className="font-sans font-extrabold text-xl md:text-2xl text-purewhite uppercase tracking-tight mb-2">
+                              {post.title}
+                            </h3>
+                            <p className="text-[13px] sm:text-[14px] text-ash leading-relaxed font-sans font-medium">
+                              {post.description || post.body}
+                            </p>
+                          </div>
+
+                          <div className="flex flex-wrap gap-3 mt-4">
+                            {(post.tools || []).map((tool) => (
+                              <StackIconBox 
+                                key={tool.name} 
+                                name={tool.name} 
+                                iconName={tool.iconName} 
+                                color={tool.color} 
+                              />
+                            ))}
+                          </div>
+                        </motion.div>
+                      );
+                    }
+
                     const isExpanded = expandedCards[post.id] || false;
                     const bodyText = post.body || "";
                     const shouldTruncate = bodyText.split("\n").length > 4 || bodyText.length > 300;
@@ -1094,26 +1224,19 @@ export default function PortfolioSplitPane() {
 
                           {/* Screenshots grid / carousel */}
                           {post.screenshots && post.screenshots.length > 0 && (
-                            <div className="mt-4 mb-4 border border-charcoal overflow-hidden select-none">
+                            <div className="mt-4 mb-4 overflow-hidden select-none">
                               {post.screenshots.length === 1 ? (
-                                <div 
+                                <AdaptiveSingleImage
+                                  src={post.screenshots[0].src}
+                                  alt={post.screenshots[0].alt}
                                   onClick={() => {
                                     setScreenshotList(post.screenshots || []);
                                     setScreenshotIndex(0);
                                     setSelectedScreenshot(post.screenshots![0]);
                                   }}
-                                  className="relative w-full aspect-video cursor-zoom-in group overflow-hidden"
-                                >
-                                  <ImageWithFallback 
-                                    src={post.screenshots[0].src} 
-                                    alt={post.screenshots[0].alt} 
-                                    fill
-                                    loading="lazy"
-                                    className="object-cover group-hover:brightness-110 transition-all duration-300"
-                                  />
-                                </div>
+                                />
                               ) : post.screenshots.length === 2 ? (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px] bg-charcoal">
+                                <div className="grid grid-cols-2 gap-1">
                                   {post.screenshots.map((img, idx) => (
                                     <div 
                                       key={img.src}
@@ -1122,7 +1245,7 @@ export default function PortfolioSplitPane() {
                                         setScreenshotIndex(idx);
                                         setSelectedScreenshot(img);
                                       }}
-                                      className="relative aspect-video cursor-zoom-in group overflow-hidden"
+                                      className="relative aspect-[4/3] cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-[var(--surface)]"
                                     >
                                       <ImageWithFallback 
                                         src={img.src} 
@@ -1135,7 +1258,7 @@ export default function PortfolioSplitPane() {
                                   ))}
                                 </div>
                               ) : (
-                                <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-charcoal gap-[1px]">
+                                <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gap-1">
                                   {post.screenshots.map((img, idx) => (
                                     <div 
                                       key={img.src}
@@ -1144,7 +1267,7 @@ export default function PortfolioSplitPane() {
                                         setScreenshotIndex(idx);
                                         setSelectedScreenshot(img);
                                       }}
-                                      className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden border-r border-charcoal/50 last:border-r-0"
+                                      className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-[var(--surface)]"
                                     >
                                       <ImageWithFallback 
                                         src={img.src} 
@@ -1342,50 +1465,17 @@ export default function PortfolioSplitPane() {
       </AnimatePresence>
 
       {/* ==========================================
-         COMMAND PALETTE (⌘K / Ctrl+K)
+         COMMAND PALETTE (⌘K / Ctrl+K) — lazy loaded
          ========================================== */}
-      <Command.Dialog
-        open={openCommandPalette}
-        onOpenChange={setOpenCommandPalette}
-        label="Global Command Palette"
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-canvas/80 backdrop-blur-sm"
-      >
-        <div className="w-full max-w-[95vw] md:max-w-[500px] bg-canvas border border-charcoal rounded-none overflow-hidden flex flex-col shadow-2xl">
-          <Command.Input
-            placeholder="SEARCH OR JUMP TO..."
-            className="w-full bg-canvas text-purewhite border-b border-charcoal px-4 py-4 font-mono text-base md:text-xs focus:outline-none uppercase tracking-[0.2em] placeholder:text-ash/40"
-          />
-          <Command.List className="max-h-[300px] overflow-y-auto p-2 flex flex-col gap-1">
-            <Command.Empty className="p-4 font-mono text-[10px] text-ash uppercase tracking-widest text-center">No results found.</Command.Empty>
-            
-            <Command.Group heading="NAVIGATION" className="font-mono text-[9px] text-ash/50 uppercase tracking-[0.2em] px-3 pt-3 pb-1">
-              <Command.Item onSelect={() => { setActiveTab("projects"); setOpenCommandPalette(false); }} className="flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron">
-                <span>PROJECTS</span>
-                <span className="text-[9px] text-ash/60 font-mono">ALT+1</span>
-              </Command.Item>
-              <Command.Item onSelect={() => { setActiveTab("experience"); setOpenCommandPalette(false); }} className="flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron">
-                <span>EXPERIENCE</span>
-                <span className="text-[9px] text-ash/60 font-mono">ALT+2</span>
-              </Command.Item>
-              <Command.Item onSelect={() => { setActiveTab("stack"); setOpenCommandPalette(false); }} className="flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron">
-                <span>STACK</span>
-                <span className="text-[9px] text-ash/60 font-mono">ALT+3</span>
-              </Command.Item>
-            </Command.Group>
-
-            <Command.Group heading="SYSTEM ACTIONS" className="font-mono text-[9px] text-ash/50 uppercase tracking-[0.2em] px-3 pt-3 pb-1 border-t border-charcoal/30 mt-2">
-              <Command.Item onSelect={() => { handleCopyEmail(); setOpenCommandPalette(false); }} className="flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron">
-                <span>COPY EMAIL</span>
-                <span className="text-[9px] text-ash/60 font-mono">CTRL+K</span>
-              </Command.Item>
-              <Command.Item onSelect={() => { setShowAdminModal(true); setOpenCommandPalette(false); }} className="flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron">
-                <span>ADMIN ACCESS GATE</span>
-                <span className="text-[9px] text-ash/60 font-mono">CTRL+SHIFT+E</span>
-              </Command.Item>
-            </Command.Group>
-          </Command.List>
-        </div>
-      </Command.Dialog>
+      {openCommandPalette && (
+        <CommandPalette
+          open={openCommandPalette}
+          onClose={() => setOpenCommandPalette(false)}
+          onSelectTab={(tab) => { setActiveTab(tab); setIsAddingNew(false); setEditingId(null); }}
+          onCopyEmail={handleCopyEmail}
+          onOpenAdmin={() => setShowAdminModal(true)}
+        />
+      )}
 
       {/* ==========================================
          LIGHTBOX MODAL

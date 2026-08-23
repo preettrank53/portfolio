@@ -131,6 +131,7 @@ function ScreenshotCard({
   onMoveDown: () => void;
 }) {
   const [replacing, setReplacing] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null);
 
   const handleReplace = useCallback(
     async (files: File[]) => {
@@ -198,12 +199,22 @@ function ScreenshotCard({
         {replacing || !hasImage ? (
           <DropZoneSlot onFiles={handleReplace} compact={hasImage} />
         ) : (
-          <div className="relative w-full aspect-video border border-charcoal/40 overflow-hidden group">
+          <div className="relative w-full border border-charcoal/40 overflow-hidden bg-black/20 flex items-center justify-center rounded-none group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={img.src}
               alt={img.alt || "Screenshot"}
-              className="w-full h-full object-contain bg-darkiron/20"
+              onLoad={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (target.naturalWidth && target.naturalHeight) {
+                  setAspectRatio(target.naturalWidth / target.naturalHeight);
+                }
+              }}
+              className={`w-full h-auto max-h-[380px] md:max-h-[520px] transition-all duration-300 ${
+                aspectRatio && aspectRatio >= 1.3 && aspectRatio <= 1.8
+                  ? "object-cover"
+                  : "object-contain"
+              }`}
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = "none";
               }}
