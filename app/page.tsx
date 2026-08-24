@@ -218,16 +218,16 @@ const StackIconBox = ({ name, iconName, color }: { name: string; iconName: strin
     }
   }, []);
 
+  const isWhite = color && color.toUpperCase() === "#FFFFFF";
+  const displayColor = isWhite ? "var(--text)" : color;
+
   if (!IconComponent) {
     return (
       <div 
-        onClick={() => !hasHover && setClickedExpanded(!clickedExpanded)}
-        className={`flex h-11 items-center justify-center border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--text)] transition-colors duration-300 rounded-none cursor-pointer select-none px-1 text-center min-w-[44px] min-h-[44px] ${
-          clickedExpanded && !hasHover ? "w-auto max-w-[200px] px-3" : "w-11"
-        }`}
+        className="flex w-12 h-12 shrink-0 items-center justify-center border border-[var(--border)] bg-[var(--surface)] rounded-none select-none text-center"
       >
-        <span className="font-mono text-[9px] font-bold uppercase tracking-widest truncate" style={{ color: color || "var(--text)" }}>
-          {clickedExpanded && !hasHover ? name : (name.length > 3 ? name.slice(0, 3) : name)}
+        <span className="text-[11px] font-mono font-bold text-[var(--text)] tracking-wider" style={{ color: displayColor }}>
+          {name.substring(0, 3).toUpperCase()}
         </span>
       </div>
     );
@@ -245,7 +245,7 @@ const StackIconBox = ({ name, iconName, color }: { name: string; iconName: strin
       }`}
     >
       <div className="flex h-11 w-11 shrink-0 items-center justify-center md:h-14 md:w-14">
-        <IconComponent className="text-xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color }} />
+        <IconComponent className="text-xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color: displayColor }} />
       </div>
       {hasHover ? (
         <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
@@ -297,7 +297,6 @@ const CommandPalette = dynamic(
 );
 
 import { 
-  getDevData, 
   saveDevData, 
   getAppreciations, 
   incrementAppreciation 
@@ -305,6 +304,16 @@ import {
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ScreenshotEditor } from "./ScreenshotEditor";
 import { GitHubActivity } from "./GitHubActivity";
+
+import experienceData from "../data/experience.json";
+import stackData from "../data/stack.json";
+import projectsData from "../data/projects.json";
+
+const STATIC_DATA: Record<string, unknown[]> = {
+  experience: experienceData,
+  stack: stackData,
+  projects: projectsData,
+};
 
 // =========================================================
 // TYPES
@@ -642,11 +651,11 @@ export default function PortfolioSplitPane() {
   // Fetch data when active tab changes
   useEffect(() => {
     const loadData = async () => {
-      setLoading(true);
       try {
-        const data: DevLogItem[] = await getDevData(activeTab);
-        const safeData = Array.isArray(data) ? data : [];
+        const staticData = STATIC_DATA[activeTab === "activity" ? "tweets" : activeTab] as DevLogItem[];
+        const safeData = Array.isArray(staticData) ? staticData : [];
         setTabData(safeData);
+        setLoading(false);
         
         // Fetch appreciations
         const slugs = safeData.map((d: DevLogItem) => d?.id).filter(Boolean) as string[];
@@ -656,7 +665,6 @@ export default function PortfolioSplitPane() {
         }
       } catch {
         setTabData([]);
-      } finally {
         setLoading(false);
       }
     };
@@ -969,6 +977,10 @@ export default function PortfolioSplitPane() {
   return (
     <main className="min-h-[100dvh] bg-canvas text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-0">
       
+      {/* AMBIENT GLOWS */}
+      <div className="fixed bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none -z-10 dark:opacity-100 opacity-50" />
+      <div className="fixed top-[20%] left-[-10%] w-[30vw] h-[30vw] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none -z-10 dark:opacity-100 opacity-50" />
+
       {/* Scroll Progress Indicator */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-[1px] bg-accent z-[100] origin-left"
@@ -1079,7 +1091,7 @@ export default function PortfolioSplitPane() {
       </div>
 
       {/* Centered container flexbox grid */}
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-hidden">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-hidden px-6 sm:px-8 md:px-0">
         
         {/* ==========================================
            LEFT COLUMN: IDENTITY PANE (Sticky screen height on desktop, block on mobile)
