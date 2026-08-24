@@ -1100,7 +1100,7 @@ export default function PortfolioSplitPane() {
            LEFT COLUMN: IDENTITY PANE (Sticky screen height on desktop, block on mobile)
            ========================================== */}
         <ErrorBoundary title="IDENTITY PANE">
-          <aside className="relative w-full px-5 py-8 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
+          <aside id="left-scroll-container" className="relative w-full px-5 py-8 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
           <div className="flex flex-col gap-6 md:gap-8">
             {/* Avatar icon */}
             <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
@@ -1292,7 +1292,7 @@ export default function PortfolioSplitPane() {
           </header>
 
           {/* Dev Logbook Feed Content */}
-          <div className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12">
+          <div id="right-scroll-container" className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12">
             
             {/* New Entry Button for Admin */}
             {adminMode && !isAddingNew && !editingId && (
