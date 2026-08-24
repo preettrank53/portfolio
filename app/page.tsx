@@ -304,6 +304,7 @@ import {
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ScreenshotEditor } from "./ScreenshotEditor";
 import { GitHubActivity } from "./GitHubActivity";
+import { SpotlightOverlay } from "@/components/ui/spotlight-overlay";
 
 import experienceData from "../data/experience.json";
 import stackData from "../data/stack.json";
@@ -2220,8 +2221,9 @@ export default function PortfolioSplitPane() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ duration: 0.4, delay: index * 0.05 }}
-                          className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col rounded-none group relative"
+                          className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
                         >
+                          <SpotlightOverlay />
                           {/* Inline Admin Edit & Pin Buttons */}
                           {adminMode && (
                             <div className="absolute top-8 right-0 hidden group-hover:flex items-center gap-1.5 z-10">
@@ -2412,8 +2414,9 @@ export default function PortfolioSplitPane() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, delay: index * 0.05 }}
-                        className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col md:flex-row gap-2 md:gap-8 rounded-none group relative"
+                        className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col md:flex-row gap-2 md:gap-8 rounded-none group relative overflow-hidden"
                       >
+                        <SpotlightOverlay />
                         {/* Inline Admin Edit & Pin Buttons */}
                         {adminMode && (
                           <div className="absolute top-8 right-0 hidden group-hover:flex items-center gap-1.5 z-10">
