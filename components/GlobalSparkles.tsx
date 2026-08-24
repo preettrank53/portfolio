@@ -37,13 +37,16 @@ export function GlobalSparkles() {
   // Adaptive particle color based on theme
   let particleColor = "#FFFFFF"; // default dark
   let density = 60;
+  let wrapperOpacity = "opacity-40"; // lowered brightness in dark theme
 
   if (resolvedTheme === "light") {
-    particleColor = "#000000";
+    particleColor = "#94a3b8"; // soft slate instead of harsh black
     density = 30;
+    wrapperOpacity = "opacity-30"; // subtle in light theme
   } else if (resolvedTheme === "lambo") {
     particleColor = "#FFC000";
     density = 50;
+    wrapperOpacity = "opacity-40";
   }
 
   if (isMobile) {
@@ -51,7 +54,7 @@ export function GlobalSparkles() {
   }
 
   return (
-    <div className="fixed inset-0 w-full h-full pointer-events-none z-[-1]">
+    <div className={`fixed inset-0 w-full h-full pointer-events-none z-[-1] ${wrapperOpacity} transition-opacity duration-700`}>
       <SparklesCore
         id="global-sparkles"
         background="transparent"
