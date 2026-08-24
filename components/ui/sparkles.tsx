@@ -81,7 +81,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                   enable: false,
                   mode: "repulse",
                 },
-                // @ts-expect-error
+                // @ts-expect-error - boolean is valid but typed improperly in old typings
                 resize: true,
               },
               modes: {
