@@ -65,6 +65,10 @@ export const viewport: Viewport = {
   maximumScale: 5,           // allow pinch-zoom for accessibility
 };
 
+import dynamic from "next/dynamic";
+
+const GlobalSparkles = dynamic(() => import("@/components/GlobalSparkles").then(m => m.GlobalSparkles), { ssr: false });
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,10 +77,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative bg-canvas transition-colors duration-500`}
         suppressHydrationWarning
       >
         <Providers>
+          <GlobalSparkles />
           {children}
         </Providers>
       </body>

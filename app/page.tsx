@@ -975,11 +975,11 @@ export default function PortfolioSplitPane() {
   };
 
   return (
-    <main className="min-h-[100dvh] bg-canvas text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-0">
+    <main className="min-h-[100dvh] bg-transparent text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-10">
       
       {/* AMBIENT GLOWS */}
-      <div className="fixed bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none -z-10 dark:opacity-100 opacity-50" />
-      <div className="fixed top-[20%] left-[-10%] w-[30vw] h-[30vw] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none -z-10 dark:opacity-100 opacity-50" />
+      <div className="fixed bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none z-[-2] dark:opacity-100 opacity-50" />
+      <div className="fixed top-[20%] left-[-10%] w-[30vw] h-[30vw] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none z-[-2] dark:opacity-100 opacity-50" />
 
       {/* Scroll Progress Indicator */}
       <motion.div 
@@ -990,7 +990,7 @@ export default function PortfolioSplitPane() {
       {/* ==========================================
          BACKGROUND DECORATIONS: Grid + Ethereal Leaves
          ========================================== */}
-      <div className="fixed inset-0 z-[-10] pointer-events-none overflow-hidden select-none">
+      <div className="fixed inset-0 z-[-3] pointer-events-none overflow-hidden select-none">
         {/* CSS Blueprint Grid */}
         <div 
           className="absolute inset-0 transition-opacity duration-500" 
