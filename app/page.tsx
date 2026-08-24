@@ -305,6 +305,7 @@ import { ErrorBoundary } from "./ErrorBoundary";
 import { ScreenshotEditor } from "./ScreenshotEditor";
 import { GitHubActivity } from "./GitHubActivity";
 import { SpotlightOverlay } from "@/components/ui/spotlight-overlay";
+import { FooterWordmark } from "@/components/FooterWordmark";
 
 import experienceData from "../data/experience.json";
 import stackData from "../data/stack.json";
@@ -2630,6 +2631,9 @@ export default function PortfolioSplitPane() {
         </section>
       </ErrorBoundary>
       </div>
+
+      {/* Monumental Footer */}
+      <FooterWordmark />
 
       <ErrorBoundary title="SYSTEM UTILITIES">
       {/* ==========================================
