@@ -101,7 +101,6 @@ export async function GET(request: Request) {
 
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error generating GitHub contributions live data:", error);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

@@ -1,8 +1,8 @@
 /**
  * SETUP CHECKLIST:
- * 1. Packages installed: @upstash/redis, cmdk, sonner, js-cookie, next-themes
+ * 1. Packages installed: @upstash/redis, cmdk, sonner, next-themes
  * 2. Setup your .env.local file with these variables:
- *    - NEXT_PUBLIC_ADMIN_PASSWORD=yourpassword (defaults to "admin123" if empty)
+ *    - ADMIN_PASSWORD=Preet@3753  (server-only — never use NEXT_PUBLIC_ prefix)
  *    - UPSTASH_REDIS_REST_URL=https://...
  *    - UPSTASH_REDIS_REST_TOKEN=...
  */
@@ -299,9 +299,6 @@ const CommandPalette = dynamic(
 import { 
   getDevData, 
   saveDevData, 
-  loginAdmin, 
-  logoutAdmin, 
-  isAdmin, 
   getAppreciations, 
   incrementAppreciation 
 } from "./actions";
@@ -460,6 +457,7 @@ export default function PortfolioSplitPane() {
   const [showAdminModal, setShowAdminModal] = useState<boolean>(false);
   const [adminPassword, setAdminPassword] = useState<string>("");
   const [openCommandPalette, setOpenCommandPalette] = useState<boolean>(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   
   // Theme Switching
   const { theme, setTheme } = useTheme();
@@ -508,10 +506,12 @@ export default function PortfolioSplitPane() {
   useEffect(() => {
     setMounted(true);
 
-    // Check if admin is already logged in
-    const checkAdmin = async () => {
-      const active = await isAdmin();
-      setAdminMode(active);
+    // Check admin status via non-httpOnly flag cookie (readable by JS)
+    const checkAdmin = () => {
+      const isLoggedIn = document.cookie
+        .split("; ")
+        .some((c) => c.trim() === "admin_session_flag=true");
+      setAdminMode(isLoggedIn);
     };
     checkAdmin();
 
@@ -557,8 +557,7 @@ export default function PortfolioSplitPane() {
         } else {
           setPrsError(true);
         }
-      } catch (err) {
-        console.error("Error fetching open source PRs:", err);
+      } catch {
         setPrsError(true);
       } finally {
         setPrsLoading(false);
@@ -591,8 +590,7 @@ export default function PortfolioSplitPane() {
         } else {
           setViewCountError(true);
         }
-      } catch (err) {
-        console.error("Error fetching view count:", err);
+      } catch {
         setViewCountError(true);
       }
     };
@@ -656,8 +654,7 @@ export default function PortfolioSplitPane() {
           const counts = await getAppreciations(slugs);
           setAppreciations(prev => ({ ...prev, ...(counts || {}) }));
         }
-      } catch (error) {
-        console.error("Failed to load dev data:", error);
+      } catch {
         setTabData([]);
       } finally {
         setLoading(false);
@@ -691,28 +688,40 @@ export default function PortfolioSplitPane() {
     }
   };
 
-  // Admin login
+  // Admin login — sends password to /api/auth (server-side comparison, no client exposure)
   const handleAdminLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await loginAdmin(adminPassword);
-    if (res.success) {
-      setAdminMode(true);
-      setShowAdminModal(false);
-      setAdminPassword("");
-      toast("ADMIN LOGIN GRANTED", {
-        className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: adminPassword }),
       });
-    } else {
-      toast("ACCESS DENIED", {
+      const data = await res.json();
+      if (data.success) {
+        setAdminMode(true);
+        setShowAdminModal(false);
+        setAdminPassword("");
+        toast("ADMIN LOGIN GRANTED", {
+          className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
+        });
+      } else {
+        toast("ACCESS DENIED", {
+          className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
+        });
+      }
+    } catch {
+      toast("AUTH ERROR", {
         className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
       });
     }
   };
 
-  // Admin logout
+  // Admin logout — hits DELETE /api/auth to clear HttpOnly cookies
   const handleAdminLogout = async () => {
-    await logoutAdmin();
+    await fetch("/api/auth", { method: "DELETE" });
     setAdminMode(false);
+    setHasUnsavedChanges(false);
     setShowAdminModal(false);
     toast("ADMIN DISCONNECTED", {
       className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
@@ -774,6 +783,13 @@ export default function PortfolioSplitPane() {
       toast("CHANGES COMMITTED SUCCESSFULLY", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
       });
+    } else if ((res as { isProductionFS?: boolean }).isProductionFS) {
+      // Vercel read-only FS — state updated in-memory; user must export JSON
+      setHasUnsavedChanges(true);
+      toast("STATE UPDATED — EXPORT JSON TO COMMIT PERMANENTLY", {
+        className: "bg-canvas border border-amber-500 text-amber-400 rounded-none font-mono uppercase text-xs",
+        duration: 6000,
+      });
     } else {
       toast("WRITE ERROR", {
         className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
@@ -791,6 +807,12 @@ export default function PortfolioSplitPane() {
     if (res.success) {
       toast("ENTRY DELETED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs tracking-wider"
+      });
+    } else if ((res as { isProductionFS?: boolean }).isProductionFS) {
+      setHasUnsavedChanges(true);
+      toast("DELETED IN MEMORY — EXPORT JSON TO COMMIT", {
+        className: "bg-canvas border border-amber-500 text-amber-400 rounded-none font-mono uppercase text-xs",
+        duration: 6000,
       });
     } else {
       toast("FAILED TO DELETE ENTRY", {
@@ -817,6 +839,8 @@ export default function PortfolioSplitPane() {
       toast(willPin ? "📌 PINNED TO TOP" : "📌 UNPINNED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs tracking-wider"
       });
+    } else if ((res as { isProductionFS?: boolean }).isProductionFS) {
+      setHasUnsavedChanges(true);
     } else {
       toast("FAILED TO SAVE PIN STATUS", {
         className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs tracking-wider"
@@ -895,6 +919,12 @@ export default function PortfolioSplitPane() {
       toast("NEW RECORD DEPLOYED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
       });
+    } else if ((res as { isProductionFS?: boolean }).isProductionFS) {
+      setHasUnsavedChanges(true);
+      toast("STATE UPDATED — EXPORT JSON TO COMMIT PERMANENTLY", {
+        className: "bg-canvas border border-amber-500 text-amber-400 rounded-none font-mono uppercase text-xs",
+        duration: 6000,
+      });
     } else {
       toast("WRITE ERROR", {
         className: "bg-canvas border border-charcoal text-red-500 rounded-none font-mono uppercase text-xs"
@@ -921,7 +951,7 @@ export default function PortfolioSplitPane() {
     setEditForm({ ...editForm, tools: updatedTools });
   };
 
-  // Export JSON locally (Client-side)
+  // Export JSON locally (Client-side) — primary persistence mechanism on Vercel
   const handleExportJSON = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tabData, null, 2));
     const downloadAnchor = document.createElement("a");
@@ -930,7 +960,8 @@ export default function PortfolioSplitPane() {
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
-    toast("EXPORTED JSON CONFIG", {
+    setHasUnsavedChanges(false);
+    toast("EXPORTED JSON CONFIG — COMMIT TO GITHUB TO DEPLOY", {
       className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
     });
   };
@@ -2591,9 +2622,19 @@ export default function PortfolioSplitPane() {
          ========================================== */}
       {adminMode && (
         <div className="fixed bottom-0 left-0 right-0 md:bottom-6 md:right-6 md:left-auto z-40 flex flex-col gap-2 items-stretch md:items-end px-4 pb-4 md:p-0">
+          {hasUnsavedChanges && (
+            <div className="bg-amber-500/10 border border-amber-500 p-3 font-mono text-[9px] text-amber-400 tracking-widest uppercase select-none shadow-lg text-center md:text-left leading-relaxed">
+              ⚠ CHANGES UNSAVED IN CLOUD<br />
+              <span className="text-amber-300">CLICK EXPORT JSON TO COMMIT</span>
+            </div>
+          )}
           <button
             onClick={handleExportJSON}
-            className="bg-purewhite text-canvas border border-purewhite px-4 py-3 font-mono text-[10px] text-canvas font-bold tracking-widest uppercase hover:bg-accent hover:text-canvas transition-all duration-150 shadow-lg rounded-none min-h-[44px]"
+            className={`border px-4 py-3 font-mono text-[10px] font-bold tracking-widest uppercase transition-all duration-150 shadow-lg rounded-none min-h-[44px] ${
+              hasUnsavedChanges
+                ? "bg-amber-500 text-canvas border-amber-500 hover:bg-amber-400"
+                : "bg-purewhite text-canvas border-purewhite hover:bg-accent hover:text-canvas"
+            }`}
           >
             EXPORT {activeTab.toUpperCase()} JSON
           </button>
