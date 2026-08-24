@@ -83,7 +83,7 @@ function DropZoneSlot({
   return (
     <div
       className={`dropzone-base flex flex-col items-center justify-center gap-3 cursor-pointer rounded-none select-none
-        ${compact ? "min-h-[120px] p-4" : "min-h-[180px] p-6 md:min-h-[200px]"}
+        ${compact ? "min-h-[120px] p-4" : "min-h-[140px] md:min-h-[180px] p-6"}
         ${dragging ? "dropzone-dragover" : "hover:dropzone-hover"}`}
       onClick={() => inputRef.current?.click()}
       onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
@@ -232,7 +232,7 @@ function ScreenshotCard({
             placeholder="Describe the image for accessibility..."
             value={img.alt}
             onChange={(e) => onUpdate({ alt: e.target.value })}
-            className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+            className="w-full bg-canvas border border-charcoal p-3 min-h-[48px] text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
           />
         </div>
 
@@ -246,7 +246,7 @@ function ScreenshotCard({
             placeholder="Short description shown below the image..."
             value={img.caption ?? ""}
             onChange={(e) => onUpdate({ caption: e.target.value })}
-            className="w-full bg-canvas border border-charcoal p-2 text-xs text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
+            className="w-full bg-canvas border border-charcoal p-3 min-h-[48px] text-sm text-purewhite placeholder:text-ash/40 rounded-none focus:outline-none focus:border-accent font-sans"
           />
         </div>
       </div>

@@ -259,8 +259,8 @@ export function GitHubActivity() {
         </div>
 
         {/* Footers & Info */}
-        <div className={`flex justify-between items-center text-[9px] font-mono mt-2 uppercase tracking-wider select-none transition-colors duration-400 ${textMuted}`}>
-          <span>{totalYearContributions.toLocaleString()} COMMITS IN LAST YEAR</span>
+        <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 text-[9px] font-mono mt-2 uppercase tracking-wider select-none transition-colors duration-400 ${textMuted}`}>
+          <span className="whitespace-normal sm:whitespace-nowrap">{totalYearContributions.toLocaleString()} COMMITS IN LAST YEAR</span>
           <div className="flex items-center gap-1">
             <span>LESS</span>
             <div className="w-[12px] h-[12px]" style={{ backgroundColor: getCellBgColor(0) }} />

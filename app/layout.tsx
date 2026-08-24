@@ -20,13 +20,12 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "John Doe — Systems Developer",
-    template: "%s | John Doe Portfolio",
+    default: "Preet Rank - AIML engineer",
+    template: "%s | Preet Rank - AIML engineer",
   },
-  description:
-    "High-performance systems engineering portfolio. Compilers, memory runtimes, and speculative inference serving layers.",
-  keywords: ["systems developer", "rust", "compiler", "wasm", "portfolio"],
-  authors: [{ name: "John Doe", url: "https://johndoe.dev" }],
+  description: "Preet Rank - AIML engineer",
+  keywords: ["systems developer", "AI/ML engineer", "rust", "python", "machine learning", "portfolio"],
+  authors: [{ name: "Preet Rank", url: "https://github.com/preettrank53" }],
 
   // Favicon — Next.js picks up app/favicon.ico automatically,
   // but we add explicit icons to prevent the 500 on /favicon.ico
@@ -40,17 +39,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "John Doe — Systems Developer",
-    description:
-      "High-performance systems engineering portfolio. Compilers, memory runtimes, and speculative inference serving layers.",
-    siteName: "John Doe Portfolio",
+    title: "Preet Rank - AIML engineer",
+    description: "Preet Rank - AIML engineer",
+    siteName: "Preet Rank Portfolio",
   },
 
   // Twitter / X Card
   twitter: {
     card: "summary_large_image",
-    title: "John Doe — Systems Developer",
-    description: "Systems developer portfolio. Rust, compilers, WASM, and more.",
+    title: "Preet Rank - AIML engineer",
+    description: "Preet Rank - AIML engineer",
   },
 
   // Stops browser from trying to detect phone numbers etc.

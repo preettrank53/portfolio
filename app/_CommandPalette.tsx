@@ -24,7 +24,7 @@ export default function CommandPalette({
   onOpenAdmin,
 }: CommandPaletteProps) {
   const itemCls =
-    "flex justify-between items-center px-3 py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron";
+    "flex justify-between items-center px-3 py-3 md:py-2.5 hover:bg-darkiron/50 cursor-pointer font-mono text-[11px] text-purewhite uppercase tracking-wider transition-colors duration-150 rounded-none aria-selected:bg-darkiron min-h-[44px]";
   const hintCls = "text-[9px] text-ash/60 font-mono";
 
   return (

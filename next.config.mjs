@@ -20,6 +20,9 @@ const nextConfig = {
   // Experimental: enable partial prerendering for faster shell delivery
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
   },
 };
 

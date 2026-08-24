@@ -62,7 +62,7 @@
         "color": "#FFFFFF"
       },
       {
-        "name": "RNN",
+        "name": "RNNS",
         "iconName": "TextFallback",
         "color": "#FFFFFF"
       }
@@ -80,17 +80,17 @@
       },
       {
         "name": "LANGGRAPH",
-        "iconName": "TextFallback",
+        "iconName": "SiLanggraph",
         "color": "#FFFFFF"
       },
       {
         "name": "CREWAI",
-        "iconName": "TextFallback",
+        "iconName": "SiCrewai",
         "color": "#FFFFFF"
       },
       {
         "name": "RAG",
-        "iconName": "TextFallback",
+        "iconName": "",
         "color": "#FFFFFF"
       },
       {
@@ -100,7 +100,7 @@
       },
       {
         "name": "MCP",
-        "iconName": "TextFallback",
+        "iconName": "SiMcp",
         "color": "#FFFFFF"
       }
     ]
@@ -127,12 +127,12 @@
       },
       {
         "name": "DSA",
-        "iconName": "TextFallback",
+        "iconName": "SiDsa",
         "color": "#FFFFFF"
       },
       {
-        "name": "OOP",
-        "iconName": "TextFallback",
+        "name": "OOPS",
+        "iconName": "",
         "color": "#FFFFFF"
       }
     ]
