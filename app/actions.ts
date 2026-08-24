@@ -5,6 +5,23 @@ import path from "path";
 import { cookies } from "next/headers";
 import { Redis } from "@upstash/redis";
 
+// Static JSON imports — bundled at build time, always available on Vercel
+import experienceData from "../data/experience.json";
+import stackData from "../data/stack.json";
+import projectsData from "../data/projects.json";
+import tweetsData from "../data/tweets.json";
+import writingData from "../data/writing.json";
+
+// Map tab names → statically imported data
+const STATIC_DATA: Record<string, unknown[]> = {
+  experience: experienceData as unknown[],
+  stack: stackData as unknown[],
+  projects: projectsData as unknown[],
+  tweets: tweetsData as unknown[],
+  writing: writingData as unknown[],
+  activity: tweetsData as unknown[],
+};
+
 const DATA_DIR = path.join(process.cwd(), "data");
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
@@ -17,8 +34,7 @@ export async function isAdmin() {
 }
 
 /**
- * loginAdmin — kept for backwards compatibility but now delegates to the
- * /api/auth route. Call the API route directly from the client instead.
+ * loginAdmin — kept for backwards compatibility.
  * @deprecated Use fetch('/api/auth', { method: 'POST', body: JSON.stringify({ password }) })
  */
 export async function loginAdmin(password: string) {
@@ -54,20 +70,34 @@ export async function logoutAdmin() {
 
 // ─── Data helpers ──────────────────────────────────────────────────────────
 
-/** Get data for a tab from the bundled /data JSON files. */
+/**
+ * Get data for a tab.
+ *
+ * In production: returns statically imported JSON (bundled at build time).
+ * This guarantees data is always available on Vercel serverless — no fs calls.
+ *
+ * In development: reads live from /data/*.json so hot-reloads work after saves.
+ */
 export async function getDevData(tab: string) {
+  // Production: use statically imported data (guaranteed available on Vercel)
+  if (IS_PRODUCTION) {
+    const key = tab === "activity" ? "tweets" : tab;
+    return STATIC_DATA[key] ?? [];
+  }
+
+  // Development: read from filesystem for live reload on saves
   const filePath = path.join(
     DATA_DIR,
     `${tab === "activity" ? "tweets" : tab}.json`
   );
   if (!fs.existsSync(filePath)) {
-    return [];
+    return STATIC_DATA[tab === "activity" ? "tweets" : tab] ?? [];
   }
   try {
     const content = fs.readFileSync(filePath, "utf-8");
     return JSON.parse(content);
   } catch {
-    return [];
+    return STATIC_DATA[tab === "activity" ? "tweets" : tab] ?? [];
   }
 }
 
@@ -75,9 +105,8 @@ export async function getDevData(tab: string) {
  * Save data for a tab.
  *
  * • Development: writes to /data/*.json (standard local convenience).
- * • Production : writing to the filesystem is a no-op on Vercel (read-only FS).
- *   Returns { success: false, isProductionFS: true } so the client can show
- *   the "Export JSON to commit" prompt instead.
+ * • Production : Vercel filesystem is read-only. Returns isProductionFS: true
+ *   so the client shows the "Export JSON to commit" prompt.
  */
 export async function saveDevData(tab: string, data: unknown) {
   const adminActive = await isAdmin();
@@ -133,7 +162,7 @@ export async function getAppreciations(slugs: string[]) {
     }
   }
 
-  // Fallback: local json file (dev only — not reliable in production)
+  // Fallback: local json file (dev only)
   const localFile = path.join(DATA_DIR, "appreciations.json");
   let localData: Record<string, number> = {};
   if (fs.existsSync(localFile)) {
