@@ -38,14 +38,12 @@ export function FooterWordmark() {
   };
 
   let strokeColor = "rgba(255, 255, 255, 0.18)";
-  let fillColor = "var(--text)";
   
   if (isMounted) {
     if (resolvedTheme === "light") {
       strokeColor = "rgba(0, 0, 0, 0.18)";
     } else if (resolvedTheme === "lambo") {
       strokeColor = "rgba(255, 192, 0, 0.35)";
-      fillColor = "#FFC000";
     }
   }
 
@@ -89,26 +87,39 @@ export function FooterWordmark() {
             PREET RANK
           </h2>
 
-          {/* Hover Fill Layer (Masked by radial gradient) */}
+          {/* Hover Top Layer (Water Ripple Masked by radial gradient) */}
           {!isMobile && !reducedMotion && (
-            <div 
-              className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-              style={{
-                opacity: isHovered ? 1 : 0,
-                maskImage: `radial-gradient(300px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
-                WebkitMaskImage: `radial-gradient(300px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
-              }}
-            >
-              <h2 
-                className="font-sans font-black uppercase tracking-tighter leading-[0.85] text-center whitespace-normal md:whitespace-nowrap"
-                style={{ 
-                  fontSize: "clamp(4.5rem, 18vw, 14rem)",
-                  color: fillColor
+            <>
+              {/* SVG Filter Definition */}
+              <svg width="0" height="0" className="absolute pointer-events-none">
+                <filter id="water-ripple">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.015 0.02" numOctaves="2" result="noise">
+                    <animate attributeName="baseFrequency" values="0.015 0.02;0.02 0.03;0.015 0.02" dur="5s" repeatCount="indefinite" />
+                  </feTurbulence>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+              </svg>
+
+              <div 
+                className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                style={{
+                  opacity: isHovered ? 1 : 0,
+                  maskImage: `radial-gradient(220px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
+                  WebkitMaskImage: `radial-gradient(220px circle at ${position.x}px ${position.y}px, black 0%, transparent 100%)`,
+                  filter: 'url(#water-ripple)'
                 }}
               >
-                PREET RANK
-              </h2>
-            </div>
+                <h2 
+                  className="font-sans font-black uppercase tracking-tighter leading-[0.85] text-center whitespace-normal md:whitespace-nowrap"
+                  style={{ 
+                    fontSize: "clamp(4.5rem, 18vw, 14rem)",
+                    ...baseStyle
+                  }}
+                >
+                  PREET RANK
+                </h2>
+              </div>
+            </>
           )}
         </div>
 
