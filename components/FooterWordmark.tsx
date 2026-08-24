@@ -132,7 +132,7 @@ export function FooterWordmark() {
           {/* Secondary Utility Row */}
           <div className="w-full mt-8 md:mt-10 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest pt-0">
             <div>© 2026 PREET RANK</div>
-            <div>AI/ML · LLM INFERENCE</div>
+            <div>AIML ENGINEER</div>
             <div className="flex gap-4 items-center mt-2 md:mt-0 min-h-[44px] md:min-h-0">
               <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-200">
                 <FaGithub className="w-4 h-4 md:w-3.5 md:h-3.5" />
