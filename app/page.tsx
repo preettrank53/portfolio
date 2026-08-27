@@ -1290,10 +1290,11 @@ export default function PortfolioSplitPane() {
           {/* STICKY TAB BAR — first child, no wrappers above it inside section */}
           <div
             className={`
+              bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 transition-all duration-300
+              px-6 sm:px-8 md:px-0
               ${isMobileStuck 
-                ? "fixed top-0 left-0 right-0 z-[100] shadow-lg md:sticky md:top-0 md:z-[60] md:shadow-none" 
-                : "sticky top-0 z-[60]"}
-              w-full bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 transition-shadow duration-300
+                ? "fixed top-0 left-0 right-0 w-full z-[100] shadow-md md:sticky md:w-auto md:top-0 md:z-[60] md:shadow-none" 
+                : "sticky top-0 z-[60] -mx-6 sm:-mx-8 md:mx-0"}
             `}
           >
             <div className="flex items-center justify-between gap-3 min-h-[44px]">
