@@ -2222,7 +2222,7 @@ export default function PortfolioSplitPane() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-50px" }}
                           transition={{ duration: 0.4, delay: index * 0.05 }}
-                          className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
+                          className="border-b border-charcoal py-6 md:py-10 transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
                         >
                           <SpotlightOverlay />
                           {/* Inline Admin Edit & Pin Buttons */}
@@ -2416,7 +2416,7 @@ export default function PortfolioSplitPane() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, delay: index * 0.05 }}
-                        className="border-b border-[var(--border)] py-6 md:py-10 hover:bg-[var(--surface)] transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
+                        className="border-b border-[var(--border)] py-6 md:py-10 transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
                       >
                         <SpotlightOverlay />
                         {/* Inline Admin Edit & Pin Buttons */}
