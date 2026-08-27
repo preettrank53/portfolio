@@ -1266,7 +1266,7 @@ export default function PortfolioSplitPane() {
               
               {/* THIS is the only horizontal scroller */}
               <nav
-                className="flex-1 min-w-0 flex items-center gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="ml-auto min-w-0 flex items-center gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 aria-label="Sections"
               >
                 {TABS.map(tab => {
