@@ -30,9 +30,6 @@
 }
 
 @layer base {
-  html, body {
-    overflow-x: hidden;
-  }
   body {
     background-color: var(--bg);
     color: var(--text);

@@ -470,6 +470,10 @@ export default function PortfolioSplitPane() {
   const [openCommandPalette, setOpenCommandPalette] = useState<boolean>(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   
+  // Mobile Sticky Fallback
+  const [isMobileStuck, setIsMobileStuck] = useState<boolean>(false);
+  const stickySentinelRef = useRef<HTMLDivElement>(null);
+
   // Theme Switching
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState<boolean>(false);
@@ -513,6 +517,28 @@ export default function PortfolioSplitPane() {
   // =========================================================
   // BOOTSTRAP & SHORTCUTS
   // =========================================================
+
+  // Mobile Sticky Observer Fallback
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (window.innerWidth < 768) {
+          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+            setIsMobileStuck(true);
+          } else {
+            setIsMobileStuck(false);
+          }
+        }
+      },
+      { threshold: [1.0] }
+    );
+
+    if (stickySentinelRef.current) {
+      observer.observe(stickySentinelRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -1255,9 +1281,20 @@ export default function PortfolioSplitPane() {
       <ErrorBoundary title="LOGBOOK FEED">
         <section className="w-full md:w-[65%] md:h-screen flex flex-col relative px-0 md:px-8 md:overflow-hidden">
           
+          {/* MOBILE STICKY SENTINEL */}
+          <div ref={stickySentinelRef} id="nav-sentinel" className="h-0 w-full" />
+          
+          {/* MOBILE PLACEHOLDER FOR FIXED NAV JUMP */}
+          {isMobileStuck && <div className="h-[57px] w-full block md:hidden" aria-hidden="true" />}
+          
           {/* STICKY TAB BAR — first child, no wrappers above it inside section */}
           <div
-            className="sticky top-0 z-[60] w-full bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3"
+            className={`
+              ${isMobileStuck 
+                ? "fixed top-0 left-0 right-0 z-[100] shadow-lg md:sticky md:top-0 md:z-[60] md:shadow-none" 
+                : "sticky top-0 z-[60]"}
+              w-full bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 transition-shadow duration-300
+            `}
           >
             <div className="flex items-center justify-between gap-3 min-h-[44px]">
               <div className="hidden sm:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)]">
