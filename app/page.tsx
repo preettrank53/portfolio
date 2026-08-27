@@ -1255,40 +1255,49 @@ export default function PortfolioSplitPane() {
       <ErrorBoundary title="LOGBOOK FEED">
         <section className="w-full md:w-[65%] md:h-screen flex flex-col relative px-0 md:px-8 md:overflow-hidden">
           
-          {/* Sticky Header (Flush to Top pixel 0) */}
-          <header className="sticky top-0 z-50 w-full bg-[var(--bg)]/95 backdrop-blur-md border-b border-[var(--border)] px-6 py-4 flex justify-between items-center">
-            <div className="hidden sm:block text-xs uppercase tracking-widest text-[var(--muted)]">
-              CHANGELOG // {activeTab}
+          {/* STICKY TAB BAR — first child, no wrappers above it inside section */}
+          <div
+            className="sticky top-0 z-[60] w-full bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] px-4 sm:px-6 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3"
+          >
+            <div className="flex items-center justify-between gap-3 min-h-[44px]">
+              <div className="hidden sm:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)]">
+                CHANGELOG // {activeTab}
+              </div>
+              
+              {/* THIS is the only horizontal scroller */}
+              <nav
+                className="flex-1 min-w-0 flex items-center gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                aria-label="Sections"
+              >
+                {TABS.map(tab => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button 
+                      key={tab.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        setIsAddingNew(false);
+                        setEditingId(null);
+                      }}
+                      className={`shrink-0 whitespace-nowrap min-h-[44px] px-1 font-mono text-sm tracking-widest uppercase transition-colors duration-150 relative ${
+                        isActive ? "text-[var(--text)] font-bold" : "text-[var(--muted)] hover:text-[var(--text)]"
+                      }`}
+                    >
+                      <span>{tab.label}</span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeTabIndicatorLine"
+                          className="absolute bottom-1 left-0 right-0 h-[2px] bg-[var(--text)]"
+                          transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </nav>
             </div>
-            
-            <nav className="flex gap-6 overflow-x-auto hide-scrollbar">
-              {TABS.map(tab => {
-                const isActive = activeTab === tab.id;
-                return (
-                  <button 
-                    key={tab.id}
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      setIsAddingNew(false);
-                      setEditingId(null);
-                    }}
-                    className={`hover:text-accent font-mono text-sm tracking-widest uppercase transition-colors duration-150 py-1 relative whitespace-nowrap ${
-                      isActive ? "text-purewhite font-bold" : "text-ash"
-                    }`}
-                  >
-                    <span>{tab.label}</span>
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeTabIndicatorLine"
-                        className="absolute bottom-[-13px] md:bottom-[-17px] left-0 right-0 h-[2px] bg-accent"
-                        transition={{ type: "spring", stiffness: 350, damping: 28 }}
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
-          </header>
+          </div>
 
           {/* Dev Logbook Feed Content */}
           <div id="right-scroll-container" className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12">
