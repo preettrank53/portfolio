@@ -1256,12 +1256,12 @@ export default function PortfolioSplitPane() {
         <section className="w-full md:w-[65%] md:h-screen flex flex-col relative px-0 md:px-8 md:overflow-hidden">
           
           {/* Sticky Header (Flush to Top pixel 0) */}
-          <header className="sticky top-0 z-50 bg-canvas/95 backdrop-blur border-b border-charcoal py-3 px-5 md:pt-8 md:pb-4 md:px-0 flex justify-between items-center select-none transition-colors duration-500">
-            <h2 className="hidden sm:block font-mono text-[9px] md:text-[10px] tracking-[0.2em] text-ash uppercase flex-shrink-0">
+          <header className="sticky top-0 z-50 w-full bg-[var(--bg)]/95 backdrop-blur-md border-b border-[var(--border)] px-6 py-4 flex justify-between items-center">
+            <div className="hidden sm:block text-xs uppercase tracking-widest text-[var(--muted)]">
               CHANGELOG // {activeTab}
-            </h2>
+            </div>
             
-            <div className="flex gap-6 font-mono text-sm tracking-widest text-ash uppercase overflow-x-auto hide-scrollbar ml-auto flex-shrink-0 whitespace-nowrap scroll-smooth">
+            <nav className="flex gap-6 overflow-x-auto hide-scrollbar">
               {TABS.map(tab => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -1272,8 +1272,8 @@ export default function PortfolioSplitPane() {
                       setIsAddingNew(false);
                       setEditingId(null);
                     }}
-                    className={`hover:text-accent transition-colors duration-150 py-1 relative ${
-                      isActive ? "text-purewhite font-bold" : ""
+                    className={`hover:text-accent font-mono text-sm tracking-widest uppercase transition-colors duration-150 py-1 relative whitespace-nowrap ${
+                      isActive ? "text-purewhite font-bold" : "text-ash"
                     }`}
                   >
                     <span>{tab.label}</span>
@@ -1287,7 +1287,7 @@ export default function PortfolioSplitPane() {
                   </button>
                 );
               })}
-            </div>
+            </nav>
           </header>
 
           {/* Dev Logbook Feed Content */}
@@ -2256,6 +2256,10 @@ export default function PortfolioSplitPane() {
                             </div>
                           )}
 
+                          <span className="font-mono text-[10px] text-[var(--muted)] mb-2 uppercase block">
+                            {post.date}{post.duration ? ` · ${post.duration}` : ""}
+                          </span>
+                          
                           {/* CARD HEADER LAYOUT */}
                           <div className="flex flex-row gap-4 items-start mb-2">
                             {/* LEFT: Company Logo box */}
@@ -2277,14 +2281,11 @@ export default function PortfolioSplitPane() {
 
                             {/* RIGHT: Job Details (stack vertically) */}
                             <div className="flex-1 flex flex-col min-w-0">
-                              <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--text)] leading-snug">
+                              <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-[var(--text)] leading-snug">
                                 {post.title}
                               </h3>
                               <div className="text-sm text-[var(--muted)] mt-0.5">
                                 {post.company}{post.type ? ` · ${post.type}` : ""}
-                              </div>
-                              <div className="text-xs font-mono text-[var(--muted)] mt-1 uppercase">
-                                {post.date}{post.duration ? ` · ${post.duration}` : ""}
                               </div>
                               {post.location && (
                                 <div className="text-xs font-mono text-[var(--muted)] mt-0.5">
@@ -2415,7 +2416,7 @@ export default function PortfolioSplitPane() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.4, delay: index * 0.05 }}
-                        className="border-b border-charcoal py-6 md:py-10 hover:bg-darkiron/20 transition-all duration-150 flex flex-col md:flex-row gap-2 md:gap-8 rounded-none group relative overflow-hidden"
+                        className="border-b border-[var(--border)] py-6 md:py-10 hover:bg-[var(--surface)] transition-all duration-150 flex flex-col rounded-none group relative overflow-hidden"
                       >
                         <SpotlightOverlay />
                         {/* Inline Admin Edit & Pin Buttons */}
@@ -2441,10 +2442,9 @@ export default function PortfolioSplitPane() {
                           </div>
                         )}
 
-                        {/* Top: Monospace timestamp — inline on mobile, left column on desktop */}
-                        <div className="font-mono text-[10px] text-ash uppercase tracking-widest md:w-24 md:flex-shrink-0 md:pt-1 mb-1 md:mb-0">
+                        <span className="font-mono text-[10px] text-[var(--muted)] mb-2 uppercase block">
                           {post.date}
-                        </div>
+                        </span>
 
                         {/* Right side: Content */}
                         <div className="flex-1 flex flex-col min-w-0">
