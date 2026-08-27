@@ -1282,31 +1282,39 @@ export default function PortfolioSplitPane() {
         <section className="w-full md:w-[65%] md:h-screen flex flex-col relative px-0 md:px-8 md:overflow-hidden">
           
           {/* MOBILE STICKY SENTINEL */}
-          <div ref={stickySentinelRef} id="nav-sentinel" className="h-0 w-full" />
+          <div ref={stickySentinelRef} id="nav-sentinel" className="h-0 w-0" />
           
           {/* MOBILE PLACEHOLDER FOR FIXED NAV JUMP */}
-          {isMobileStuck && <div className="h-[57px] w-full block md:hidden" aria-hidden="true" />}
+          {isMobileStuck && <div className="h-[56px] w-full block md:hidden" aria-hidden="true" />}
           
           {/* STICKY TAB BAR — first child, no wrappers above it inside section */}
           <div
             className={`
-              bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 transition-all duration-300
-              px-6 sm:px-8 md:px-0
+              z-[100] border-b border-[var(--border)] bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md transition-all duration-300
               ${isMobileStuck 
-                ? "fixed top-0 left-0 right-0 w-full z-[100] shadow-md md:sticky md:w-auto md:top-0 md:z-[60] md:shadow-none" 
-                : "sticky top-0 z-[60] -mx-6 sm:-mx-8 md:mx-0"}
+                ? "fixed top-0 left-0 right-0 shadow-md md:sticky md:top-0 md:shadow-none" 
+                : "sticky top-0 w-full"}
             `}
           >
-            <div className="flex items-center justify-between gap-3 min-h-[44px]">
-              <div className="hidden sm:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)]">
-                CHANGELOG // {activeTab}
-              </div>
-              
-              {/* THIS is the only horizontal scroller */}
-              <nav
-                className="ml-auto min-w-0 flex items-center gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                aria-label="Sections"
-              >
+            {/* INNER RAIL = same width behavior as cards */}
+            <div
+              className={`
+                w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-3
+                px-6 sm:px-8 md:px-0
+                ${isMobileStuck ? "max-w-[100vw]" : ""}
+              `}
+            >
+              <div className="flex min-h-[44px] items-center">
+                {/* CHANGELOG hidden on mobile, margin-right auto pushes tabs on desktop */}
+                <div className="hidden md:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)] mr-auto pr-6">
+                  CHANGELOG // {activeTab}
+                </div>
+                
+                {/* MOBILE: tabs start at LEFT edge of content rail — NO ml-auto */}
+                <nav
+                  className="flex w-full md:w-auto min-w-0 items-center justify-start gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  aria-label="Sections"
+                >
                 {TABS.map(tab => {
                   const isActive = activeTab === tab.id;
                   return (
@@ -1334,6 +1342,7 @@ export default function PortfolioSplitPane() {
                   );
                 })}
               </nav>
+              </div>
             </div>
           </div>
 
