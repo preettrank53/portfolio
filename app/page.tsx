@@ -23,12 +23,11 @@ import Image from "next/image";
 
 import { 
   SidebarSkeleton, 
-  FeedHeaderSkeleton, 
   ExperienceCardSkeleton, 
   ProjectCardSkeleton, 
   SkillsSkeleton, 
-  GithubChartSkeleton, 
-  PrListSkeleton 
+  PrListSkeleton,
+  ViewCounterSkeleton
 } from "@/components/ui/page-skeletons";
 
 // Inline brand icon SVGs to avoid dependency versions issues with brand icons
@@ -1185,6 +1184,7 @@ export default function PortfolioSplitPane() {
               <div className="border border-[var(--border)] md:border-none p-6 md:p-0 mb-4 md:mb-0 flex flex-col gap-6 md:gap-8 bg-[var(--surface)]/30 md:bg-transparent">
               {/* Avatar icon */}
               <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/profile.png"
                   alt="PREET RANK"
