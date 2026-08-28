@@ -11,6 +11,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { useSwipeable } from "react-swipeable";
 import { 
   Pin,
   Plus,
@@ -507,11 +508,44 @@ export default function PortfolioSplitPane() {
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
 
   // Framer motion scroll progress
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress, scrollY } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
+  });
+
+  const [showIdentity, setShowIdentity] = useState<boolean>(false);
+  const [swipeDirection, setSwipeDirection] = useState<number>(1);
+
+  useEffect(() => {
+    return scrollY.on('change', (latest) => {
+      if (window.innerWidth < 768) {
+        setShowIdentity(latest > 200);
+      } else {
+        setShowIdentity(false);
+      }
+    });
+  }, [scrollY]);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+        setSwipeDirection(1);
+        const currentIndex = TABS.findIndex(t => t.id === activeTab);
+        const nextIndex = (currentIndex + 1) % TABS.length;
+        setActiveTab(TABS[nextIndex].id);
+      }
+    },
+    onSwipedRight: () => {
+      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+        setSwipeDirection(-1);
+        const currentIndex = TABS.findIndex(t => t.id === activeTab);
+        const prevIndex = (currentIndex - 1 + TABS.length) % TABS.length;
+        setActiveTab(TABS[prevIndex].id);
+      }
+    },
+    trackMouse: false
   });
 
   // =========================================================
@@ -1125,8 +1159,9 @@ export default function PortfolioSplitPane() {
            LEFT COLUMN: IDENTITY PANE (Sticky screen height on desktop, block on mobile)
            ========================================== */}
         <ErrorBoundary title="IDENTITY PANE">
-          <aside id="left-scroll-container" className="relative w-full px-5 py-8 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
-          <div className="flex flex-col gap-6 md:gap-8">
+          <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
+            {/* Box 1: Profile + Buttons */}
+            <div className="border border-[var(--border)] md:border-none p-6 md:p-0 mb-4 md:mb-0 flex flex-col gap-6 md:gap-8 bg-[var(--surface)]/30 md:bg-transparent">
             {/* Avatar icon */}
             <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
               <img
@@ -1194,13 +1229,13 @@ export default function PortfolioSplitPane() {
           </div>
 
           {/* GitHub Activity Chart */}
-          <div className="mt-6">
+          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-6 bg-[var(--surface)]/30 md:bg-transparent">
             <GitHubActivity />
           </div>
 
           {/* Recent Open Source PRs */}
           {!prsError && (prsLoading || prs.length > 0) && (
-            <div className="mt-8">
+            <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-8 bg-[var(--surface)]/30 md:bg-transparent">
               <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-[#8b949e] dark:text-ash/70 transition-colors duration-400">
                 RECENT OPEN SOURCE PRs
               </span>
@@ -1240,7 +1275,7 @@ export default function PortfolioSplitPane() {
           )}
 
           {/* Theme Switcher + Recruiting Status */}
-          <div className="mt-8 flex flex-col gap-6">
+          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-8 flex flex-col gap-6 bg-[var(--surface)]/30 md:bg-transparent">
             {mounted && (
               <div className="flex flex-col gap-2">
                 <span className="font-mono text-[8px] text-ash uppercase tracking-widest">ACTIVE ENGINE THEME</span>
@@ -1299,55 +1334,86 @@ export default function PortfolioSplitPane() {
             {/* INNER RAIL = same width behavior as cards */}
             <div
               className={`
-                w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-3
+                w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-0 md:pb-3
                 px-6 sm:px-8 md:px-0
                 ${isMobileStuck ? "max-w-[100vw]" : ""}
               `}
             >
-              <div className="flex min-h-[44px] items-center">
-                {/* CHANGELOG hidden on mobile, margin-right auto pushes tabs on desktop */}
-                <div className="hidden md:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)] mr-auto pr-6">
-                  CHANGELOG // {activeTab}
-                </div>
-                
-                {/* MOBILE: tabs start at LEFT edge of content rail — NO ml-auto */}
-                <nav
-                  className="flex w-full md:w-auto min-w-0 items-center justify-start gap-5 sm:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                  aria-label="Sections"
-                >
-                {TABS.map(tab => {
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button 
-                      key={tab.id}
-                      type="button"
-                      onClick={() => {
-                        setActiveTab(tab.id);
-                        setIsAddingNew(false);
-                        setEditingId(null);
-                      }}
-                      className={`shrink-0 whitespace-nowrap min-h-[44px] px-1 font-mono text-sm tracking-widest uppercase transition-colors duration-150 relative ${
-                        isActive ? "text-[var(--text)] font-bold" : "text-[var(--muted)] hover:text-[var(--text)]"
-                      }`}
+              <div className="flex flex-col min-h-[44px] w-full">
+                {/* Identity row — only on mobile, appears on scroll */}
+                <AnimatePresence>
+                  {showIdentity && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, y: -10 }}
+                      animate={{ opacity: 1, height: "auto", y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="md:hidden flex items-center justify-between py-3 border-b border-[var(--border)] overflow-hidden"
                     >
-                      <span>{tab.label}</span>
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeTabIndicatorLine"
-                          className="absolute bottom-1 left-0 right-0 h-[2px] bg-[var(--text)]"
-                          transition={{ type: "spring", stiffness: 350, damping: 28 }}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
+                      <span className="text-sm font-bold uppercase tracking-tight text-[var(--text)]">PREET RANK</span>
+                      <span className="text-[10px] font-mono uppercase text-[var(--muted)]">AI/ML ENGINEER</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="flex items-center w-full">
+                  {/* CHANGELOG hidden on mobile, margin-right auto pushes tabs on desktop */}
+                  <div className="hidden md:block shrink-0 font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--muted)] mr-auto pr-6">
+                    CHANGELOG // {activeTab}
+                  </div>
+                  
+                  {/* MOBILE: tabs span full width evenly */}
+                  <nav
+                    className="flex w-full md:w-auto min-w-0 items-center justify-between md:justify-end gap-0 md:gap-6 overflow-x-auto overscroll-x-contain touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    aria-label="Sections"
+                  >
+                  {TABS.map(tab => {
+                    const isActive = activeTab === tab.id;
+                    return (
+                      <button 
+                        key={tab.id}
+                        type="button"
+                        onClick={() => {
+                          const currentIndex = TABS.findIndex(t => t.id === activeTab);
+                          const newIndex = TABS.findIndex(t => t.id === tab.id);
+                          setSwipeDirection(newIndex > currentIndex ? 1 : -1);
+                          setActiveTab(tab.id);
+                          setIsAddingNew(false);
+                          setEditingId(null);
+                        }}
+                        className={`flex-1 md:flex-none text-center shrink-0 whitespace-nowrap min-h-[44px] py-3 md:py-1 px-1 font-mono text-sm tracking-widest uppercase transition-colors duration-150 relative ${
+                          isActive ? "text-[var(--text)] font-bold" : "text-[var(--muted)] hover:text-[var(--text)]"
+                        }`}
+                      >
+                        <span>{tab.label}</span>
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeTabIndicatorLine"
+                            className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--text)]"
+                            transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Dev Logbook Feed Content */}
-          <div id="right-scroll-container" className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12">
+          <div {...swipeHandlers} className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, x: swipeDirection * 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: swipeDirection * -20 }}
+                transition={{ duration: 0.2 }}
+                id="right-scroll-container"
+                className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12 w-full"
+              >
             
             {/* New Entry Button for Admin */}
             {adminMode && !isAddingNew && !editingId && (
@@ -2683,6 +2749,8 @@ export default function PortfolioSplitPane() {
                 </motion.div>
               </AnimatePresence>
             )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
       </ErrorBoundary>
