@@ -21,12 +21,23 @@ import {
 
 import Image from "next/image";
 
+import { 
+  SidebarSkeleton, 
+  FeedHeaderSkeleton, 
+  ExperienceCardSkeleton, 
+  ProjectCardSkeleton, 
+  SkillsSkeleton, 
+  GithubChartSkeleton, 
+  PrListSkeleton 
+} from "@/components/ui/page-skeletons";
+
 // Inline brand icon SVGs to avoid dependency versions issues with brand icons
 // ImageWithFallback — wraps next/image with error handling.
 // Uses `unoptimized` for base64 data: URLs (from drag-and-drop editor)
 // so Next.js image optimization pipeline doesn't reject them.
 const ImageWithFallback = ({ src, alt, ...props }: React.ComponentProps<typeof Image>) => {
   const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   
   if (error || !src) {
     return (
@@ -40,13 +51,20 @@ const ImageWithFallback = ({ src, alt, ...props }: React.ComponentProps<typeof I
   const isDataUrl = typeof src === "string" && src.startsWith("data:");
 
   return (
-    <Image
-      src={src}
-      alt={alt}
-      onError={() => setError(true)}
-      unoptimized={isDataUrl}
-      {...props}
-    />
+    <>
+      {!loaded && (
+        <div className="absolute inset-0 skeleton z-0 rounded-none" />
+      )}
+      <Image
+        src={src}
+        alt={alt}
+        onError={() => setError(true)}
+        onLoad={() => setLoaded(true)}
+        unoptimized={isDataUrl}
+        className={`transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"} ${props.className || ""}`}
+        {...props}
+      />
+    </>
   );
 };
 
@@ -1161,72 +1179,76 @@ export default function PortfolioSplitPane() {
         <ErrorBoundary title="IDENTITY PANE">
           <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
             {/* Box 1: Profile + Buttons */}
-            <div className="border border-[var(--border)] md:border-none p-6 md:p-0 mb-4 md:mb-0 flex flex-col gap-6 md:gap-8 bg-[var(--surface)]/30 md:bg-transparent">
-            {/* Avatar icon */}
-            <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
-              <img
-                src="/profile.png"
-                alt="PREET RANK"
-                className="w-full h-full object-cover rounded-[14px] md:rounded-xl border border-white/10"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  if (target.src.endsWith(".png")) {
-                     target.src = "/profile.jpg";
-                  }
-                }}
-              />
-            </div>
+            {loading ? (
+              <SidebarSkeleton />
+            ) : (
+              <div className="border border-[var(--border)] md:border-none p-6 md:p-0 mb-4 md:mb-0 flex flex-col gap-6 md:gap-8 bg-[var(--surface)]/30 md:bg-transparent">
+              {/* Avatar icon */}
+              <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--border)] bg-[var(--surface)] rounded-[18px] md:rounded-2xl p-1 flex-shrink-0 select-none overflow-hidden">
+                <img
+                  src="/profile.png"
+                  alt="PREET RANK"
+                  className="w-full h-full object-cover rounded-[14px] md:rounded-xl border border-white/10"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.endsWith(".png")) {
+                       target.src = "/profile.jpg";
+                    }
+                  }}
+                />
+              </div>
 
-            {/* Display Name — fluid clamp size */}
-            <div className="flex flex-col">
-              <h1 className="font-sans font-extrabold tracking-tighter uppercase text-purewhite whitespace-nowrap text-3xl md:text-3xl">
-                PREET RANK
-              </h1>
-              <span className="font-mono text-xs text-ash uppercase tracking-widest mt-1">
-                @preettrank
-              </span>
-            </div>
+              {/* Display Name — fluid clamp size */}
+              <div className="flex flex-col">
+                <h1 className="font-sans font-extrabold tracking-tighter uppercase text-purewhite whitespace-nowrap text-3xl md:text-3xl">
+                  PREET RANK
+                </h1>
+                <span className="font-mono text-xs text-ash uppercase tracking-widest mt-1">
+                  @preettrank
+                </span>
+              </div>
 
-            {/* Bio */}
-            <p className="text-sm leading-relaxed text-ash font-sans font-medium">
-              21, figuring out code, AI/ML & LLMs.<br />
-              currently learning LLM inference, looking for an internship.
-            </p>
+              {/* Bio */}
+              <p className="text-sm leading-relaxed text-ash font-sans font-medium">
+                21, figuring out code, AI/ML & LLMs.<br />
+                currently learning LLM inference, looking for an internship.
+              </p>
 
-            {/* CTA Buttons — full width, touch-friendly */}
-            <div className="flex flex-col gap-3 w-full">
-              <a
-                href="mailto:preetrank53@gmail.com"
-                className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
-              >
-                EMAIL ME
-              </a>
-              <a
-                href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
-              >
-                VIEW RESUME
-              </a>
-            </div>
+              {/* CTA Buttons — full width, touch-friendly */}
+              <div className="flex flex-col gap-3 w-full">
+                <a
+                  href="mailto:preetrank53@gmail.com"
+                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                >
+                  EMAIL ME
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                >
+                  VIEW RESUME
+                </a>
+              </div>
 
-            {/* Social Media Icons — larger on mobile for tapping */}
-            <div className="flex gap-6 items-center">
-              <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <Github className="w-6 h-6 md:w-5 md:h-5" />
-              </a>
-              <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <SiX className="w-5 h-5 md:w-[18px] md:h-[18px]" />
-              </a>
-              <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <Linkedin className="w-6 h-6 md:w-5 md:h-5" />
-              </a>
-              <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <Instagram className="w-6 h-6 md:w-5 md:h-5" />
-              </a>
+              {/* Social Media Icons — larger on mobile for tapping */}
+              <div className="flex gap-6 items-center">
+                <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                  <Github className="w-6 h-6 md:w-5 md:h-5" />
+                </a>
+                <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                  <SiX className="w-5 h-5 md:w-[18px] md:h-[18px]" />
+                </a>
+                <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                  <Linkedin className="w-6 h-6 md:w-5 md:h-5" />
+                </a>
+                <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                  <Instagram className="w-6 h-6 md:w-5 md:h-5" />
+                </a>
+              </div>
             </div>
-          </div>
+            )}
 
           {/* GitHub Activity Chart */}
           <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-6 bg-[var(--surface)]/30 md:bg-transparent">
@@ -1240,14 +1262,7 @@ export default function PortfolioSplitPane() {
                 RECENT OPEN SOURCE PRs
               </span>
               {prsLoading ? (
-                <div className="flex flex-col gap-2 mt-2 animate-pulse">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="border border-charcoal/30 p-2.5 bg-canvas/30">
-                      <div className="h-2 bg-charcoal w-24 mb-1.5" />
-                      <div className="h-3 bg-charcoal w-3/4" />
-                    </div>
-                  ))}
-                </div>
+                <PrListSkeleton />
               ) : (
                 <div className="flex flex-col gap-2 mt-2">
                   {prs.map(pr => {
@@ -1302,9 +1317,13 @@ export default function PortfolioSplitPane() {
 
             {/* View Counter */}
             {!viewCountError && (
-              <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest flex items-center gap-2 mt-8 transition-colors duration-400">
-                <span>[👁 TOTAL VISITS: {viewCount !== null ? viewCount : "---"}]</span>
-              </div>
+              viewCount !== null ? (
+                <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-widest flex items-center gap-2 mt-8 transition-colors duration-400">
+                  <span>[👁 TOTAL VISITS: {viewCount}]</span>
+                </div>
+              ) : (
+                <ViewCounterSkeleton />
+              )
             )}
           </div>
         </aside>
@@ -1821,25 +1840,22 @@ export default function PortfolioSplitPane() {
             )}
 
             {loading ? (
-              <div className="flex flex-col gap-4 py-8">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="border-b border-charcoal py-8 flex flex-col md:flex-row gap-4 md:gap-8 animate-pulse select-none">
-                    <div className="md:w-32 flex-shrink-0">
-                      <div className="h-4 bg-charcoal/40 w-16 mb-2"></div>
-                      <div className="h-3 bg-charcoal/40 w-24"></div>
-                    </div>
-                    <div className="flex-1 flex flex-col gap-3">
-                      <div className="h-5 bg-charcoal/40 w-2/3"></div>
-                      <div className="h-4 bg-charcoal/40 w-full"></div>
-                      <div className="h-4 bg-charcoal/40 w-5/6"></div>
-                      <div className="flex gap-2 mt-2">
-                        <div className="h-3 bg-charcoal/40 w-12"></div>
-                        <div className="h-3 bg-charcoal/40 w-16"></div>
-                        <div className="h-3 bg-charcoal/40 w-10"></div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="flex flex-col py-8 w-full">
+                {activeTab === "experience" && (
+                  <>
+                    <ExperienceCardSkeleton />
+                    <ExperienceCardSkeleton />
+                  </>
+                )}
+                {activeTab === "projects" && (
+                  <>
+                    <ProjectCardSkeleton />
+                    <ProjectCardSkeleton />
+                  </>
+                )}
+                {activeTab === "stack" && (
+                  <SkillsSkeleton />
+                )}
               </div>
             ) : (!tabData || tabData.length === 0) ? (
               <div className="border border-charcoal p-12 text-center select-none font-mono flex flex-col items-center justify-center gap-4 my-8">
@@ -2387,7 +2403,7 @@ export default function PortfolioSplitPane() {
                             {/* LEFT: Company Logo box */}
                             <div className="w-12 h-12 md:w-14 md:h-14 border border-[var(--border)] rounded-md overflow-hidden bg-white flex-shrink-0 relative">
                               {post.logoUrl ? (
-                                <Image 
+                                <ImageWithFallback 
                                   src={post.logoUrl} 
                                   alt={`${post.company || "Company"} logo`}
                                   fill

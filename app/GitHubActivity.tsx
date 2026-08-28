@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { GithubChartSkeleton } from "@/components/ui/page-skeletons";
 
 interface ContributionDay {
   date: string;
@@ -278,21 +279,11 @@ export function GitHubActivity() {
   // Loading indicator matching theme styles
   if (loading) {
     return (
-      <div className={`border p-3 animate-pulse transition-colors duration-400 ${containerBorder} ${containerBg}`}>
-        <span className={`block font-mono text-[9px] uppercase tracking-[0.2em] mb-3 transition-colors duration-400 ${textMuted}`}>
-          FETCHING CONTRIBUTIONS...
+      <div className={`border p-3 transition-colors duration-400 ${containerBorder} ${containerBg}`}>
+        <span className={`block font-mono text-[9px] uppercase tracking-[0.2em] mb-1 transition-colors duration-400 ${textMuted}`}>
+          GITHUB ACTIVITY
         </span>
-        <div className={`h-[82px] border border-dashed flex items-center justify-center ${containerBorder}`}>
-          <div className="flex gap-[3px]">
-            {Array.from({ length: 15 }).map((_, i) => (
-              <div key={i} className="flex flex-col gap-[3px]">
-                {Array.from({ length: 7 }).map((_, j) => (
-                  <div key={j} className="w-[12px] h-[12px]" style={{ backgroundColor: getCellBgColor(0) }} />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
+        <GithubChartSkeleton />
       </div>
     );
   }
