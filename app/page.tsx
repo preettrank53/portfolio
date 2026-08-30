@@ -547,9 +547,21 @@ export default function PortfolioSplitPane() {
   }, [scrollY]);
 
   const tabLoadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const feedAnchorRef = useRef<HTMLDivElement>(null);
+  const feedBodyRef = useRef<HTMLDivElement>(null);
+  const lockedFeedHeightRef = useRef<number | null>(null);
 
   const handleTabSwitch = (newTabId: string, direction: number) => {
     if (newTabId === activeTab) return;
+    
+    const wasStuck = isMobileStuck; // capture BEFORE content swap
+    const prevY = window.scrollY;
+
+    // Lock feed height to prevent scroll jump before unmounting
+    if (feedBodyRef.current) {
+      lockedFeedHeightRef.current = feedBodyRef.current.offsetHeight;
+    }
+
     setSwipeDirection(direction);
     setActiveTab(newTabId);
     setIsAddingNew(false);
@@ -557,9 +569,29 @@ export default function PortfolioSplitPane() {
     setIsTabLoading(true);
 
     if (tabLoadingTimeoutRef.current) clearTimeout(tabLoadingTimeoutRef.current);
-    tabLoadingTimeoutRef.current = setTimeout(() => {
-      setIsTabLoading(false);
-    }, 300);
+    
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (wasStuck || prevY > (feedAnchorRef.current?.offsetTop ?? 0) - 8) {
+          // Force user to remain in feed chrome: nav flush to top
+          const anchor = feedAnchorRef.current;
+          if (anchor) {
+            const y = anchor.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: Math.max(y, 0), behavior: "instant" as ScrollBehavior });
+          }
+          // Ensure stuck UI state stays true on mobile
+          setIsMobileStuck(true);
+        } else {
+          // User was still in profile area — keep their scrollY
+          window.scrollTo({ top: prevY, behavior: "instant" as ScrollBehavior });
+        }
+
+        tabLoadingTimeoutRef.current = setTimeout(() => {
+          setIsTabLoading(false);
+          lockedFeedHeightRef.current = null;
+        }, 300);
+      });
+    });
   };
 
   const swipeHandlers = useSwipeable({
@@ -608,6 +640,9 @@ export default function PortfolioSplitPane() {
 
   useEffect(() => {
     setMounted(true);
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
 
     // Check admin status via non-httpOnly flag cookie (readable by JS)
     const checkAdmin = () => {
@@ -1350,6 +1385,9 @@ export default function PortfolioSplitPane() {
       <ErrorBoundary title="LOGBOOK FEED">
         <section className="w-full md:w-[65%] md:h-screen flex flex-col relative px-0 md:px-8 md:overflow-hidden">
           
+          {/* FEED ANCHOR FOR SCROLL PRESERVATION */}
+          <div ref={feedAnchorRef} id="feed-anchor" className="h-0 w-0" />
+          
           {/* MOBILE STICKY SENTINEL */}
           <div ref={stickySentinelRef} id="nav-sentinel" className="h-0 w-0" />
           
@@ -1431,7 +1469,12 @@ export default function PortfolioSplitPane() {
           </div>
 
           {/* Dev Logbook Feed Content */}
-          <div {...swipeHandlers} className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden relative overflow-x-hidden">
+          <div 
+            {...swipeHandlers} 
+            ref={feedBodyRef}
+            style={{ minHeight: lockedFeedHeightRef.current ?? undefined }}
+            className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden relative overflow-x-hidden"
+          >
             <AnimatePresence initial={false} custom={swipeDirection} mode="popLayout">
               <motion.div
                 key={activeTab}
