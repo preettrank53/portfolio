@@ -42,20 +42,42 @@ export default async function WallPage() {
       <div className="w-full max-w-[1200px] flex flex-col items-center">
         
         {/* Header Section */}
-        <div className="w-full flex justify-between items-start mb-12">
-          <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
+        <div className="w-full flex justify-between items-center mb-12">
+          <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300 shrink-0 mr-4">
             ← BACK TO HOME
           </Link>
-          <div className="relative">
+          
+          <div className="flex flex-col items-end sm:items-start gap-1 relative">
             {/* Handwritten Annotation */}
-            <div className="absolute -bottom-8 right-2 rotate-3 pointer-events-none hidden sm:flex items-center text-[var(--accent)] font-handwritten text-sm opacity-80 whitespace-nowrap">
-              <span>yours could be here too</span>
-              <svg className="w-4 h-4 ml-1 mt-1 -rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10 5s3 2 4.5 5c1.5 3 1.5 8 1.5 8" />
-                <path d="M11 18l5 0-1-5" />
+            <div className="flex items-center text-[var(--accent)] font-handwritten text-xs sm:text-sm opacity-80 whitespace-nowrap pointer-events-none">
+              <span>{total === 0 ? "be the first" : `add yours to the ${total}`}</span>
+              <svg 
+                className="w-4 h-4 ml-1 mt-1 hidden sm:block" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M7 6c2 6 8 8 12 8" />
+                <path d="M15 10l4 4-4 4" />
+              </svg>
+              <svg 
+                className="w-4 h-4 block sm:hidden rotate-90 ml-1" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M7 6c2 6 8 8 12 8" />
+                <path d="M15 10l4 4-4 4" />
               </svg>
             </div>
-            <Link href="/sign" className="bg-[var(--accent)] border border-[var(--accent)] text-[var(--bg)] px-5 py-3 text-xs font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block">
+            
+            <Link href="/sign" className="bg-[var(--accent)] border border-[var(--accent)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-full sm:rounded-none inline-block w-auto shrink-0">
               ADD YOUR SIGNATURE
             </Link>
           </div>
