@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { 
   SidebarSkeleton, 
@@ -1300,6 +1301,15 @@ export default function PortfolioSplitPane() {
                 <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                   <SiMedium className="w-full h-full" />
                 </a>
+              </div>
+              
+              <div className="w-full mt-6">
+                <Link
+                  href="/sign"
+                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                >
+                  SIGN THE WALL
+                </Link>
               </div>
             </div>
             )}
