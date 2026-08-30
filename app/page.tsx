@@ -497,6 +497,7 @@ export default function PortfolioSplitPane() {
   const [mounted, setMounted] = useState<boolean>(false);
 
   // Appreciations and Github Stars
+  const [isTabLoading, setIsTabLoading] = useState<boolean>(false);
   const [appreciations, setAppreciations] = useState<Record<string, number>>({});
   const [userAppreciated, setUserAppreciated] = useState<Record<string, boolean>>({});
 
@@ -545,21 +546,35 @@ export default function PortfolioSplitPane() {
     });
   }, [scrollY]);
 
+  const tabLoadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleTabSwitch = (newTabId: string, direction: number) => {
+    if (newTabId === activeTab) return;
+    setSwipeDirection(direction);
+    setActiveTab(newTabId);
+    setIsAddingNew(false);
+    setEditingId(null);
+    setIsTabLoading(true);
+
+    if (tabLoadingTimeoutRef.current) clearTimeout(tabLoadingTimeoutRef.current);
+    tabLoadingTimeoutRef.current = setTimeout(() => {
+      setIsTabLoading(false);
+    }, 300);
+  };
+
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
       if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
-        setSwipeDirection(1);
         const currentIndex = TABS.findIndex(t => t.id === activeTab);
         const nextIndex = (currentIndex + 1) % TABS.length;
-        setActiveTab(TABS[nextIndex].id);
+        handleTabSwitch(TABS[nextIndex].id, 1);
       }
     },
     onSwipedRight: () => {
       if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
-        setSwipeDirection(-1);
         const currentIndex = TABS.findIndex(t => t.id === activeTab);
         const prevIndex = (currentIndex - 1 + TABS.length) % TABS.length;
-        setActiveTab(TABS[prevIndex].id);
+        handleTabSwitch(TABS[prevIndex].id, -1);
       }
     },
     trackMouse: false
@@ -1339,41 +1354,38 @@ export default function PortfolioSplitPane() {
           <div ref={stickySentinelRef} id="nav-sentinel" className="h-0 w-0" />
           
           {/* MOBILE PLACEHOLDER FOR FIXED NAV JUMP */}
-          {isMobileStuck && <div className="h-[56px] w-full block md:hidden" aria-hidden="true" />}
+          {isMobileStuck && <div className="h-[80px] w-full block md:hidden" aria-hidden="true" />}
           
           {/* STICKY TAB BAR — first child, no wrappers above it inside section */}
           <div
             className={`
-              z-[100] border-b border-[var(--border)] bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md transition-all duration-300
+              w-full bg-[var(--bg)]/95 supports-[backdrop-filter]:bg-[var(--bg)]/80 backdrop-blur-md border-b border-[var(--border)] transition-none
               ${isMobileStuck 
-                ? "fixed top-0 left-0 right-0 shadow-md md:sticky md:top-0 md:shadow-none" 
-                : "sticky top-0 w-full"}
+                ? "fixed top-0 left-0 right-0 shadow-md md:sticky md:top-0 md:shadow-none z-[100]" 
+                : "sticky top-0 z-[60]"}
             `}
           >
             {/* INNER RAIL = same width behavior as cards */}
             <div
               className={`
                 w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-0 md:pb-3
-                px-6 sm:px-8 md:px-0
-                ${isMobileStuck ? "max-w-[100vw]" : ""}
+                px-6 sm:px-8 md:px-0 flex flex-col justify-end min-h-[80px] md:min-h-[44px]
               `}
             >
-              <div className="flex flex-col min-h-[44px] w-full">
-                {/* Identity row — only on mobile, appears on scroll */}
-                <AnimatePresence>
-                  {showIdentity && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, y: -10 }}
-                      animate={{ opacity: 1, height: "auto", y: 0 }}
-                      exit={{ opacity: 0, height: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="md:hidden flex items-center justify-between py-3 border-b border-[var(--border)] overflow-hidden"
-                    >
-                      <span className="text-sm font-bold uppercase tracking-tight text-[var(--text)]">PREET RANK</span>
-                      <span className="text-[10px] font-mono uppercase text-[var(--muted)]">AI/ML ENGINEER</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <div className="flex flex-col w-full">
+                
+                {/* Identity Row: Fades in, uses absolute/relative positioning trick to NOT shift layout on mobile */}
+                <div className="relative w-full h-[28px] mb-2 md:hidden">
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: showIdentity ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute bottom-0 left-0 w-full flex justify-between items-end pb-2 border-b border-[var(--border)]"
+                  >
+                    <span className="text-sm font-bold uppercase tracking-tight text-[var(--text)]">PREET RANK</span>
+                    <span className="text-[10px] font-mono uppercase text-[var(--muted)]">AI/ML ENGINEER</span>
+                  </motion.div>
+                </div>
 
                 <div className="flex items-center w-full">
                   {/* CHANGELOG hidden on mobile, margin-right auto pushes tabs on desktop */}
@@ -1395,10 +1407,7 @@ export default function PortfolioSplitPane() {
                         onClick={() => {
                           const currentIndex = TABS.findIndex(t => t.id === activeTab);
                           const newIndex = TABS.findIndex(t => t.id === tab.id);
-                          setSwipeDirection(newIndex > currentIndex ? 1 : -1);
-                          setActiveTab(tab.id);
-                          setIsAddingNew(false);
-                          setEditingId(null);
+                          handleTabSwitch(tab.id, newIndex > currentIndex ? 1 : -1);
                         }}
                         className={`flex-1 md:flex-none text-center shrink-0 whitespace-nowrap min-h-[44px] py-3 md:py-1 px-1 font-mono text-sm tracking-widest uppercase transition-colors duration-150 relative ${
                           isActive ? "text-[var(--text)] font-bold" : "text-[var(--muted)] hover:text-[var(--text)]"
@@ -1422,14 +1431,15 @@ export default function PortfolioSplitPane() {
           </div>
 
           {/* Dev Logbook Feed Content */}
-          <div {...swipeHandlers} className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden">
-            <AnimatePresence mode="wait">
+          <div {...swipeHandlers} className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden relative overflow-x-hidden">
+            <AnimatePresence initial={false} custom={swipeDirection} mode="popLayout">
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, x: swipeDirection * 20 }}
+                custom={swipeDirection}
+                initial={{ opacity: 0, x: swipeDirection * 40 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: swipeDirection * -20 }}
-                transition={{ duration: 0.2 }}
+                exit={{ opacity: 0, x: swipeDirection * -40 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
                 id="right-scroll-container"
                 className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12 w-full"
               >
@@ -1839,7 +1849,7 @@ export default function PortfolioSplitPane() {
               </div>
             )}
 
-            {loading ? (
+            {(loading || isTabLoading) ? (
               <div className="flex flex-col py-8 w-full">
                 {activeTab === "experience" && (
                   <>
