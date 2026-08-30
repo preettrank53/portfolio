@@ -47,43 +47,28 @@ export default async function WallPage() {
             ← BACK TO HOME
           </Link>
           
-          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 sm:gap-4">
-            {/* Handwritten Annotation */}
-            <div className="flex items-center text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 whitespace-nowrap pointer-events-none">
-              <span>{total === 0 ? "be the first" : `add yours to the ${total}`}</span>
-              
-              {/* Desktop Arrow (points sideways into the left edge of the button) */}
-              <svg 
-                className="w-7 h-7 ml-2 hidden sm:block translate-y-2 translate-x-1" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              >
-                <path d="M2 10 C 10 4 15 10 19 15" />
-                <path d="M13 15 L 19 15 L 19 9" />
-              </svg>
-
-              {/* Mobile Arrow (points down into the top of the button) */}
-              <svg 
-                className="w-6 h-6 block sm:hidden ml-2 translate-y-1" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              >
-                <path d="M12 4 C 15 10 15 15 12 20" />
-                <path d="M7 16 L 12 21 L 17 16" />
-              </svg>
-            </div>
-            
-            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto shrink-0">
+          <div className="relative z-10 flex-shrink-0">
+            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto">
               ADD YOUR SIGNATURE
             </Link>
+
+            {/* Handwritten Annotation - Positioned right-down below the button */}
+            <div className="absolute -bottom-8 -right-2 sm:-bottom-10 sm:-right-6 flex items-start gap-1 pointer-events-none text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 rotate-2 z-20 whitespace-nowrap">
+              {/* Arrow curving UP and LEFT into the button */}
+              <svg 
+                className="w-5 h-5 sm:w-7 sm:h-7 -translate-y-1 translate-x-1" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M16 16 C 14 10 10 8 4 6" />
+                <path d="M10 6 L 4 6 L 5 12" />
+              </svg>
+              <span className="translate-y-2">{total === 0 ? "be the first" : `add yours to the ${total}`}</span>
+            </div>
           </div>
         </div>
 
