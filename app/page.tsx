@@ -1275,27 +1275,29 @@ export default function PortfolioSplitPane() {
                   EMAIL ME
                 </a>
                 
-                <div className="relative inline-block w-full overflow-visible z-10 mt-8 md:mt-3">
+                <div className="relative inline-block w-full overflow-visible z-10 mt-3">
                   {/* Desktop: True Left-Gutter Placement */}
-                  <div className="hidden md:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
+                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-6 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
                     <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
                       takes 30 seconds
                     </span>
-                    <svg width="34" height="34" viewBox="0 0 34 34" className="text-white/60 shrink-0">
-                      <path d="M4 8 Q 16 4, 28 14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                      <path d="M28 14 L 21 12 M28 14 L 25 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    <svg width="44" height="24" viewBox="0 0 44 24" className="text-white/60 shrink-0">
+                      <path d="M2 6 Q 20 2, 36 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+                      <path d="M36 12 L 27 10 M36 12 L 32 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
                     </svg>
                   </div>
                   
-                  {/* Mobile fallback: Top Right Corner */}
-                  <div className="md:hidden absolute -top-7 right-0 flex items-end gap-1 pointer-events-none z-10 opacity-0 animate-fade-in">
-                    <span className="font-handwritten font-semibold text-base text-white/60 rotate-[-3deg]">
-                      takes 30 seconds
-                    </span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" className="text-white/60 -mb-1">
-                      <path d="M4 4 Q 12 4, 16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                      <path d="M16 16 L 12 12 M16 16 L 18 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    </svg>
+                  {/* Mobile fallback: Standard Flow Above Target */}
+                  <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-handwritten font-semibold text-sm text-white/60 rotate-[-2deg]">
+                        takes 30 seconds
+                      </span>
+                      <svg width="24" height="20" viewBox="0 0 24 20" className="text-white/60">
+                        <path d="M2 2 Q 12 2, 18 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                        <path d="M18 12 L 12 10 M18 12 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                      </svg>
+                    </div>
                   </div>
 
                   <a
@@ -1310,27 +1312,29 @@ export default function PortfolioSplitPane() {
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="relative w-full mt-10 md:mt-6 overflow-visible z-10">
+              <div className="relative w-full mt-6 overflow-visible z-10">
                 {/* Desktop: True Left-Gutter Placement */}
-                <div className="hidden md:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
+                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-6 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
                   <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
                     follow me
                   </span>
-                  <svg width="34" height="34" viewBox="0 0 34 34" className="text-white/60 shrink-0">
-                    <path d="M4 6 Q 20 2, 26 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                    <path d="M26 20 L 18 17 M26 20 L 23 27" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                  <svg width="44" height="24" viewBox="0 0 44 24" className="text-white/60 shrink-0">
+                    <path d="M2 4 Q 22 2, 34 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+                    <path d="M34 14 L 25 12 M34 14 L 30 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
                   </svg>
                 </div>
                 
-                {/* Mobile fallback: Top Right Corner */}
-                <div className="md:hidden absolute -top-7 right-0 flex items-end gap-1 pointer-events-none z-10 opacity-0 animate-fade-in">
-                  <span className="font-handwritten font-semibold text-base text-white/60 rotate-[-3deg]">
-                    follow me
-                  </span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" className="text-white/60 -mb-1">
-                    <path d="M4 4 Q 12 4, 16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    <path d="M16 16 L 12 12 M16 16 L 18 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                  </svg>
+                {/* Mobile fallback: Standard Flow Above Target */}
+                <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-handwritten font-semibold text-sm text-white/60 rotate-[-2deg]">
+                      follow me
+                    </span>
+                    <svg width="24" height="20" viewBox="0 0 24 20" className="text-white/60">
+                      <path d="M2 2 Q 12 2, 18 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                      <path d="M18 12 L 12 10 M18 12 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    </svg>
+                  </div>
                 </div>
 
                 <div className="flex justify-between w-full relative z-20">
