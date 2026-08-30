@@ -30,9 +30,9 @@ export function SignatureWallEntry() {
   };
 
   return (
-    <div className="w-full mt-8 relative inline-block">
-      {/* Handwritten Annotation */}
-      <div className="flex items-end gap-1 mb-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
+    <div className="w-full mt-8 relative inline-block overflow-visible">
+      {/* Handwritten Annotation - absolutely positioned, zero impact on layout */}
+      <div className="absolute -top-6 left-0 flex items-end gap-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
         <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
           {getDynamicText()}
         </span>

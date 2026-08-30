@@ -1270,26 +1270,27 @@ export default function PortfolioSplitPane() {
               <div className="flex flex-col gap-3 w-full">
                 <a
                   href="mailto:preetrank53@gmail.com"
-                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center relative z-20"
                 >
                   EMAIL ME
                 </a>
                 
-                <div className="relative inline-block w-full">
-                  <div className="flex items-end gap-1 mb-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
-                    <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
+                <div className="relative inline-block w-full overflow-visible z-10">
+                  {/* Absolutely positioned above, zero layout impact */}
+                  <div className="absolute -top-7 left-0 sm:-left-2 flex items-end gap-1 opacity-0 animate-fade-in pointer-events-none">
+                    <span className="font-handwritten font-semibold text-base text-white/55 whitespace-nowrap rotate-[-3deg] origin-bottom-left leading-tight">
                       takes 30 seconds
                     </span>
-                    <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1">
-                      <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                      <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/55">
+                      <path d="M18 4 Q 10 6, 6 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      <path d="M6 16 L 8 10 M6 16 L 12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
                     </svg>
                   </div>
                   <a
                     href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                    className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center relative z-20"
                   >
                     VIEW RESUME
                   </a>
@@ -1297,19 +1298,28 @@ export default function PortfolioSplitPane() {
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="w-full mt-6">
-                <div className="relative mb-1">
-                  <div className="flex items-end gap-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
-                    <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
-                      follow me
-                    </span>
-                    <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1 -ml-1">
-                      <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                      <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                    </svg>
-                  </div>
+              <div className="relative w-full mt-6 overflow-visible z-10">
+                {/* Absolutely positioned floating annotation - Desktop (Left side) */}
+                <div className="hidden md:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full pr-3 items-center opacity-0 animate-fade-in pointer-events-none">
+                  <span className="font-handwritten font-semibold text-base text-white/55 rotate-[-3deg] whitespace-nowrap">
+                    follow me
+                  </span>
+                  <svg width="26" height="26" viewBox="0 0 26 26" className="text-white/55 ml-1 align-middle">
+                    <path d="M6 4 Q 16 6, 20 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    <path d="M20 18 L 15 14 M20 18 L 19 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  </svg>
                 </div>
-                <div className="flex justify-between w-full">
+                
+                {/* Absolutely positioned floating annotation - Mobile (Above) */}
+                <div className="md:hidden absolute -top-7 left-0 flex items-end opacity-0 animate-fade-in pointer-events-none">
+                  <span className="font-handwritten font-semibold text-sm text-white/55 rotate-[-3deg]">follow me</span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" className="text-white/55 ml-1">
+                    <path d="M18 4 Q 10 6, 6 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    <path d="M6 16 L 8 10 M6 16 L 12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  </svg>
+                </div>
+
+                <div className="flex justify-between w-full relative z-20">
                   <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                     <Github className="w-full h-full" />
                   </a>
