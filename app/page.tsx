@@ -548,7 +548,7 @@ export default function PortfolioSplitPane() {
 
   const tabLoadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const feedAnchorRef = useRef<HTMLDivElement>(null);
-  const feedBodyRef = useRef<HTMLDivElement>(null);
+  const feedBodyRef = useRef<HTMLDivElement | null>(null);
   const lockedFeedHeightRef = useRef<number | null>(null);
 
   const handleTabSwitch = (newTabId: string, direction: number) => {
@@ -1407,7 +1407,7 @@ export default function PortfolioSplitPane() {
             <div
               className={`
                 w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-0 md:pb-3
-                px-5 md:px-0 flex flex-col justify-end min-h-[80px] md:min-h-[44px]
+                px-6 sm:px-8 md:px-0 flex flex-col justify-end min-h-[80px] md:min-h-[44px]
               `}
             >
               <div className="flex flex-col w-full">
@@ -1471,7 +1471,13 @@ export default function PortfolioSplitPane() {
           {/* Dev Logbook Feed Content */}
           <div 
             {...swipeHandlers} 
-            ref={feedBodyRef}
+            ref={(el) => {
+              // Merge react-swipeable ref with our feedBodyRef
+              if (swipeHandlers.ref) {
+                swipeHandlers.ref(el);
+              }
+              feedBodyRef.current = el;
+            }}
             style={{ minHeight: lockedFeedHeightRef.current ?? undefined }}
             className="w-full h-full flex flex-col md:flex-1 md:overflow-hidden relative overflow-x-hidden"
           >
