@@ -47,28 +47,34 @@ export default async function WallPage() {
             ← BACK TO HOME
           </Link>
           
-          <div className="relative z-10 flex-shrink-0">
-            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-end gap-1 sm:gap-6 flex-1">
+            {/* Mobile layout */}
+            <div className="flex sm:hidden items-end gap-1 mb-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none w-full">
+              <span className="font-handwritten font-semibold text-base text-white/55 whitespace-nowrap leading-tight">
+                {total === 0 ? "be the first" : `add yours to the ${total}`}
+              </span>
+              <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1">
+                <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+              </svg>
+            </div>
+            
+            {/* Desktop layout */}
+            <div className="hidden sm:flex relative">
+              <div className="flex items-center gap-2 mb-2 opacity-0 animate-fade-in pointer-events-none">
+                <span className="font-handwritten font-semibold text-lg text-white/55 rotate-[-3deg] leading-tight">
+                  {total === 0 ? "be the first" : `add yours to the ${total}`}
+                </span>
+                <svg width="32" height="32" viewBox="0 0 32 32" className="text-white/55">
+                  <path d="M6 6 Q 18 10, 24 22" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                  <path d="M24 22 L 17 20 M24 22 L 21 15" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                </svg>
+              </div>
+            </div>
+
+            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto shrink-0 z-10">
               ADD YOUR SIGNATURE
             </Link>
-
-            {/* Handwritten Annotation - Positioned right-down below the button */}
-            <div className="absolute -bottom-8 -right-2 sm:-bottom-10 sm:-right-6 flex items-start gap-1 pointer-events-none text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 rotate-2 z-20 whitespace-nowrap">
-              {/* Arrow curving UP and LEFT into the button */}
-              <svg 
-                className="w-5 h-5 sm:w-7 sm:h-7 -translate-y-1 translate-x-1" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              >
-                <path d="M16 16 C 14 10 10 8 4 6" />
-                <path d="M10 6 L 4 6 L 5 12" />
-              </svg>
-              <span className="translate-y-2">{total === 0 ? "be the first" : `add yours to the ${total}`}</span>
-            </div>
           </div>
         </div>
 

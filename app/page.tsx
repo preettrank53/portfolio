@@ -1274,33 +1274,58 @@ export default function PortfolioSplitPane() {
                 >
                   EMAIL ME
                 </a>
-                <a
-                  href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
-                >
-                  VIEW RESUME
-                </a>
+                
+                <div className="relative inline-block w-full">
+                  <div className="flex items-end gap-1 mb-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
+                    <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
+                      takes 30 seconds
+                    </span>
+                    <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1">
+                      <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                      <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    </svg>
+                  </div>
+                  <a
+                    href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
+                  >
+                    VIEW RESUME
+                  </a>
+                </div>
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="flex justify-between w-full mt-6">
-                <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                  <Github className="w-full h-full" />
-                </a>
-                <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                  <SiX className="w-full h-full" />
-                </a>
-                <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                  <Linkedin className="w-full h-full" />
-                </a>
-                <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                  <Instagram className="w-full h-full" />
-                </a>
-                <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
-                  <SiMedium className="w-full h-full" />
-                </a>
+              <div className="w-full mt-6">
+                <div className="relative mb-1">
+                  <div className="flex items-end gap-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
+                    <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
+                      follow me
+                    </span>
+                    <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1 -ml-1">
+                      <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                      <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex justify-between w-full">
+                  <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                    <Github className="w-full h-full" />
+                  </a>
+                  <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                    <SiX className="w-full h-full" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                    <Linkedin className="w-full h-full" />
+                  </a>
+                  <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                    <Instagram className="w-full h-full" />
+                  </a>
+                  <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                    <SiMedium className="w-full h-full" />
+                  </a>
+                </div>
               </div>
               
               <SignatureWallEntry />

@@ -25,6 +25,15 @@ const config: Config = {
       letterSpacing: {
         tightest: "-0.04em",
       },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-out 0.3s forwards",
+      },
     },
   },
   plugins: [],

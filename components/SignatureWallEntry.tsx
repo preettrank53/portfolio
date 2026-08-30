@@ -30,21 +30,15 @@ export function SignatureWallEntry() {
   };
 
   return (
-    <div className="w-full mt-8 relative">
+    <div className="w-full mt-8 relative inline-block">
       {/* Handwritten Annotation */}
-      <div className="absolute -top-8 left-1 sm:left-4 flex items-end gap-1 pointer-events-none text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 -rotate-3 z-10">
-        <span className="translate-y-1">{getDynamicText()}</span>
-        <svg 
-          className="w-6 h-6 sm:w-8 sm:h-8 translate-y-3 -translate-x-1" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="1.5" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        >
-          <path d="M6 4 C 12 8 12 16 10 21" />
-          <path d="M5 16 L 10 22 L 15 17" />
+      <div className="flex items-end gap-1 mb-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
+        <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
+          {getDynamicText()}
+        </span>
+        <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1">
+          <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+          <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
         </svg>
       </div>
       
