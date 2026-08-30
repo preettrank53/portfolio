@@ -31,33 +31,23 @@ export function SignatureWallEntry() {
 
   return (
     <div className="w-full mt-8 relative">
-      {/* Handwritten Annotation - always visible, repositioned for mobile */}
-      <div className="flex flex-col items-start gap-1 mb-2 sm:absolute sm:-top-7 sm:right-2 sm:-rotate-6 sm:mb-0 sm:items-center sm:flex-row pointer-events-none text-[var(--accent)] font-handwritten text-xs sm:text-sm opacity-80">
-        <span>{getDynamicText()}</span>
-        <svg 
-          className="w-5 h-5 ml-1 hidden sm:block" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="1.5" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        >
-          <path d="M7 6c2 6 8 8 12 8" />
-          <path d="M15 10l4 4-4 4" />
-        </svg>
-        <svg 
-          className="w-5 h-5 block sm:hidden rotate-90 ml-4" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="1.5" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        >
-          <path d="M7 6c2 6 8 8 12 8" />
-          <path d="M15 10l4 4-4 4" />
-        </svg>
+      {/* Handwritten Annotation */}
+      <div className="flex flex-col w-full items-end sm:items-start px-2 mb-1 pointer-events-none text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 -rotate-2">
+        <div className="flex items-center gap-1 translate-y-1">
+          <span>{getDynamicText()}</span>
+          <svg 
+            className="w-5 h-5 sm:w-6 sm:h-6 translate-y-2 -translate-x-1 rotate-[30deg] sm:rotate-12" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <path d="M12 4 C 15 10 15 15 12 20" />
+            <path d="M7 16 L 12 21 L 17 16" />
+          </svg>
+        </div>
       </div>
       
       <a

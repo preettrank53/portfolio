@@ -47,37 +47,41 @@ export default async function WallPage() {
             ← BACK TO HOME
           </Link>
           
-          <div className="flex flex-col items-end sm:items-start gap-1 relative">
+          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 sm:gap-4">
             {/* Handwritten Annotation */}
-            <div className="flex items-center text-[var(--accent)] font-handwritten text-xs sm:text-sm opacity-80 whitespace-nowrap pointer-events-none">
+            <div className="flex items-center text-[var(--accent)] font-handwritten text-sm sm:text-base opacity-80 whitespace-nowrap pointer-events-none">
               <span>{total === 0 ? "be the first" : `add yours to the ${total}`}</span>
+              
+              {/* Desktop Arrow (points sideways into the left edge of the button) */}
               <svg 
-                className="w-4 h-4 ml-1 mt-1 hidden sm:block" 
+                className="w-7 h-7 ml-2 hidden sm:block translate-y-2 translate-x-1" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
+                strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
               >
-                <path d="M7 6c2 6 8 8 12 8" />
-                <path d="M15 10l4 4-4 4" />
+                <path d="M2 10 C 10 4 15 10 19 15" />
+                <path d="M13 15 L 19 15 L 19 9" />
               </svg>
+
+              {/* Mobile Arrow (points down into the top of the button) */}
               <svg 
-                className="w-4 h-4 block sm:hidden rotate-90 ml-1" 
+                className="w-6 h-6 block sm:hidden ml-2 translate-y-1" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
-                strokeWidth="1.5" 
+                strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
               >
-                <path d="M7 6c2 6 8 8 12 8" />
-                <path d="M15 10l4 4-4 4" />
+                <path d="M12 4 C 15 10 15 15 12 20" />
+                <path d="M7 16 L 12 21 L 17 16" />
               </svg>
             </div>
             
-            <Link href="/sign" className="bg-[var(--accent)] border border-[var(--accent)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-full sm:rounded-none inline-block w-auto shrink-0">
+            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto shrink-0">
               ADD YOUR SIGNATURE
             </Link>
           </div>
