@@ -113,7 +113,8 @@ import {
   SiGithub,
   SiStreamlit,
   SiJupyter,
-  SiGooglecolab
+  SiGooglecolab,
+  SiMedium
 } from "react-icons/si";
 
 import { FaAws, FaJava } from "react-icons/fa";
@@ -1295,6 +1296,9 @@ export default function PortfolioSplitPane() {
                 </a>
                 <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
                   <Instagram className="w-6 h-6 md:w-5 md:h-5" />
+                </a>
+                <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                  <SiMedium className="w-6 h-6 md:w-5 md:h-5" />
                 </a>
               </div>
             </div>
