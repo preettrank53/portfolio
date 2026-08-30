@@ -1407,7 +1407,7 @@ export default function PortfolioSplitPane() {
             <div
               className={`
                 w-full pt-[max(0.75rem,env(safe-area-inset-top))] pb-0 md:pb-3
-                px-6 sm:px-8 md:px-0 flex flex-col justify-end min-h-[80px] md:min-h-[44px]
+                px-5 md:px-0 flex flex-col justify-end min-h-[80px] md:min-h-[44px]
               `}
             >
               <div className="flex flex-col w-full">
