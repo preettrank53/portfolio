@@ -1284,21 +1284,21 @@ export default function PortfolioSplitPane() {
               </div>
 
               {/* Social Media Icons — larger on mobile for tapping */}
-              <div className="flex gap-6 items-center">
-                <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                  <Github className="w-6 h-6 md:w-5 md:h-5" />
+              <div className="flex flex-wrap items-center gap-5 sm:gap-6 mt-6">
+                <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                  <Github className="w-full h-full" />
                 </a>
-                <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                  <SiX className="w-5 h-5 md:w-[18px] md:h-[18px]" />
+                <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                  <SiX className="w-full h-full" />
                 </a>
-                <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                  <Linkedin className="w-6 h-6 md:w-5 md:h-5" />
+                <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                  <Linkedin className="w-full h-full" />
                 </a>
-                <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                  <Instagram className="w-6 h-6 md:w-5 md:h-5" />
+                <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                  <Instagram className="w-full h-full" />
                 </a>
-                <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="text-ash hover:text-accent transition-colors duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                  <SiMedium className="w-6 h-6 md:w-5 md:h-5" />
+                <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
+                  <SiMedium className="w-full h-full" />
                 </a>
               </div>
             </div>
