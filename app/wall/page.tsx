@@ -52,26 +52,25 @@ export default async function WallPage() {
               ADD YOUR SIGNATURE
             </Link>
 
-            {/* Positioned in the dead space to the RIGHT and slightly below the button */}
-            <div className="hidden sm:block absolute top-full right-0 mt-3 pointer-events-none opacity-0 animate-fade-in z-20">
-              <svg width="30" height="30" viewBox="0 0 30 30" className="text-white/55 mb-1">
-                {/* arrow curving UP-LEFT into the button's bottom-right corner */}
-                <path d="M24 4 Q 14 8, 6 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                <path d="M6 20 L 9 12 M6 20 L 16 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+            {/* Positioned immediately below the button, touching it */}
+            <div className="hidden sm:flex absolute top-full right-2 mt-1.5 items-start gap-1 pointer-events-none opacity-0 animate-fade-in z-20">
+              <svg width="20" height="20" viewBox="0 0 20 20" className="text-white/60 mt-0.5">
+                <path d="M16 2 Q 8 4, 4 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path d="M4 14 L 8 10 M4 14 L 9 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
               </svg>
-              <span className="font-handwritten font-semibold text-lg text-white/55 rotate-[-2deg] whitespace-nowrap block">
+              <span className="font-handwritten font-semibold text-base text-white/60 rotate-[-2deg] whitespace-nowrap">
                 {total === 0 ? "be the first" : `add yours to the ${total}`}
               </span>
             </div>
 
-            {/* Positioned above the button on mobile */}
-            <div className="sm:hidden absolute -top-6 right-0 flex items-end gap-1 rotate-[-3deg] origin-bottom-right opacity-0 animate-fade-in pointer-events-none z-20">
-              <span className="font-handwritten font-semibold text-sm text-white/55 whitespace-nowrap">
+            {/* Mobile layout */}
+            <div className="sm:hidden absolute -top-8 right-0 flex items-center gap-1.5 opacity-0 animate-fade-in pointer-events-none z-20">
+              <span className="font-handwritten font-semibold text-sm text-white/60 whitespace-nowrap rotate-[-3deg]">
                 {total === 0 ? "be the first" : `add yours to the ${total}`}
               </span>
-              <svg width="20" height="20" viewBox="0 0 20 20" className="text-white/55 -mb-1">
-                <path d="M16 4 Q 10 6, 6 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                <path d="M6 16 L 8 10 M6 16 L 12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              <svg width="22" height="22" viewBox="0 0 22 22" className="text-white/60">
+                <path d="M4 3 Q 12 5, 15 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path d="M15 16 L 11 12 M15 16 L 10 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
               </svg>
             </div>
           </div>

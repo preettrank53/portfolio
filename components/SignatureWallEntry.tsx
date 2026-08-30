@@ -30,15 +30,15 @@ export function SignatureWallEntry() {
   };
 
   return (
-    <div className="w-full mt-8 relative inline-block overflow-visible">
-      {/* Handwritten Annotation - absolutely positioned, zero impact on layout */}
-      <div className="absolute -top-6 left-0 flex items-end gap-1 rotate-[-3deg] origin-bottom-left opacity-0 animate-fade-in pointer-events-none">
-        <span className="font-handwritten font-semibold text-base sm:text-lg text-white/55 whitespace-nowrap leading-tight">
+    <div className="w-full mt-9 relative inline-block overflow-visible">
+      {/* Handwritten Annotation - absolutely positioned, centered in the gap */}
+      <div className="absolute -top-8 left-0 flex items-center gap-1.5 opacity-0 animate-fade-in pointer-events-none">
+        <span className="font-handwritten font-semibold text-sm sm:text-base text-white/60 whitespace-nowrap rotate-[-3deg]">
           {getDynamicText()}
         </span>
-        <svg width="28" height="28" viewBox="0 0 28 28" className="text-white/55 -mb-1">
-          <path d="M22 4 Q 12 8, 8 20" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-          <path d="M8 20 L 11 13 M8 20 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+        <svg width="22" height="22" viewBox="0 0 22 22" className="text-white/60">
+          <path d="M4 3 Q 12 5, 15 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <path d="M15 16 L 11 12 M15 16 L 10 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
         </svg>
       </div>
       

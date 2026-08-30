@@ -1267,7 +1267,7 @@ export default function PortfolioSplitPane() {
               </p>
 
               {/* CTA Buttons — full width, touch-friendly */}
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col w-full">
                 <a
                   href="mailto:preetrank53@gmail.com"
                   className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center relative z-20"
@@ -1275,15 +1275,15 @@ export default function PortfolioSplitPane() {
                   EMAIL ME
                 </a>
                 
-                <div className="relative inline-block w-full overflow-visible z-10">
-                  {/* Absolutely positioned above, zero layout impact */}
-                  <div className="absolute -top-7 left-0 sm:-left-2 flex items-end gap-1 opacity-0 animate-fade-in pointer-events-none">
-                    <span className="font-handwritten font-semibold text-base text-white/55 whitespace-nowrap rotate-[-3deg] origin-bottom-left leading-tight">
+                <div className="relative inline-block w-full overflow-visible z-10 mt-9">
+                  {/* Absolutely positioned centered in the gap */}
+                  <div className="absolute -top-8 left-0 flex items-center gap-1.5 opacity-0 animate-fade-in pointer-events-none">
+                    <span className="font-handwritten font-semibold text-sm text-white/60 whitespace-nowrap rotate-[-3deg]">
                       takes 30 seconds
                     </span>
-                    <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/55">
-                      <path d="M18 4 Q 10 6, 6 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                      <path d="M6 16 L 8 10 M6 16 L 12 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    <svg width="22" height="22" viewBox="0 0 22 22" className="text-white/60">
+                      <path d="M4 3 Q 12 5, 15 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      <path d="M15 16 L 11 12 M15 16 L 10 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
                     </svg>
                   </div>
                   <a
