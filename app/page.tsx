@@ -1283,8 +1283,8 @@ export default function PortfolioSplitPane() {
                 </a>
               </div>
 
-              {/* Social Media Icons — larger on mobile for tapping */}
-              <div className="flex flex-wrap items-center gap-5 sm:gap-6 mt-6">
+              {/* Social Media Icons — evenly distributed across the card width */}
+              <div className="flex justify-between w-full mt-6">
                 <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                   <Github className="w-full h-full" />
                 </a>
