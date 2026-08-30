@@ -46,10 +46,19 @@ export default async function WallPage() {
           <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
             ← BACK TO HOME
           </Link>
-          
-          <Link href="/sign" className="border border-accent px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] hover:bg-accent hover:text-canvas transition-colors duration-300">
-            SIGN IT
-          </Link>
+          <div className="relative">
+            {/* Handwritten Annotation */}
+            <div className="absolute -bottom-8 right-2 rotate-3 pointer-events-none hidden sm:flex items-center text-[var(--accent)] font-handwritten text-sm opacity-80 whitespace-nowrap">
+              <span>yours could be here too</span>
+              <svg className="w-4 h-4 ml-1 mt-1 -rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 5s3 2 4.5 5c1.5 3 1.5 8 1.5 8" />
+                <path d="M11 18l5 0-1-5" />
+              </svg>
+            </div>
+            <Link href="/sign" className="bg-[var(--accent)] border border-[var(--accent)] text-[var(--bg)] px-5 py-3 text-xs font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block">
+              ADD YOUR SIGNATURE
+            </Link>
+          </div>
         </div>
 
         <div className="flex flex-col items-center text-center mb-16">

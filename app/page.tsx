@@ -1303,12 +1303,20 @@ export default function PortfolioSplitPane() {
                 </a>
               </div>
               
-              <div className="w-full mt-6">
+              <div className="w-full mt-8 relative">
+                {/* Handwritten Annotation */}
+                <div className="absolute -top-7 right-2 -rotate-6 pointer-events-none hidden sm:flex items-center text-[var(--accent)] font-handwritten text-sm opacity-80">
+                  <span>hundreds already left their mark</span>
+                  <svg className="w-4 h-4 ml-1 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10 5s3 2 4.5 5c1.5 3 1.5 8 1.5 8" />
+                    <path d="M11 18l5 0-1-5" />
+                  </svg>
+                </div>
                 <Link
-                  href="/sign"
+                  href="/wall"
                   className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center"
                 >
-                  SIGN THE WALL
+                  SEE THE WALL
                 </Link>
               </div>
             </div>

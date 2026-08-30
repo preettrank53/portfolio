@@ -84,10 +84,13 @@ const SignatureCanvas = forwardRef<SignatureCanvasRef, React.HTMLAttributes<HTML
 
     if (strokes.length === 0 && currentStroke.length === 0 && !hasStarted) return;
 
-    ctx.strokeStyle = "var(--text, #ffffff)";
-    ctx.lineWidth = 2.5;
+    const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+    ctx.strokeStyle = computedColor || "#ffffff";
+    ctx.lineWidth = 3;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+    ctx.shadowColor = "rgba(255, 255, 255, 0.15)";
+    ctx.shadowBlur = 2;
 
     const drawStroke = (stroke: SignaturePoint[]) => {
       if (stroke.length === 0) return;

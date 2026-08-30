@@ -69,6 +69,14 @@ import dynamic from "next/dynamic";
 
 const GlobalSparkles = dynamic(() => import("@/components/GlobalSparkles").then(m => m.GlobalSparkles), { ssr: false });
 
+import { Caveat } from "next/font/google";
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -77,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative bg-canvas transition-colors duration-500`}
+        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased relative bg-canvas transition-colors duration-500`}
         suppressHydrationWarning
       >
         <Providers>

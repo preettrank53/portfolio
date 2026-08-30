@@ -61,10 +61,13 @@ export default function SignPage() {
     <main className="min-h-screen bg-[var(--bg)] text-purewhite flex items-center justify-center p-6 sm:p-8">
       <div className="w-full max-w-2xl border border-[var(--border)] bg-[var(--surface)] p-6 md:p-10 relative overflow-hidden backdrop-blur-md">
         
-        {/* Back Link */}
-        <div className="mb-8">
+        {/* Header Links */}
+        <div className="flex justify-between items-center mb-8">
           <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
             ← BACK TO HOME
+          </Link>
+          <Link href="/wall" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
+            VIEW THE WALL →
           </Link>
         </div>
 

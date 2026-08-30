@@ -20,6 +20,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-geist-sans)", "Inter", "sans-serif"],
         mono: ["var(--font-geist-mono)", "JetBrains Mono", "monospace"],
+        handwritten: ["var(--font-caveat)", "cursive"],
       },
       letterSpacing: {
         tightest: "-0.04em",
