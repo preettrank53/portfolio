@@ -1222,13 +1222,13 @@ export default function PortfolioSplitPane() {
       </div>
 
       {/* Centered container flexbox grid */}
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-hidden px-6 sm:px-8 md:px-0">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-visible px-6 sm:px-8 md:px-0">
         
         {/* ==========================================
            LEFT COLUMN: IDENTITY PANE (Sticky screen height on desktop, block on mobile)
            ========================================== */}
         <ErrorBoundary title="IDENTITY PANE">
-          <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
+          <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
             {/* Box 1: Profile + Buttons */}
             {loading ? (
               <SidebarSkeleton />
