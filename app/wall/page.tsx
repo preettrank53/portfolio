@@ -54,7 +54,7 @@ export default async function WallPage() {
             {/* Annotation: text-only below button */}
             <div className="absolute top-full right-0 mt-2 pointer-events-none select-none">
               <span className="font-handwritten font-semibold text-base text-[var(--text)] opacity-55 inline-block rotate-[-2deg]">
-                {total === 0 ? "be the first" : `add yours to the ${total}`}
+                {total === 0 ? "be the first" : `go on, make it ${total + 1}`}
               </span>
             </div>
           </div>
