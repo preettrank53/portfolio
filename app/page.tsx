@@ -1277,25 +1277,33 @@ export default function PortfolioSplitPane() {
                 
                 <div className="relative inline-block w-full overflow-visible z-10 mt-3">
                   {/* Desktop: True Left-Gutter Placement */}
-                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-6 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-                    <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
+                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
+                    <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-3deg]">
                       takes 30 seconds
                     </span>
-                    <svg width="44" height="24" viewBox="0 0 44 24" className="text-white/60 shrink-0">
-                      <path d="M2 6 Q 20 2, 36 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-                      <path d="M36 12 L 27 10 M36 12 L 32 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+                    <svg className="w-24 h-12 text-white/60 shrink-0" viewBox="0 0 100 50" style={{ overflow: 'visible' }}>
+                      <defs>
+                        <marker id="arrow-desktop-1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                          <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
+                        </marker>
+                      </defs>
+                      <path d="M 0,25 C 30,5 60,45 95,25" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-1)"/>
                     </svg>
                   </div>
                   
                   {/* Mobile fallback: Standard Flow Above Target */}
                   <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-handwritten font-semibold text-sm text-white/60 rotate-[-2deg]">
+                    <div className="flex items-end gap-2">
+                      <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-2deg]">
                         takes 30 seconds
                       </span>
-                      <svg width="24" height="20" viewBox="0 0 24 20" className="text-white/60">
-                        <path d="M2 2 Q 12 2, 18 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                        <path d="M18 12 L 12 10 M18 12 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                      <svg className="w-8 h-8 text-white/60 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
+                        <defs>
+                          <marker id="arrow-mobile-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                            <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
+                          </marker>
+                        </defs>
+                        <path d="M 5,5 Q 25,0 35,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-1)"/>
                       </svg>
                     </div>
                   </div>
@@ -1314,25 +1322,33 @@ export default function PortfolioSplitPane() {
               {/* Social Media Icons — evenly distributed across the card width */}
               <div className="relative w-full mt-6 overflow-visible z-10">
                 {/* Desktop: True Left-Gutter Placement */}
-                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-6 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-                  <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
+                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
+                  <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-4deg]">
                     follow me
                   </span>
-                  <svg width="44" height="24" viewBox="0 0 44 24" className="text-white/60 shrink-0">
-                    <path d="M2 4 Q 22 2, 34 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-                    <path d="M34 14 L 25 12 M34 14 L 30 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+                  <svg className="w-24 h-16 text-white/60 shrink-0" viewBox="0 0 100 60" style={{ overflow: 'visible' }}>
+                    <defs>
+                      <marker id="arrow-desktop-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                        <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
+                      </marker>
+                    </defs>
+                    <path d="M 0,15 C 30,50 60,-10 95,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-2)"/>
                   </svg>
                 </div>
                 
                 {/* Mobile fallback: Standard Flow Above Target */}
                 <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-handwritten font-semibold text-sm text-white/60 rotate-[-2deg]">
+                  <div className="flex items-end gap-2">
+                    <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
                       follow me
                     </span>
-                    <svg width="24" height="20" viewBox="0 0 24 20" className="text-white/60">
-                      <path d="M2 2 Q 12 2, 18 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                      <path d="M18 12 L 12 10 M18 12 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                    <svg className="w-10 h-10 text-white/60 -mb-2" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
+                      <defs>
+                        <marker id="arrow-mobile-2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                          <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
+                        </marker>
+                      </defs>
+                      <path d="M 5,5 Q 35,-5 25,40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-2)"/>
                     </svg>
                   </div>
                 </div>

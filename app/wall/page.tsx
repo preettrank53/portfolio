@@ -47,33 +47,41 @@ export default async function WallPage() {
             ← BACK TO HOME
           </Link>
           
-          <div className="relative inline-block overflow-visible z-10 flex-shrink-0 mt-2 md:mt-0">
-            {/* Desktop: Middle Gap (left gutter relative to button) */}
-            <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-6 items-center gap-2 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-              <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-2deg]">
+          <div className="relative inline-block overflow-visible z-10 flex-shrink-0 mt-8 md:mt-0">
+            {/* Desktop: Right-side under button (red circle area) */}
+            <div className="hidden lg:flex absolute top-full -right-8 mt-2 flex-col items-center pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
+              <svg className="w-16 h-16 text-white/60 shrink-0 mr-12 -mt-4" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
+                <defs>
+                  <marker id="arrow-desktop-4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                    <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
+                  </marker>
+                </defs>
+                <path d="M 55,55 Q 55,15 15,5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-4)"/>
+              </svg>
+              <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-2deg]">
                 {total === 0 ? "be the first" : `add yours to the ${total}`}
               </span>
-              <svg width="44" height="44" viewBox="0 0 44 44" className="text-white/60 shrink-0">
-                <path d="M8 34 Q 20 18, 34 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-                <path d="M34 8 L 24 10 M34 8 L 32 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
-              </svg>
             </div>
 
             {/* Mobile fallback: Standard Flow Above Target */}
             <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
-              <div className="flex items-center gap-1.5">
-                <span className="font-handwritten font-semibold text-sm text-white/60 rotate-[-2deg]">
+              <div className="flex items-end gap-2">
+                <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-2deg]">
                   {total === 0 ? "be the first" : `add yours to the ${total}`}
                 </span>
-                <svg width="24" height="20" viewBox="0 0 24 20" className="text-white/60">
-                  <path d="M2 2 Q 12 2, 18 12" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
-                  <path d="M18 12 L 12 10 M18 12 L 15 17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" fill="none" />
+                <svg className="w-8 h-8 text-white/60 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <marker id="arrow-mobile-4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                      <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
+                    </marker>
+                  </defs>
+                  <path d="M 5,5 Q 35,0 35,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-4)"/>
                 </svg>
               </div>
             </div>
 
             <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto relative z-20">
-              ADD YOUR SIGNATURE
+              ADD YOUR SIGN
             </Link>
           </div>
         </div>
