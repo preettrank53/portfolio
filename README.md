@@ -41,7 +41,7 @@ This project serves as both a personal portfolio and a technical sandbox. It was
 ## Getting started
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/preettrank53/portfolio.git
 cd portfolio
 
 # Install dependencies
