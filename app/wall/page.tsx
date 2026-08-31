@@ -47,30 +47,22 @@ export default async function WallPage() {
             ← BACK TO HOME
           </Link>
           
-          <div className="relative inline-block overflow-visible z-10 flex-shrink-0 mt-8 md:mt-0">
-            {/* Unified Annotation: Right-Down Placement */}
-            <div className="absolute top-full -right-2 md:-right-6 mt-2 md:mt-4 flex flex-col items-center pointer-events-none whitespace-nowrap z-30">
-              <svg className="w-12 h-12 md:w-16 md:h-16 text-[var(--text)] opacity-75 -mt-2 mr-8 md:mr-12 shrink-0" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
-                <defs>
-                  <marker id="arrow-4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                    <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
-                  </marker>
-                </defs>
-                <path d="M 45,50 Q 30,15 5,0" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-4)"/>
-              </svg>
-              <div className="flex flex-col items-center rotate-[-3deg]">
-                <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75">
-                  {total === 0 ? "be the first" : `add yours to the ${total}`}
-                </span>
-                <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 ml-4">
-                  right here
-                </span>
-              </div>
-            </div>
-
+          <div className="relative inline-block overflow-visible flex-shrink-0 mt-8 md:mt-0">
             <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto relative z-20">
               ADD YOUR SIGN
             </Link>
+            {/* Annotation: below-right of button */}
+            <div className="absolute top-full right-0 mt-1 flex items-start gap-1 pointer-events-none select-none">
+              <svg className="w-8 h-10 text-[var(--text)] opacity-60 shrink-0 mt-0" viewBox="0 0 30 40" style={{ overflow: 'visible' }}>
+                <path d="M 5,0 Q 8,20 20,35" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M 14,30 L 20,35 L 13,35" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <div className="flex flex-col mt-4 rotate-[-2deg]">
+                <span className="font-handwritten font-semibold text-base md:text-lg text-[var(--text)] opacity-60">
+                  {total === 0 ? "be the first" : `add yours to the ${total}`}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 

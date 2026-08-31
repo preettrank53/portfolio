@@ -1274,49 +1274,24 @@ export default function PortfolioSplitPane() {
                 >
                   EMAIL ME
                 </a>
-                
-                <div className="relative inline-block w-full overflow-visible z-10 mt-16 md:mt-24">
-                  {/* Unified Annotation: Left-Up Placement */}
-                  <div className="absolute bottom-full left-2 md:left-4 mb-2 md:mb-4 flex flex-col items-start pointer-events-none whitespace-nowrap z-30">
-                    <div className="flex flex-col items-center rotate-[-3deg] ml-2">
-                      <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-70">
-                        takes 30 seconds
-                      </span>
-                      <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 ml-6">
-                        (literally)
-                      </span>
-                    </div>
-                    <svg className="w-10 h-10 md:w-12 md:h-12 text-[var(--text)] opacity-70 -mt-2 ml-4 shrink-0" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
-                      <defs>
-                        <marker id="arrow-1" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                          <polygon points="0,5 1.5,2.5 0,0 5,2.5" fill="currentColor"/>
-                        </marker>
-                      </defs>
-                      <path d="M 5,5 Q 15,45 40,40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" markerEnd="url(#arrow-1)"/>
-                    </svg>
-                  </div>
 
-                  <a
-                    href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center relative z-20"
-                  >
-                    VIEW RESUME
-                  </a>
-                </div>
+                <a
+                  href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center mt-3"
+                >
+                  VIEW RESUME
+                </a>
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="relative w-full mt-16 md:mt-24 overflow-visible z-10">
-                {/* Unified Annotation: Left-Up Placement aligned with blue line drawing */}
-                <div className="absolute bottom-full left-2 md:left-4 mb-3 md:mb-6 pointer-events-none whitespace-nowrap z-30">
-                  <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-70 inline-block rotate-[-12deg]">
-                    stalk me here
-                  </span>
-                </div>
+              <div className="w-full mt-6">
+                <span className="font-handwritten font-semibold text-base text-[var(--text)] opacity-50 block mb-2 select-none">
+                  stalk me here
+                </span>
 
-                <div className="flex justify-between w-full relative z-20">
+                <div className="flex justify-between w-full">
                   <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-6 h-6 shrink-0 flex items-center justify-center text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                     <Github className="w-full h-full" />
                   </a>
@@ -1340,7 +1315,7 @@ export default function PortfolioSplitPane() {
             )}
 
           {/* GitHub Activity Chart */}
-          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-16 md:mt-24 bg-[var(--surface)]/30 md:bg-transparent">
+          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-6 bg-[var(--surface)]/30 md:bg-transparent">
             <GitHubActivity />
           </div>
 
