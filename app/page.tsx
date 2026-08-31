@@ -1277,11 +1277,11 @@ export default function PortfolioSplitPane() {
                 
                 <div className="relative inline-block w-full overflow-visible z-10 mt-3">
                   {/* Desktop: True Left-Gutter Placement */}
-                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-                    <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-3deg]">
+                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10">
+                    <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-3deg]">
                       takes 30 seconds
                     </span>
-                    <svg className="w-24 h-12 text-white/60 shrink-0" viewBox="0 0 100 50" style={{ overflow: 'visible' }}>
+                    <svg className="w-24 h-12 text-white/90 shrink-0" viewBox="0 0 100 50" style={{ overflow: 'visible' }}>
                       <defs>
                         <marker id="arrow-desktop-1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
                           <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
@@ -1292,12 +1292,12 @@ export default function PortfolioSplitPane() {
                   </div>
                   
                   {/* Mobile fallback: Standard Flow Above Target */}
-                  <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
+                  <div className="lg:hidden mb-2 pointer-events-none">
                     <div className="flex items-end gap-2">
-                      <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-2deg]">
+                      <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-2deg]">
                         takes 30 seconds
                       </span>
-                      <svg className="w-8 h-8 text-white/60 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
+                      <svg className="w-8 h-8 text-white/90 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
                         <defs>
                           <marker id="arrow-mobile-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                             <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
@@ -1322,34 +1322,18 @@ export default function PortfolioSplitPane() {
               {/* Social Media Icons — evenly distributed across the card width */}
               <div className="relative w-full mt-6 overflow-visible z-10">
                 {/* Desktop: True Left-Gutter Placement */}
-                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-                  <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-4deg]">
-                    follow me
+                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10">
+                  <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-4deg]">
+                    stalk me here
                   </span>
-                  <svg className="w-24 h-16 text-white/60 shrink-0" viewBox="0 0 100 60" style={{ overflow: 'visible' }}>
-                    <defs>
-                      <marker id="arrow-desktop-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-                        <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
-                      </marker>
-                    </defs>
-                    <path d="M 0,15 C 30,50 60,-10 95,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-2)"/>
-                  </svg>
                 </div>
                 
                 {/* Mobile fallback: Standard Flow Above Target */}
-                <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
+                <div className="lg:hidden mb-2 pointer-events-none">
                   <div className="flex items-end gap-2">
-                    <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-3deg]">
-                      follow me
+                    <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-3deg]">
+                      stalk me here
                     </span>
-                    <svg className="w-10 h-10 text-white/60 -mb-2" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
-                      <defs>
-                        <marker id="arrow-mobile-2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                          <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
-                        </marker>
-                      </defs>
-                      <path d="M 5,5 Q 35,-5 25,40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-2)"/>
-                    </svg>
                   </div>
                 </div>
 

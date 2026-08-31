@@ -49,8 +49,8 @@ export default async function WallPage() {
           
           <div className="relative inline-block overflow-visible z-10 flex-shrink-0 mt-8 md:mt-0">
             {/* Desktop: Right-side under button (red circle area) */}
-            <div className="hidden lg:flex absolute top-full -right-8 mt-2 flex-col items-center pointer-events-none whitespace-nowrap z-10 opacity-0 animate-fade-in">
-              <svg className="w-16 h-16 text-white/60 shrink-0 mr-12 -mt-4" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
+            <div className="hidden lg:flex absolute top-full -right-8 mt-2 flex-col items-center pointer-events-none whitespace-nowrap z-10">
+              <svg className="w-16 h-16 text-white/90 shrink-0 mr-12 -mt-4" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
                 <defs>
                   <marker id="arrow-desktop-4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
                     <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
@@ -58,18 +58,18 @@ export default async function WallPage() {
                 </defs>
                 <path d="M 55,55 Q 55,15 15,5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-4)"/>
               </svg>
-              <span className="font-handwritten font-semibold text-xl text-white/60 rotate-[-2deg]">
+              <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-2deg]">
                 {total === 0 ? "be the first" : `add yours to the ${total}`}
               </span>
             </div>
 
             {/* Mobile fallback: Standard Flow Above Target */}
-            <div className="lg:hidden mb-2 opacity-0 animate-fade-in pointer-events-none">
+            <div className="lg:hidden mb-2 pointer-events-none">
               <div className="flex items-end gap-2">
-                <span className="font-handwritten font-semibold text-lg text-white/60 rotate-[-2deg]">
+                <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-2deg]">
                   {total === 0 ? "be the first" : `add yours to the ${total}`}
                 </span>
-                <svg className="w-8 h-8 text-white/60 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
+                <svg className="w-8 h-8 text-white/90 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
                   <defs>
                     <marker id="arrow-mobile-4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                       <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
