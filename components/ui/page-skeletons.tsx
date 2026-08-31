@@ -54,33 +54,27 @@ export function FeedHeaderSkeleton() {
 
 export function ExperienceCardSkeleton() {
   return (
-    <div className="mb-12 relative flex flex-col md:flex-row group" aria-busy="true">
-      <div className="hidden md:block w-32 shrink-0 pt-1 pr-6">
-        <Skeleton className="h-3 w-20 mb-2" />
-        <Skeleton className="h-2 w-16" />
+    <div className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
+      <Skeleton className="h-2 w-32 mb-4" />
+      
+      <div className="flex flex-row gap-4 items-start mb-4">
+        <Skeleton className="w-12 h-12 md:w-14 md:h-14 rounded-md shrink-0" />
+        <div className="flex-1 flex flex-col gap-2 min-w-0 pt-1">
+          <Skeleton className="h-6 md:h-7 w-2/3 md:w-1/2" />
+          <Skeleton className="h-4 w-1/3" />
+        </div>
       </div>
       
-      <div className="flex-1 min-w-0 border border-[var(--border)] p-5 md:p-6 bg-[var(--surface)]/30">
-        <div className="flex items-start gap-4 mb-4">
-          <Skeleton className="w-10 h-10 shrink-0" />
-          <div className="flex flex-col gap-2 flex-1">
-            <Skeleton className="h-6 w-2/3" />
-            <Skeleton className="h-4 w-1/3" />
-            <Skeleton className="h-3 w-1/4" />
-          </div>
-        </div>
-        
-        <div className="flex flex-col gap-2 mt-6 mb-4">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-[95%]" />
-          <Skeleton className="h-4 w-[90%]" />
-        </div>
-        
-        <div className="flex gap-2 mt-4">
-          {[1, 2, 3].map((i) => (
-            <Skeleton key={i} className="h-6 w-16" />
-          ))}
-        </div>
+      <div className="flex flex-col gap-2 mt-2 mb-6">
+        <Skeleton className="h-4 w-[95%]" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-[85%]" />
+      </div>
+      
+      <div className="flex gap-2">
+        {[1, 2, 3].map((i) => (
+          <Skeleton key={i} className="h-6 w-16" />
+        ))}
       </div>
     </div>
   )
@@ -88,30 +82,20 @@ export function ExperienceCardSkeleton() {
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="mb-12 relative flex flex-col md:flex-row group" aria-busy="true">
-      <div className="hidden md:block w-32 shrink-0 pt-1 pr-6">
-        <Skeleton className="h-3 w-20 mb-2" />
-        <Skeleton className="h-2 w-16" />
+    <div className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
+      <Skeleton className="h-2 w-32 mb-4" />
+      
+      <div className="flex flex-col gap-3 mb-6">
+        <Skeleton className="h-7 md:h-8 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
       </div>
       
-      <div className="flex-1 min-w-0 border border-[var(--border)] p-5 md:p-6 bg-[var(--surface)]/30">
-        <div className="flex flex-col gap-2 mb-4">
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-        
-        <div className="flex flex-col gap-2 mt-4 mb-4">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-[90%]" />
-        </div>
-
-        <Skeleton className="w-full aspect-video mt-4 mb-4" />
-        
-        <div className="flex gap-2 mt-4">
-          {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} className="h-6 w-14" />
-          ))}
-        </div>
+      <Skeleton className="w-full aspect-video mb-6 rounded-md" />
+      
+      <div className="flex gap-2">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} className="h-6 w-14" />
+        ))}
       </div>
     </div>
   )
@@ -119,14 +103,15 @@ export function ProjectCardSkeleton() {
 
 export function SkillsSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" aria-busy="true">
+    <div className="flex flex-col w-full" aria-busy="true">
       {[1, 2].map((group) => (
-        <div key={group} className="border border-[var(--border)] p-5 md:p-6 bg-[var(--surface)]/30">
-          <Skeleton className="h-5 w-1/2 mb-4" />
+        <div key={group} className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden">
+          <Skeleton className="h-6 md:h-8 w-2/3 md:w-1/2 mb-3" />
+          <Skeleton className="h-4 w-3/4 md:w-1/3 mb-6" />
           
-          <div className="flex flex-wrap gap-2 mt-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <Skeleton key={i} className="w-10 h-10" />
+          <div className="flex flex-wrap gap-3">
+            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+              <Skeleton key={i} className="w-[60px] h-[60px] md:w-[70px] md:h-[70px] rounded-md" />
             ))}
           </div>
         </div>
