@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 export function SignatureWallEntry() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [count, setCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("/api/signatures?limit=0")
+      .then(res => res.json())
+      .then(data => setCount(data.total || 0))
+      .catch(() => setCount(0));
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -14,8 +22,20 @@ export function SignatureWallEntry() {
     });
   };
 
+  const getDynamicText = () => {
+    if (count === null) return "";
+    if (count === 0) return "be the first to sign";
+    if (count < 10) return `${count} people signed so far`;
+    return `${count}+ left their mark`;
+  };
+
   return (
     <div className="w-full mt-3">
+      {count !== null && (
+        <span className="font-handwritten font-semibold text-base text-[var(--text)] opacity-50 block mb-2 select-none">
+          {getDynamicText()}
+        </span>
+      )}
       <a
         href="/wall"
         onClick={handleClick}
