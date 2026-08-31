@@ -1275,24 +1275,24 @@ export default function PortfolioSplitPane() {
                   EMAIL ME
                 </a>
                 
-                <div className="relative inline-block w-full overflow-visible z-10 mt-6 md:mt-10">
+                <div className="relative inline-block w-full overflow-visible z-10 mt-16 md:mt-24">
                   {/* Unified Annotation: Left-Up Placement */}
-                  <div className="absolute bottom-full left-0 mb-3 md:mb-5 flex items-end pointer-events-none whitespace-nowrap z-10">
-                    <div className="flex flex-col items-center rotate-[-5deg]">
-                      <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75">
+                  <div className="absolute bottom-full left-2 md:left-4 mb-2 md:mb-4 flex flex-col items-start pointer-events-none whitespace-nowrap z-30">
+                    <div className="flex flex-col items-center rotate-[-3deg] ml-2">
+                      <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-70">
                         takes 30 seconds
                       </span>
                       <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 ml-6">
                         (literally)
                       </span>
                     </div>
-                    <svg className="w-12 h-12 md:w-16 md:h-16 text-[var(--text)] opacity-75 -mb-6 md:-mb-8 shrink-0" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
+                    <svg className="w-10 h-10 md:w-12 md:h-12 text-[var(--text)] opacity-70 -mt-2 ml-4 shrink-0" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
                       <defs>
-                        <marker id="arrow-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                          <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
+                        <marker id="arrow-1" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                          <polygon points="0,5 1.5,2.5 0,0 5,2.5" fill="currentColor"/>
                         </marker>
                       </defs>
-                      <path d="M 10,15 Q 30,55 55,45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-1)"/>
+                      <path d="M 5,5 Q 15,45 40,40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" markerEnd="url(#arrow-1)"/>
                     </svg>
                   </div>
 
@@ -1308,10 +1308,10 @@ export default function PortfolioSplitPane() {
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="relative w-full mt-10 md:mt-12 overflow-visible z-10">
+              <div className="relative w-full mt-16 md:mt-24 overflow-visible z-10">
                 {/* Unified Annotation: Left-Up Placement aligned with blue line drawing */}
-                <div className="absolute bottom-full left-0 mb-3 md:mb-5 pointer-events-none whitespace-nowrap z-10">
-                  <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75 inline-block rotate-[-15deg]">
+                <div className="absolute bottom-full left-2 md:left-4 mb-3 md:mb-6 pointer-events-none whitespace-nowrap z-30">
+                  <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-70 inline-block rotate-[-12deg]">
                     stalk me here
                   </span>
                 </div>
@@ -1340,7 +1340,7 @@ export default function PortfolioSplitPane() {
             )}
 
           {/* GitHub Activity Chart */}
-          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-4 md:mt-6 bg-[var(--surface)]/30 md:bg-transparent">
+          <div className="border border-[var(--border)] md:border-none p-4 md:p-0 mb-4 md:mb-0 mt-16 md:mt-24 bg-[var(--surface)]/30 md:bg-transparent">
             <GitHubActivity />
           </div>
 
