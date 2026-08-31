@@ -574,14 +574,14 @@ export default function PortfolioSplitPane() {
     
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (wasStuck || prevY > (feedAnchorRef.current?.offsetTop ?? 0) - 8) {
-          // Force user to remain in feed chrome: nav flush to top
+        const anchorTop = feedAnchorRef.current?.offsetTop ?? 0;
+        if (wasStuck && prevY > anchorTop - 8) {
+          // User was past the nav — keep them anchored
           const anchor = feedAnchorRef.current;
           if (anchor) {
             const y = anchor.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({ top: Math.max(y, 0), behavior: "instant" as ScrollBehavior });
           }
-          // Ensure stuck UI state stays true on mobile
           setIsMobileStuck(true);
         } else {
           // User was still in profile area — keep their scrollY
@@ -1499,12 +1499,12 @@ export default function PortfolioSplitPane() {
               <motion.div
                 key={activeTab}
                 custom={swipeDirection}
-                initial={{ opacity: 0, x: swipeDirection * 40 }}
+                initial={{ opacity: 0, x: swipeDirection * 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: swipeDirection * -40 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
+                exit={{ opacity: 0, x: swipeDirection * -20 }}
+                transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
                 id="right-scroll-container"
-                className="flex flex-col md:flex-1 md:overflow-y-auto pr-2 pb-12 w-full"
+                className="flex flex-col md:flex-1 md:overflow-y-auto pb-12 w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               >
             
             {/* New Entry Button for Admin */}
@@ -1913,7 +1913,7 @@ export default function PortfolioSplitPane() {
             )}
 
             {(loading || isTabLoading) ? (
-              <div className="flex flex-col py-8 w-full">
+              <div className="flex flex-col py-8 px-6 sm:px-8 md:px-0 w-full">
                 {activeTab === "experience" && (
                   <>
                     <ExperienceCardSkeleton />
