@@ -1,8 +1,8 @@
-# Preet Rank — Portfolio
+# Preet Rank - Portfolio
 
 A brutalist, interactive developer portfolio and engineering playground focused on AI/ML, motion polish, and production-grade architecture.
 
-**Live demo:** `https://your-deployment-url.vercel.app` *(add your URL here)*
+**Live demo:** `https://preetrank.vercel.app/` 
 
 ## Why this exists
 This project serves as both a personal portfolio and a technical sandbox. It was built to demonstrate an understanding of modern React patterns, responsive interactions, and backend-as-a-service integrations, all wrapped in a unique brutalist aesthetic that avoids generic templates.
@@ -31,15 +31,17 @@ This project serves as both a personal portfolio and a technical sandbox. It was
 - **Theme System**: Driven by CSS variables (`globals.css`) combined with Tailwind utilities for easy theming and dark/light mode support.
 
 ## Screenshots
-*(Add paths to your screenshots in a `docs/` folder here)*
-- `docs/desktop-home.png` — Desktop layout
-- `docs/mobile-swipe.png` — Mobile layout
-- `docs/signature-wall.png` — The Signature Wall
+<img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/2ad9264f-f75d-4b9d-b605-371c627835fc" />
+
+- `docs/desktop-home.png` - Desktop layout
+<img width="1919" height="900" alt="image" src="https://github.com/user-attachments/assets/2189117b-4fac-445a-b4fe-207fb2561b83" />
+
+- `docs/signature-wall.png` - The Signature Wall
 
 ## Getting started
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/preettrank53/portfolio.git
 cd portfolio
 
 # Install dependencies
