@@ -48,35 +48,23 @@ export default async function WallPage() {
           </Link>
           
           <div className="relative inline-block overflow-visible z-10 flex-shrink-0 mt-8 md:mt-0">
-            {/* Desktop: Right-side under button (red circle area) */}
-            <div className="hidden lg:flex absolute top-full -right-8 mt-2 flex-col items-center pointer-events-none whitespace-nowrap z-10">
-              <svg className="w-16 h-16 text-white/90 shrink-0 mr-12 -mt-4" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
+            {/* Unified Annotation: Right-Down Placement */}
+            <div className="absolute top-full -right-2 md:-right-6 mt-2 md:mt-4 flex flex-col items-center pointer-events-none whitespace-nowrap z-30">
+              <svg className="w-12 h-12 md:w-16 md:h-16 text-[var(--text)] opacity-75 -mt-2 mr-8 md:mr-12 shrink-0" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
                 <defs>
-                  <marker id="arrow-desktop-4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-                    <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
+                  <marker id="arrow-4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
                   </marker>
                 </defs>
-                <path d="M 55,55 Q 55,15 15,5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-4)"/>
+                <path d="M 45,50 Q 30,15 5,0" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-4)"/>
               </svg>
-              <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-2deg]">
-                {total === 0 ? "be the first" : `add yours to the ${total}`}
-              </span>
-            </div>
-
-            {/* Mobile fallback: Standard Flow Above Target */}
-            <div className="lg:hidden mb-2 pointer-events-none">
-              <div className="flex items-end gap-2">
-                <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-2deg]">
+              <div className="flex flex-col items-center rotate-[-3deg]">
+                <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75">
                   {total === 0 ? "be the first" : `add yours to the ${total}`}
                 </span>
-                <svg className="w-8 h-8 text-white/90 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
-                  <defs>
-                    <marker id="arrow-mobile-4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                      <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
-                    </marker>
-                  </defs>
-                  <path d="M 5,5 Q 35,0 35,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-4)"/>
-                </svg>
+                <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 ml-4">
+                  right here
+                </span>
               </div>
             </div>
 

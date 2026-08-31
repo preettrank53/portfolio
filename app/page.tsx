@@ -1222,13 +1222,13 @@ export default function PortfolioSplitPane() {
       </div>
 
       {/* Centered container flexbox grid */}
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-visible px-6 sm:px-8 md:px-0">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-hidden px-6 sm:px-8 md:px-0">
         
         {/* ==========================================
            LEFT COLUMN: IDENTITY PANE (Sticky screen height on desktop, block on mobile)
            ========================================== */}
         <ErrorBoundary title="IDENTITY PANE">
-          <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
+          <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
             {/* Box 1: Profile + Buttons */}
             {loading ? (
               <SidebarSkeleton />
@@ -1275,37 +1275,25 @@ export default function PortfolioSplitPane() {
                   EMAIL ME
                 </a>
                 
-                <div className="relative inline-block w-full overflow-visible z-10 mt-3">
-                  {/* Desktop: True Left-Gutter Placement */}
-                  <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10">
-                    <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-3deg]">
-                      takes 30 seconds
-                    </span>
-                    <svg className="w-24 h-12 text-white/90 shrink-0" viewBox="0 0 100 50" style={{ overflow: 'visible' }}>
-                      <defs>
-                        <marker id="arrow-desktop-1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-                          <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
-                        </marker>
-                      </defs>
-                      <path d="M 0,25 C 30,5 60,45 95,25" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-1)"/>
-                    </svg>
-                  </div>
-                  
-                  {/* Mobile fallback: Standard Flow Above Target */}
-                  <div className="lg:hidden mb-2 pointer-events-none">
-                    <div className="flex items-end gap-2">
-                      <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-2deg]">
+                <div className="relative inline-block w-full overflow-visible z-10 mt-6 md:mt-10">
+                  {/* Unified Annotation: Left-Up Placement */}
+                  <div className="absolute bottom-full left-0 mb-3 md:mb-5 flex items-end pointer-events-none whitespace-nowrap z-10">
+                    <div className="flex flex-col items-center rotate-[-5deg]">
+                      <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75">
                         takes 30 seconds
                       </span>
-                      <svg className="w-8 h-8 text-white/90 -mb-2" viewBox="0 0 40 40" style={{ overflow: 'visible' }}>
-                        <defs>
-                          <marker id="arrow-mobile-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                            <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
-                          </marker>
-                        </defs>
-                        <path d="M 5,5 Q 25,0 35,30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-1)"/>
-                      </svg>
+                      <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 ml-6">
+                        (literally)
+                      </span>
                     </div>
+                    <svg className="w-12 h-12 md:w-16 md:h-16 text-[var(--text)] opacity-75 -mb-6 md:-mb-8 shrink-0" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
+                      <defs>
+                        <marker id="arrow-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                          <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
+                        </marker>
+                      </defs>
+                      <path d="M 10,15 Q 30,55 55,45" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-1)"/>
+                    </svg>
                   </div>
 
                   <a
@@ -1320,21 +1308,12 @@ export default function PortfolioSplitPane() {
               </div>
 
               {/* Social Media Icons — evenly distributed across the card width */}
-              <div className="relative w-full mt-6 overflow-visible z-10">
-                {/* Desktop: True Left-Gutter Placement */}
-                <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-3 pointer-events-none whitespace-nowrap z-10">
-                  <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-4deg]">
+              <div className="relative w-full mt-10 md:mt-12 overflow-visible z-10">
+                {/* Unified Annotation: Left-Up Placement aligned with blue line drawing */}
+                <div className="absolute bottom-full left-0 mb-3 md:mb-5 pointer-events-none whitespace-nowrap z-10">
+                  <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75 inline-block rotate-[-15deg]">
                     stalk me here
                   </span>
-                </div>
-                
-                {/* Mobile fallback: Standard Flow Above Target */}
-                <div className="lg:hidden mb-2 pointer-events-none">
-                  <div className="flex items-end gap-2">
-                    <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-3deg]">
-                      stalk me here
-                    </span>
-                  </div>
                 </div>
 
                 <div className="flex justify-between w-full relative z-20">

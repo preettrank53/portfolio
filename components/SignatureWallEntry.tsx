@@ -31,35 +31,23 @@ export function SignatureWallEntry() {
 
   return (
     <div className="w-full relative inline-block overflow-visible mt-8">
-      {/* Desktop: True Left-Gutter Placement */}
-      <div className="hidden lg:flex absolute right-full top-1/2 -translate-y-1/2 mr-4 items-center gap-2 pointer-events-none whitespace-nowrap z-10">
-        <span className="font-handwritten font-semibold text-xl text-white/90 rotate-[-2deg]">
-          {getDynamicText()}
-        </span>
-        <svg className="w-28 h-12 text-white/90 shrink-0" viewBox="0 0 120 50" style={{ overflow: 'visible' }}>
+      {/* Unified Annotation: Right-Down Placement */}
+      <div className="absolute top-full right-0 mt-2 md:mt-4 flex flex-col items-end pointer-events-none whitespace-nowrap z-10">
+        <svg className="w-12 h-12 md:w-16 md:h-16 text-[var(--text)] opacity-75 -mt-6 md:-mt-8 mr-6 md:mr-8 shrink-0" viewBox="0 0 60 60" style={{ overflow: 'visible' }}>
           <defs>
-            <marker id="arrow-desktop-3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-              <polygon points="0,7 2,3.5 0,0 7,3.5" fill="currentColor"/>
+            <marker id="arrow-3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
             </marker>
           </defs>
-          <path d="M 0,25 Q 50,55 115,25" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-desktop-3)"/>
+          <path d="M 50,45 Q 30,5 5,15" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-3)"/>
         </svg>
-      </div>
-
-      {/* Mobile fallback: Standard Flow Above Target */}
-      <div className="lg:hidden mb-2 pointer-events-none">
-        <div className="flex items-end gap-2">
-          <span className="font-handwritten font-semibold text-lg text-white/90 rotate-[-2deg]">
+        <div className="flex flex-col items-end rotate-[3deg] mr-2">
+          <span className="font-handwritten font-semibold text-lg md:text-xl text-[var(--text)] opacity-75">
             {getDynamicText()}
           </span>
-          <svg className="w-10 h-10 text-white/90 -mb-2" viewBox="0 0 50 50" style={{ overflow: 'visible' }}>
-            <defs>
-              <marker id="arrow-mobile-3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                <polygon points="0,6 2,3 0,0 6,3" fill="currentColor"/>
-              </marker>
-            </defs>
-            <path d="M 5,5 Q 40,-5 35,40" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" markerEnd="url(#arrow-mobile-3)"/>
-          </svg>
+          <span className="font-handwritten font-medium text-sm md:text-base text-[var(--text)] opacity-50 mr-4">
+            join them
+          </span>
         </div>
       </div>
       
