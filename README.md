@@ -35,6 +35,7 @@ This project serves as both a personal portfolio and a technical sandbox. It was
 
 - `docs/desktop-home.png` - Desktop layout
 <img width="1919" height="900" alt="image" src="https://github.com/user-attachments/assets/2189117b-4fac-445a-b4fe-207fb2561b83" />
+
 - `docs/signature-wall.png` - The Signature Wall
 
 ## Getting started
