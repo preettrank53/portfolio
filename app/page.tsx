@@ -23,6 +23,7 @@ import { ProjectCard } from "@/components/feed/ProjectCard";
 import { StackSection } from "@/components/feed/StackSection";
 import { AdminEditorForm } from "@/components/admin/AdminEditorForm";
 import { AdminLoginModal } from "@/components/admin/AdminLoginModal";
+import { PRLogo } from "@/components/identity/PRLogo";
 
 
 
@@ -584,7 +585,9 @@ export default function PortfolioSplitPane() {
       
       {/* Sticky Header */}
       <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 px-4 md:px-6 flex justify-between items-center h-16">
-        <div className="font-mono font-bold text-zinc-50 tracking-widest uppercase">PREET RANK</div>
+        <a href="#" className="flex items-center">
+          <PRLogo className="w-8 h-auto text-zinc-50 hover:text-zinc-300 transition-colors" />
+        </a>
         <nav className="flex items-center gap-4 text-xs font-mono text-zinc-400">
           <a href="#experience" className="hover:text-zinc-50 transition-colors">EXPERIENCE</a>
           <a href="#projects" className="hover:text-zinc-50 transition-colors">PROJECTS</a>
