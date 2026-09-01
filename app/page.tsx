@@ -5,9 +5,8 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { useSwipeable } from "react-swipeable";
+import React, { useState, useEffect } from "react";
+import { useScroll, useSpring } from "framer-motion";
 import {
   Plus
 } from "lucide-react";
@@ -73,15 +72,12 @@ const STATIC_DATA: Record<string, unknown[]> = {
 // Types ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ imported from @/types/portfolio
 
 
-const TABS = [
-  { id: "experience", label: "EXPERIENCE" },
-  { id: "stack", label: "SKILLS" },
-  { id: "projects", label: "PROJECTS" }
-];
 
 export default function PortfolioSplitPane() {
-  const [activeTab, setActiveTab] = useState<string>("experience");
-  const [tabData, setTabData] = useState<DevLogItem[]>([]);
+  const [editingSection, setEditingSection] = useState<string | null>(null);
+  const [experienceDataState, setExperienceDataState] = useState<DevLogItem[]>([]);
+  const [projectsDataState, setProjectsDataState] = useState<DevLogItem[]>([]);
+  const [stackDataState, setStackDataState] = useState<DevLogItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [adminMode, setAdminMode] = useState<boolean>(false);
   const [showAdminModal, setShowAdminModal] = useState<boolean>(false);
@@ -90,16 +86,13 @@ export default function PortfolioSplitPane() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   
   // Mobile Sticky Fallback
-  const [isMobileStuck, setIsMobileStuck] = useState<boolean>(false);
-  const stickySentinelRef = useRef<HTMLDivElement>(null);
-
+  
   // Theme Switching
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState<boolean>(false);
 
   // Appreciations and Github Stars
-  const [isTabLoading, setIsTabLoading] = useState<boolean>(false);
-  const [appreciations, setAppreciations] = useState<Record<string, number>>({});
+    const [appreciations, setAppreciations] = useState<Record<string, number>>({});
   const [userAppreciated, setUserAppreciated] = useState<Record<string, boolean>>({});
 
   // Editing state
@@ -127,118 +120,20 @@ export default function PortfolioSplitPane() {
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
 
   // Framer motion scroll progress
-  const { scrollYProgress, scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
-  const [showIdentity, setShowIdentity] = useState<boolean>(false);
-  const [swipeDirection, setSwipeDirection] = useState<number>(1);
-
-  useEffect(() => {
-    return scrollY.on('change', (latest) => {
-      if (window.innerWidth < 768) {
-        setShowIdentity(latest > 200);
-      } else {
-        setShowIdentity(false);
-      }
-    });
-  }, [scrollY]);
-
-  const tabLoadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const feedAnchorRef = useRef<HTMLDivElement>(null);
-  const feedBodyRef = useRef<HTMLDivElement | null>(null);
-  const lockedFeedHeightRef = useRef<number | null>(null);
-
-  const handleTabSwitch = (newTabId: string, direction: number) => {
-    if (newTabId === activeTab) return;
-    
-    const wasStuck = isMobileStuck; // capture BEFORE content swap
-    const prevY = window.scrollY;
-
-    // Lock feed height to prevent scroll jump before unmounting
-    if (feedBodyRef.current) {
-      lockedFeedHeightRef.current = feedBodyRef.current.offsetHeight;
-    }
-
-    setSwipeDirection(direction);
-    setActiveTab(newTabId);
-    setIsAddingNew(false);
-    setEditingId(null);
-    setIsTabLoading(true);
-
-    if (tabLoadingTimeoutRef.current) clearTimeout(tabLoadingTimeoutRef.current);
-    
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        const anchorTop = feedAnchorRef.current?.offsetTop ?? 0;
-        if (wasStuck && prevY > anchorTop - 8) {
-          // User was past the nav ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â keep them anchored
-          const anchor = feedAnchorRef.current;
-          if (anchor) {
-            const y = anchor.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({ top: Math.max(y, 0), behavior: "instant" as ScrollBehavior });
-          }
-          setIsMobileStuck(true);
-        } else {
-          // User was still in profile area ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â keep their scrollY
-          window.scrollTo({ top: prevY, behavior: "instant" as ScrollBehavior });
-        }
-
-        tabLoadingTimeoutRef.current = setTimeout(() => {
-          setIsTabLoading(false);
-          lockedFeedHeightRef.current = null;
-        }, 300);
-      });
-    });
-  };
-
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
-        const currentIndex = TABS.findIndex(t => t.id === activeTab);
-        const nextIndex = (currentIndex + 1) % TABS.length;
-        handleTabSwitch(TABS[nextIndex].id, 1);
-      }
-    },
-    onSwipedRight: () => {
-      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
-        const currentIndex = TABS.findIndex(t => t.id === activeTab);
-        const prevIndex = (currentIndex - 1 + TABS.length) % TABS.length;
-        handleTabSwitch(TABS[prevIndex].id, -1);
-      }
-    },
-    trackMouse: false
-  });
-
+  
+  
   // =========================================================
   // BOOTSTRAP & SHORTCUTS
   // =========================================================
 
-  // Mobile Sticky Observer Fallback
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (window.innerWidth < 768) {
-          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-            setIsMobileStuck(true);
-          } else {
-            setIsMobileStuck(false);
-          }
-        }
-      },
-      { threshold: [1.0] }
-    );
-
-    if (stickySentinelRef.current) {
-      observer.observe(stickySentinelRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
+  
   useEffect(() => {
     setMounted(true);
     if ('scrollRestoration' in history) {
@@ -266,12 +161,7 @@ export default function PortfolioSplitPane() {
         e.preventDefault();
         setOpenCommandPalette(prev => !prev);
       }
-      // Quick tabs jumps
-      if (e.altKey) {
-        if (e.key === "1") { setActiveTab("experience"); e.preventDefault(); }
-        if (e.key === "2") { setActiveTab("stack"); e.preventDefault(); }
-        if (e.key === "3") { setActiveTab("projects"); e.preventDefault(); }
-      }
+
       // Escape closes open modals
       if (e.key === "Escape") {
         setShowAdminModal(false);
@@ -378,28 +268,28 @@ export default function PortfolioSplitPane() {
     setUserAppreciated(localAppreciated);
   }, []);
 
-  // Fetch data when active tab changes
+  
   useEffect(() => {
     const loadData = async () => {
       try {
-        const staticData = STATIC_DATA[activeTab === "activity" ? "tweets" : activeTab] as DevLogItem[];
-        const safeData = Array.isArray(staticData) ? staticData : [];
-        setTabData(safeData);
+        setExperienceDataState(Array.isArray(STATIC_DATA.experience) ? STATIC_DATA.experience as DevLogItem[] : []);
+        setProjectsDataState(Array.isArray(STATIC_DATA.projects) ? STATIC_DATA.projects as DevLogItem[] : []);
+        setStackDataState(Array.isArray(STATIC_DATA.stack) ? STATIC_DATA.stack as DevLogItem[] : []);
         setLoading(false);
         
-        // Fetch appreciations
-        const slugs = safeData.map((d: DevLogItem) => d?.id).filter(Boolean) as string[];
+        // Fetch appreciations for all items
+        const allItems = [...(STATIC_DATA.experience as DevLogItem[]), ...(STATIC_DATA.projects as DevLogItem[])];
+        const slugs = allItems.map((d: DevLogItem) => d?.id).filter(Boolean) as string[];
         if (slugs.length > 0) {
           const counts = await getAppreciations(slugs);
           setAppreciations(prev => ({ ...prev, ...(counts || {}) }));
         }
       } catch {
-        setTabData([]);
         setLoading(false);
       }
     };
     loadData();
-  }, [activeTab]);
+  }, []);
 
   // =========================================================
   // ACTIONS & HANDLERS
@@ -483,13 +373,13 @@ export default function PortfolioSplitPane() {
     if (!editForm) return;
 
     const finalForm = { ...editForm };
-    if (activeTab === "experience" && Array.isArray(finalForm.description)) {
+    if (editingSection === "experience" && Array.isArray(finalForm.description)) {
       finalForm.description = finalForm.description
         .map(line => line.trim())
         .filter(line => line.length > 0);
     }
 
-    if (activeTab === "projects") {
+    if (editingSection === "projects") {
       finalForm.tags = tagsInput
         .split(",")
         .map(t => t.trim().toUpperCase())
@@ -500,7 +390,7 @@ export default function PortfolioSplitPane() {
     }
 
     // Ensure single pin constraint
-    const updated = tabData.map(item => {
+    const updated = (editingSection === "experience" ? experienceDataState : editingSection === "projects" ? projectsDataState : stackDataState).map(item => {
       if (item.id === editingId) {
         return finalForm;
       }
@@ -510,11 +400,13 @@ export default function PortfolioSplitPane() {
       return item;
     });
 
-    setTabData(updated);
+    if (editingSection === "experience") setExperienceDataState(updated);
+    else if (editingSection === "projects") setProjectsDataState(updated);
+    else setStackDataState(updated);
     setEditingId(null);
     setEditForm(null);
     
-    const res = await saveDevData(activeTab, updated);
+    const res = await saveDevData(editingSection || "experience", updated);
     if (res.success) {
       toast("CHANGES COMMITTED SUCCESSFULLY", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
@@ -534,12 +426,15 @@ export default function PortfolioSplitPane() {
   };
 
   const handleDeleteEntry = async (id: string) => {
-    const updatedList = tabData.filter(d => d.id !== id);
-    setTabData(updatedList);
+    const targetList = editingSection === "experience" ? experienceDataState : editingSection === "projects" ? projectsDataState : stackDataState;
+    const updatedList = targetList.filter(d => d.id !== id);
+    if (editingSection === "experience") setExperienceDataState(updatedList);
+    else if (editingSection === "projects") setProjectsDataState(updatedList);
+    else setStackDataState(updatedList);
     setEditingId(null);
     setEditForm(null);
     setConfirmDeleteId(null);
-    const res = await saveDevData(activeTab, updatedList);
+    const res = await saveDevData(editingSection || "experience", updatedList);
     if (res.success) {
       toast("ENTRY DELETED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs tracking-wider"
@@ -559,7 +454,8 @@ export default function PortfolioSplitPane() {
 
   const handleTogglePin = async (item: DevLogItem) => {
     const willPin = !item.isPinned;
-    const updatedList = tabData.map(d => {
+    const targetList = editingSection === "experience" ? experienceDataState : editingSection === "projects" ? projectsDataState : stackDataState;
+    const updatedList = targetList.map(d => {
       if (d.id === item.id) {
         return { ...d, isPinned: willPin };
       }
@@ -569,8 +465,10 @@ export default function PortfolioSplitPane() {
       return d;
     });
 
-    setTabData(updatedList);
-    const res = await saveDevData(activeTab, updatedList);
+    if (editingSection === "experience") setExperienceDataState(updatedList);
+    else if (editingSection === "projects") setProjectsDataState(updatedList);
+    else setStackDataState(updatedList);
+    const res = await saveDevData(editingSection || "experience", updatedList);
     if (res.success) {
       toast(willPin ? "ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ PINNED TO TOP" : "ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ UNPINNED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs tracking-wider"
@@ -585,10 +483,11 @@ export default function PortfolioSplitPane() {
   };
 
   // Initialize new entry ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â all fields empty so placeholders show correctly
-  const handleStartNewEntry = () => {
+  const handleStartNewEntry = (section: string) => {
+    setEditingSection(section);
     setIsAddingNew(true);
     setEditForm({
-      id: `${activeTab.slice(0, 4)}-${Date.now()}`,
+      id: `${section.slice(0, 4)}-${Date.now()}`,
       isPinned: false,
       date: "",
       category: "",
@@ -599,14 +498,14 @@ export default function PortfolioSplitPane() {
       codeSnippet: null,
       liveUrl: "",
       codeUrl: "",
-      ...(activeTab === "experience" ? {
+      ...(section === "experience" ? {
         company: "",
         type: "",
         duration: "",
         location: "",
         logoUrl: "",
         description: []
-      } : activeTab === "stack" ? {
+      } : section === "stack" ? {
         description: "",
         tools: []
       } : {})
@@ -619,13 +518,13 @@ export default function PortfolioSplitPane() {
     if (!editForm) return;
 
     const finalForm = { ...editForm };
-    if (activeTab === "experience" && Array.isArray(finalForm.description)) {
+    if (editingSection === "experience" && Array.isArray(finalForm.description)) {
       finalForm.description = finalForm.description
         .map(line => line.trim())
         .filter(line => line.length > 0);
     }
 
-    if (activeTab === "projects") {
+    if (editingSection === "projects") {
       finalForm.tags = tagsInput
         .split(",")
         .map(t => t.trim().toUpperCase())
@@ -636,7 +535,8 @@ export default function PortfolioSplitPane() {
     }
 
     // Ensure single pin constraint
-    const updated = [finalForm, ...tabData].map(item => {
+    const targetList = editingSection === "experience" ? experienceDataState : editingSection === "projects" ? projectsDataState : stackDataState;
+    const updated = [finalForm, ...targetList].map(item => {
       if (item.id === finalForm.id) {
         return finalForm;
       }
@@ -646,11 +546,13 @@ export default function PortfolioSplitPane() {
       return item;
     });
 
-    setTabData(updated);
+    if (editingSection === "experience") setExperienceDataState(updated);
+    else if (editingSection === "projects") setProjectsDataState(updated);
+    else setStackDataState(updated);
     setIsAddingNew(false);
     setEditForm(null);
 
-    const res = await saveDevData(activeTab, updated);
+    const res = await saveDevData(editingSection || "experience", updated);
     if (res.success) {
       toast("NEW RECORD DEPLOYED", {
         className: "bg-canvas border border-charcoal text-purewhite rounded-none font-mono uppercase text-xs"
@@ -672,10 +574,10 @@ export default function PortfolioSplitPane() {
 
   // Export JSON locally (Client-side) ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â primary persistence mechanism on Vercel
   const handleExportJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tabData, null, 2));
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editingSection === "experience" ? experienceDataState : editingSection === "projects" ? projectsDataState : stackDataState, null, 2));
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `${activeTab}.json`);
+    downloadAnchor.setAttribute("download", `${editingSection || "export"}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -686,12 +588,12 @@ export default function PortfolioSplitPane() {
   };
 
   return (
-    <main className="min-h-[100dvh] bg-transparent text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-10">
+    <main className="min-h-screen w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-16 pb-24 text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-10">
       <BackgroundDecorations theme={theme} scaleX={scaleX} />
 
 
       {/* Centered container flexbox grid */}
-      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row w-full relative z-10 md:h-screen md:overflow-hidden px-6 sm:px-8 md:px-0">
+      <div className="w-full relative z-10 flex flex-col">
         <IdentityPane
           loading={loading}
           mounted={mounted}
@@ -708,29 +610,31 @@ export default function PortfolioSplitPane() {
          RIGHT COLUMN: DEV LOGBOOK FEED (Scrollable window-level, standard px padding)
          ========================================== */}
       <ErrorBoundary title="LOGBOOK FEED">
-        <FeedShell
-          activeTab={activeTab}
-          tabs={TABS}
-          handleTabSwitch={handleTabSwitch}
-          swipeHandlers={swipeHandlers}
-          isMobileStuck={isMobileStuck}
-          showIdentity={showIdentity}
-          feedAnchorRef={feedAnchorRef}
-          stickySentinelRef={stickySentinelRef}
-          feedBodyRef={feedBodyRef}
-          lockedFeedHeightRef={lockedFeedHeightRef}
-          swipeDirection={swipeDirection}
-        >
+        <FeedShell>
             
             {/* New Entry Button for Admin */}
             {adminMode && !isAddingNew && !editingId && (
-              <div className="pt-6">
+              <div className="pt-6 flex gap-2">
                 <button 
-                  onClick={handleStartNewEntry}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                  onClick={() => handleStartNewEntry("experience")}
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>ADD NEW {activeTab.slice(0, -1).toUpperCase()} ENTRY</span>
+                  <span>ADD EXPERIENCE</span>
+                </button>
+                <button 
+                  onClick={() => handleStartNewEntry("projects")}
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>ADD PROJECT</span>
+                </button>
+                <button 
+                  onClick={() => handleStartNewEntry("stack")}
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>ADD SKILL</span>
                 </button>
               </div>
             )}
@@ -739,7 +643,7 @@ export default function PortfolioSplitPane() {
               <AdminEditorForm
                 editForm={editForm}
                 setEditForm={setEditForm}
-                activeTab={activeTab}
+                activeTab={editingSection || "experience"}
                 isAddingNew={true}
                 tagsInput={tagsInput}
                 setTagsInput={setTagsInput}
@@ -748,51 +652,19 @@ export default function PortfolioSplitPane() {
               />
             )}
 
-            {(loading || isTabLoading) ? (
+            {loading ? (
               <div className="flex flex-col py-8 px-6 sm:px-8 md:px-0 w-full">
-                {activeTab === "experience" && (
-                  <>
-                    <ExperienceCardSkeleton />
-                    <ExperienceCardSkeleton />
-                  </>
-                )}
-                {activeTab === "projects" && (
-                  <>
-                    <ProjectCardSkeleton />
-                    <ProjectCardSkeleton />
-                  </>
-                )}
-                {activeTab === "stack" && (
-                  <SkillsSkeleton />
-                )}
-              </div>
-            ) : (!tabData || tabData.length === 0) ? (
-              <div className="border border-charcoal p-12 text-center select-none font-mono flex flex-col items-center justify-center gap-4 my-8">
-                <span className="text-[10px] text-ash uppercase tracking-[0.2em]">NO ENTRIES YET</span>
-                {adminMode && (
-                  <button
-                    onClick={handleStartNewEntry}
-                    className="px-4 py-2 border border-charcoal text-[9px] text-purewhite uppercase tracking-widest hover:border-accent hover:text-accent bg-transparent transition-all duration-150 active:scale-95 min-h-[44px]"
-                  >
-                    + CREATE FIRST ENTRY
-                  </button>
-                )}
+                <ExperienceCardSkeleton />
+                <ProjectCardSkeleton />
+                <SkillsSkeleton />
               </div>
             ) : (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="flex flex-col"
-                >
-                  {[...tabData].sort((a, b) => {
-                    if (a.isPinned && !b.isPinned) return -1;
-                    if (!a.isPinned && b.isPinned) return 1;
-                    return 0;
-                  }).map((post, index) => {
+              <div className="flex flex-col gap-12 mt-12">
+                
+                {/* EXPERIENCE SECTION */}
+                <div className="flex flex-col">
+                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8">EXPERIENCE</h2>
+                  {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
                     const appCount = appreciations[post.id] ?? 0;
@@ -803,7 +675,7 @@ export default function PortfolioSplitPane() {
                           key={post.id}
                           editForm={editForm}
                           setEditForm={setEditForm}
-                          activeTab={activeTab}
+                          activeTab="experience"
                           isAddingNew={false}
                           tagsInput={tagsInput}
                           setTagsInput={setTagsInput}
@@ -816,33 +688,48 @@ export default function PortfolioSplitPane() {
                       );
                     }
 
-                    if (activeTab === "stack") {
-                      return (
-                        <StackSection
-                          key={post.id}
-                          post={post}
-                          index={index}
-                          adminMode={adminMode}
-                          handleStartEdit={handleStartEdit}
-                        />
-                      );
-                    }
+                    return (
+                      <ExperienceCard
+                        key={post.id}
+                        post={post}
+                        index={index}
+                        adminMode={adminMode}
+                        hasUserAppreciated={hasUserAppreciated}
+                        appCount={appCount}
+                        handleTogglePin={handleTogglePin}
+                        handleStartEdit={(item) => { setEditingSection("experience"); handleStartEdit(item); }}
+                        handleAppreciate={handleAppreciate}
+                        setScreenshotList={setScreenshotList}
+                        setScreenshotIndex={setScreenshotIndex}
+                        setSelectedScreenshot={setSelectedScreenshot}
+                      />
+                    );
+                  })}
+                </div>
 
-                    if (activeTab === "experience") {
+                {/* PROJECTS SECTION */}
+                <div className="flex flex-col">
+                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8 mt-12">PROJECTS</h2>
+                  {projectsDataState.map((post, index) => {
+                    const isEditing = editingId === post.id;
+                    const hasUserAppreciated = userAppreciated[post.id] || false;
+                    const appCount = appreciations[post.id] ?? 0;
+
+                    if (isEditing && editForm) {
                       return (
-                        <ExperienceCard
+                        <AdminEditorForm
                           key={post.id}
-                          post={post}
-                          index={index}
-                          adminMode={adminMode}
-                          hasUserAppreciated={hasUserAppreciated}
-                          appCount={appCount}
-                          handleTogglePin={handleTogglePin}
-                          handleStartEdit={handleStartEdit}
-                          handleAppreciate={handleAppreciate}
-                          setScreenshotList={setScreenshotList}
-                          setScreenshotIndex={setScreenshotIndex}
-                          setSelectedScreenshot={setSelectedScreenshot}
+                          editForm={editForm}
+                          setEditForm={setEditForm}
+                          activeTab="projects"
+                          isAddingNew={false}
+                          tagsInput={tagsInput}
+                          setTagsInput={setTagsInput}
+                          onSave={handleSaveEdit}
+                          onCancel={handleCancelEdit}
+                          onDelete={() => handleDeleteEntry(post.id)}
+                          confirmDeleteId={confirmDeleteId}
+                          setConfirmDeleteId={setConfirmDeleteId}
                         />
                       );
                     }
@@ -863,7 +750,7 @@ export default function PortfolioSplitPane() {
                         shouldTruncate={shouldTruncate}
                         setExpandedCards={setExpandedCards}
                         handleTogglePin={handleTogglePin}
-                        handleStartEdit={handleStartEdit}
+                        handleStartEdit={(item) => { setEditingSection("projects"); handleStartEdit(item); }}
                         handleAppreciate={handleAppreciate}
                         setScreenshotList={setScreenshotList}
                         setScreenshotIndex={setScreenshotIndex}
@@ -871,8 +758,46 @@ export default function PortfolioSplitPane() {
                       />
                     );
                   })}
-                </motion.div>
-              </AnimatePresence>
+                </div>
+
+                {/* SKILLS SECTION */}
+                <div className="flex flex-col">
+                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8 mt-12">SKILLS</h2>
+                  {stackDataState.map((post, index) => {
+                    const isEditing = editingId === post.id;
+
+                    if (isEditing && editForm) {
+                      return (
+                        <AdminEditorForm
+                          key={post.id}
+                          editForm={editForm}
+                          setEditForm={setEditForm}
+                          activeTab="stack"
+                          isAddingNew={false}
+                          tagsInput={tagsInput}
+                          setTagsInput={setTagsInput}
+                          onSave={handleSaveEdit}
+                          onCancel={handleCancelEdit}
+                          onDelete={() => handleDeleteEntry(post.id)}
+                          confirmDeleteId={confirmDeleteId}
+                          setConfirmDeleteId={setConfirmDeleteId}
+                        />
+                      );
+                    }
+
+                    return (
+                      <StackSection
+                        key={post.id}
+                        post={post}
+                        index={index}
+                        adminMode={adminMode}
+                        handleStartEdit={(item) => { setEditingSection("stack"); handleStartEdit(item); }}
+                      />
+                    );
+                  })}
+                </div>
+
+              </div>
             )}
         </FeedShell>
       </ErrorBoundary>
@@ -900,7 +825,7 @@ export default function PortfolioSplitPane() {
                 : "bg-purewhite text-canvas border-purewhite hover:bg-accent hover:text-canvas"
             }`}
           >
-            EXPORT {activeTab.toUpperCase()} JSON
+            EXPORT {editingSection ? editingSection.toUpperCase() : "DATA"} JSON
           </button>
           <div className="bg-canvas border border-purewhite p-3 font-mono text-[10px] text-purewhite tracking-widest uppercase select-none shadow-lg text-center md:text-left">
             ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ADMIN MODE ACTIVE
@@ -926,7 +851,7 @@ export default function PortfolioSplitPane() {
         <CommandPalette
           open={openCommandPalette}
           onClose={() => setOpenCommandPalette(false)}
-          onSelectTab={(tab) => { setActiveTab(tab); setIsAddingNew(false); setEditingId(null); }}
+          onSelectTab={(tab) => { setEditingSection(tab); setIsAddingNew(false); setEditingId(null); }}
           onCopyEmail={handleCopyEmail}
           onOpenAdmin={() => setShowAdminModal(true)}
         />

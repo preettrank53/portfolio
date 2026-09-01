@@ -41,7 +41,7 @@ export function IdentityPane({
 }: IdentityPaneProps) {
   return (
     <ErrorBoundary title="IDENTITY PANE">
-      <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:sticky md:top-0 md:h-screen md:w-[35%] md:py-12 md:pr-12 md:px-0 flex flex-col md:justify-between md:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:border-b-0 md:border-r border-charcoal select-none">
+      <aside id="left-scroll-container" className="relative w-full py-6 border-b border-[var(--border)] md:py-12 flex flex-col md:justify-between select-none">
         {/* Box 1: Profile + Buttons */}
         {loading ? (
           <SidebarSkeleton />
