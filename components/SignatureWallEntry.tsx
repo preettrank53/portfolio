@@ -22,24 +22,18 @@ export function SignatureWallEntry() {
     });
   };
 
-  const getDynamicText = () => {
-    if (count === null) return "";
-    if (count === 0) return "be the first to sign";
-    if (count < 10) return `${count} people signed so far`;
-    return `${count}+ left their mark`;
-  };
-
   return (
-    <div className="w-full mt-3">
+    <div className="border-b border-zinc-800 p-10 flex flex-col items-center justify-center text-center space-y-6 bg-zinc-900/10 w-full">
+      <h2 className="text-2xl font-bold text-zinc-50">Leave your mark.</h2>
       {count !== null && (
-        <span className="font-handwritten font-semibold text-base text-[var(--text)] opacity-50 block mb-2 select-none">
-          {getDynamicText()}
-        </span>
+        <p className="text-zinc-400 font-mono text-sm">
+          Join the {count} people who have signed the wall.
+        </p>
       )}
       <a
         href="/wall"
         onClick={handleClick}
-        className="w-full text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 min-h-[48px] flex items-center justify-center relative overflow-hidden"
+        className="border border-zinc-50 text-zinc-50 px-8 py-3 hover:bg-zinc-50 hover:text-zinc-950 transition-colors uppercase tracking-widest text-sm font-bold relative overflow-hidden"
       >
         <span className={`${isPending ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
           SEE THE WALL
