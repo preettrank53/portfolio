@@ -699,7 +699,7 @@ export default function PortfolioSplitPane() {
                 
                 {/* EXPERIENCE SECTION */}
                 <div className="flex flex-col">
-                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8">EXPERIENCE</h2>
+                  <h2 id="experience" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">EXPERIENCE</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -745,7 +745,7 @@ export default function PortfolioSplitPane() {
 
                 {/* PROJECTS SECTION */}
                 <div className="flex flex-col">
-                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8 mt-12">PROJECTS</h2>
+                  <h2 id="projects" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">PROJECTS</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -798,7 +798,7 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div className="flex flex-col">
-                  <h2 className="font-mono text-xl font-bold uppercase tracking-widest border-b border-charcoal pb-4 mb-8 mt-12">SKILLS</h2>
+                  <h2 id="skills" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">SKILLS</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
