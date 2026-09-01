@@ -65,9 +65,7 @@ export const viewport: Viewport = {
   maximumScale: 5,           // allow pinch-zoom for accessibility
 };
 
-import dynamic from "next/dynamic";
 
-const GlobalSparkles = dynamic(() => import("@/components/GlobalSparkles").then(m => m.GlobalSparkles), { ssr: false });
 
 import { Caveat } from "next/font/google";
 
@@ -89,7 +87,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Providers>
-          <GlobalSparkles />
+
           {children}
         </Providers>
       </body>

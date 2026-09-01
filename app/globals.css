@@ -3,30 +3,30 @@
 @tailwind utilities;
 
 :root {
-  /* Default dark (Monochrome) */
-  --bg: #000000;
-  --surface: #0a0a0a;
-  --text: #FFFFFF;
-  --muted: #7D7D7D;
-  --border: #202020;
-  --accent: #FFFFFF;
+  /* Technical Elegance (Zinc) */
+  --bg: #09090b;
+  --surface: #09090b;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --accent: #fafafa;
 }
 
 .dark {
-  --bg: #000000;
-  --surface: #0a0a0a;
-  --text: #FFFFFF;
-  --muted: #7D7D7D;
-  --border: #202020;
-  --accent: #FFFFFF;
+  --bg: #09090b;
+  --surface: #09090b;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --accent: #fafafa;
 }
 .light {
-  --bg: #FFFFFF;
-  --surface: #F5F5F5;
-  --text: #000000;
-  --muted: #666666;
-  --border: #E5E5E5;
-  --accent: #000000;
+  --bg: #fafafa;
+  --surface: #f4f4f5;
+  --text: #09090b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --accent: #09090b;
 }
 
 @layer base {

@@ -6,15 +6,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useScroll, useSpring } from "framer-motion";
 import {
   Plus
 } from "lucide-react";
 
 import type { DevLogItem, GitHubPR } from "@/types/portfolio";
-
-import { BackgroundDecorations } from "@/components/shared/BackgroundDecorations";
 import { LightboxModal } from "@/components/shared/LightboxModal";
+
+
+import { GitHubActivity } from "@/app/GitHubActivity";
+import { SignatureWallEntry } from "@/components/SignatureWallEntry";
 import { IdentityPane } from "@/components/identity/IdentityPane";
 import { FeedShell } from "@/components/feed/FeedShell";
 import { ExperienceCard } from "@/components/feed/ExperienceCard";
@@ -29,6 +30,7 @@ import {
   ExperienceCardSkeleton, 
   ProjectCardSkeleton, 
   SkillsSkeleton, 
+  PrListSkeleton,
 } from "@/components/ui/page-skeletons";
 
 // ImageWithFallback, AdaptiveSingleImage ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ extracted to components/shared/ImageWithFallback.tsx
@@ -40,7 +42,6 @@ import {
 
 
 import { Toaster, toast } from "sonner";
-import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 
 // cmdk is heavy (~30KB gzipped). Lazy load it so it doesn't block initial render.
@@ -88,9 +89,7 @@ export default function PortfolioSplitPane() {
   // Mobile Sticky Fallback
   
   // Theme Switching
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState<boolean>(false);
-
+    
   // Appreciations and Github Stars
     const [appreciations, setAppreciations] = useState<Record<string, number>>({});
   const [userAppreciated, setUserAppreciated] = useState<Record<string, boolean>>({});
@@ -120,13 +119,7 @@ export default function PortfolioSplitPane() {
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
 
   // Framer motion scroll progress
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
+    
   
   
   // =========================================================
@@ -135,8 +128,7 @@ export default function PortfolioSplitPane() {
 
   
   useEffect(() => {
-    setMounted(true);
-    if ('scrollRestoration' in history) {
+        if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
 
@@ -588,23 +580,67 @@ export default function PortfolioSplitPane() {
   };
 
   return (
-    <main className="min-h-screen w-full max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-16 pb-24 text-purewhite selection:bg-purewhite selection:text-canvas transition-colors duration-500 relative z-10">
-      <BackgroundDecorations theme={theme} scaleX={scaleX} />
-
+    <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-zinc-800 flex flex-col pb-24 text-zinc-50 selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
+      
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 p-4 flex justify-between items-center">
+        <div className="font-mono font-bold text-zinc-50 tracking-widest uppercase">PREET RANK</div>
+        <nav className="flex items-center gap-4 text-xs font-mono text-zinc-400">
+          <a href="#experience" className="hover:text-zinc-50 transition-colors">EXPERIENCE</a>
+          <a href="#projects" className="hover:text-zinc-50 transition-colors">PROJECTS</a>
+          <a href="#skills" className="hover:text-zinc-50 transition-colors">SKILLS</a>
+          <a href="/wall" className="hover:text-zinc-50 transition-colors border border-zinc-800 px-2 py-1 hover:border-zinc-50">WALL</a>
+        </nav>
+      </header>
 
       {/* Centered container flexbox grid */}
       <div className="w-full relative z-10 flex flex-col">
-        <IdentityPane
-          loading={loading}
-          mounted={mounted}
-          theme={theme}
-          setTheme={setTheme}
-          prs={prs}
-          prsLoading={prsLoading}
-          prsError={prsError}
-          viewCount={viewCount}
-          viewCountError={viewCountError}
-        />
+        
+        <IdentityPane loading={loading} />
+
+        {/* PROOF STRIP */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-b border-zinc-800">
+          
+          {/* GitHub Activity */}
+          <div className="p-6 border-b border-zinc-800 md:border-b-0 md:border-r">
+            <GitHubActivity />
+          </div>
+
+          {/* Open Source PRs */}
+          <div className="p-6">
+            <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500 mb-4">
+              RECENT OPEN SOURCE PRs
+            </span>
+            {!prsError && (prsLoading || prs.length > 0) && (
+              prsLoading ? (
+                <PrListSkeleton />
+              ) : (
+                <div className="flex flex-col gap-2">
+                  {prs.map(pr => {
+                    const repoName = pr.repository_url.replace("https://api.github.com/repos/", "").toUpperCase();
+                    return (
+                      <a
+                        key={pr.id}
+                        href={pr.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex flex-col gap-1 py-2 border-b border-zinc-800/50 last:border-0 hover:bg-zinc-900/50 transition-colors px-2 -mx-2 rounded"
+                      >
+                        <div className="text-[10px] text-zinc-400 font-mono uppercase tracking-wider group-hover:text-zinc-50 transition-colors duration-150">
+                          {repoName}
+                        </div>
+                        <div className="text-xs text-zinc-100 font-sans font-medium line-clamp-1 group-hover:text-white transition-colors duration-150">
+                          {pr.title}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              )
+            )}
+          </div>
+        </div>
+
 
       {/* ==========================================
          RIGHT COLUMN: DEV LOGBOOK FEED (Scrollable window-level, standard px padding)
@@ -803,6 +839,17 @@ export default function PortfolioSplitPane() {
       </ErrorBoundary>
       </div>
 
+      
+      <div className="flex flex-col md:flex-row items-center justify-between border-t border-zinc-800 p-6 md:p-10 gap-4">
+        {!viewCountError && viewCount !== null && (
+          <div className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+            <span>[👁 TOTAL VISITS: {viewCount}]</span>
+          </div>
+        )}
+        <div className="flex flex-col gap-2">
+          <SignatureWallEntry />
+        </div>
+      </div>
       <ScrollToTop />
 
       <ErrorBoundary title="SYSTEM UTILITIES">
