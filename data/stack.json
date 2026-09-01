@@ -1,26 +1,26 @@
 [
   {
     "id": "skill-1",
-    "title": "PROGRAMMING & DATABASES",
+    "title": "Programming & Databases",
     "description": "Core languages and relational datastores.",
     "tools": [
       {
-        "name": "JAVA",
+        "name": "Java",
         "iconName": "SiJava",
         "color": "#ED8B00"
       },
       {
-        "name": "PYTHON",
+        "name": "Python",
         "iconName": "SiPython",
         "color": "#3776AB"
       },
       {
-        "name": "POSTGRESQL",
+        "name": "Postgresql",
         "iconName": "SiPostgresql",
         "color": "#4169E1"
       },
       {
-        "name": "MYSQL",
+        "name": "Mysql",
         "iconName": "SiMysql",
         "color": "#4479A1"
       }
@@ -28,31 +28,31 @@
   },
   {
     "id": "skill-2",
-    "title": "MACHINE LEARNING & DEEP LEARNING",
+    "title": "Machine Learning & Deep Learning",
     "description": "Data processing, statistical modeling, and neural networks.",
     "tools": [
       {
-        "name": "SCIKIT-LEARN",
+        "name": "Scikit-learn",
         "iconName": "SiScikitlearn",
         "color": "#F7931E"
       },
       {
-        "name": "TENSORFLOW",
+        "name": "Tensorflow",
         "iconName": "SiTensorflow",
         "color": "#FF6F00"
       },
       {
-        "name": "PANDAS",
+        "name": "Pandas",
         "iconName": "SiPandas",
         "color": "#150458"
       },
       {
-        "name": "NUMPY",
+        "name": "Numpy",
         "iconName": "SiNumpy",
         "color": "#013243"
       },
       {
-        "name": "SCIPY",
+        "name": "Scipy",
         "iconName": "SiScipy",
         "color": "#8CAAEE"
       },
@@ -62,7 +62,7 @@
         "color": "#FFFFFF"
       },
       {
-        "name": "RNNS",
+        "name": "RNNs",
         "iconName": "TextFallback",
         "color": "#FFFFFF"
       }
@@ -70,21 +70,21 @@
   },
   {
     "id": "skill-3",
-    "title": "AI & GENERATIVE FRAMEWORKS",
+    "title": "AI & Generative Frameworks",
     "description": "LLM orchestration, agents, and retrieval architectures.",
     "tools": [
       {
-        "name": "LANGCHAIN",
+        "name": "Langchain",
         "iconName": "SiLangchain",
         "color": "#FFFFFF"
       },
       {
-        "name": "LANGGRAPH",
+        "name": "Langgraph",
         "iconName": "SiLanggraph",
         "color": "#FFFFFF"
       },
       {
-        "name": "CREWAI",
+        "name": "Crewai",
         "iconName": "SiCrewai",
         "color": "#FFFFFF"
       },
@@ -94,7 +94,7 @@
         "color": "#FFFFFF"
       },
       {
-        "name": "MULTI-AGENT",
+        "name": "Multi-agent",
         "iconName": "TextFallback",
         "color": "#FFFFFF"
       },
@@ -107,21 +107,21 @@
   },
   {
     "id": "skill-4",
-    "title": "BACKEND & CORE CONCEPTS",
+    "title": "Backend & Core Concepts",
     "description": "API development, caching, and fundamental computer science.",
     "tools": [
       {
-        "name": "FASTAPI",
+        "name": "Fastapi",
         "iconName": "SiFastapi",
         "color": "#009688"
       },
       {
-        "name": "FLASK",
+        "name": "Flask",
         "iconName": "SiFlask",
         "color": "#FFFFFF"
       },
       {
-        "name": "REDIS",
+        "name": "Redis",
         "iconName": "SiRedis",
         "color": "#DC382D"
       },
@@ -131,7 +131,7 @@
         "color": "#FFFFFF"
       },
       {
-        "name": "OOPS",
+        "name": "OOPs",
         "iconName": "",
         "color": "#FFFFFF"
       }
@@ -139,31 +139,31 @@
   },
   {
     "id": "skill-5",
-    "title": "TOOLS & PLATFORMS",
+    "title": "Tools & Platforms",
     "description": "Version control, containerization, and interactive notebooks.",
     "tools": [
       {
-        "name": "GIT",
+        "name": "Git",
         "iconName": "SiGit",
         "color": "#F05032"
       },
       {
-        "name": "GITHUB",
+        "name": "Github",
         "iconName": "SiGithub",
         "color": "#FFFFFF"
       },
       {
-        "name": "STREAMLIT",
+        "name": "Streamlit",
         "iconName": "SiStreamlit",
         "color": "#FF4B4B"
       },
       {
-        "name": "JUPYTER",
+        "name": "Jupyter",
         "iconName": "SiJupyter",
         "color": "#F37626"
       },
       {
-        "name": "COLAB",
+        "name": "Colab",
         "iconName": "SiGooglecolab",
         "color": "#F9AB00"
       }

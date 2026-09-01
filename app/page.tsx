@@ -589,10 +589,10 @@ export default function PortfolioSplitPane() {
           <PRLogo className="w-8 h-auto text-zinc-50 hover:text-zinc-300 transition-colors" />
         </a>
         <nav className="flex items-center gap-4 text-xs font-mono text-zinc-400">
-          <a href="#experience" className="hover:text-zinc-50 transition-colors">EXPERIENCE</a>
-          <a href="#projects" className="hover:text-zinc-50 transition-colors">PROJECTS</a>
-          <a href="#skills" className="hover:text-zinc-50 transition-colors">SKILLS</a>
-          <a href="/wall" className="hover:text-zinc-50 transition-colors border border-zinc-800 px-2 py-1 hover:border-zinc-50">WALL</a>
+          <a href="#experience" className="hover:text-zinc-50 transition-colors">Experience</a>
+          <a href="#projects" className="hover:text-zinc-50 transition-colors">Projects</a>
+          <a href="#skills" className="hover:text-zinc-50 transition-colors">Skills</a>
+          <a href="/wall" className="hover:text-zinc-50 transition-colors border border-zinc-800 px-2 py-1 hover:border-zinc-50">Wall</a>
         </nav>
       </header>
 
@@ -702,7 +702,7 @@ export default function PortfolioSplitPane() {
                 
                 {/* EXPERIENCE SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="experience" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">EXPERIENCE</h2>
+                  <h2 id="experience" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 sticky top-16 z-40">Experience</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -748,7 +748,7 @@ export default function PortfolioSplitPane() {
 
                 {/* PROJECTS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="projects" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">PROJECTS</h2>
+                  <h2 id="projects" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 sticky top-16 z-40">Projects</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -801,7 +801,7 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="skills" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">SKILLS</h2>
+                  <h2 id="skills" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 sticky top-16 z-40">Skills</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 

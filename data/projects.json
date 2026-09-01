@@ -8,11 +8,11 @@
     "body": "Built a query router using an all-MiniLM-L6-v2 classifier to select retrieval strategy. Combined Qdrant vector search and BM25 keyword search using RRF fusion and cross-encoder reranking. Developed a 7-node LangGraph pipeline supporting standard and multi-hop queries, achieving Hit@5 of 0.75, with Redis caching for up to 30x faster repeated queries.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "FASTAPI",
-      "LANGGRAPH",
-      "POSTGRESQL",
-      "QDRANT"
+      "Python",
+      "Fastapi",
+      "Langgraph",
+      "Postgresql",
+      "Qdrant"
     ],
     "liveUrl": null,
     "codeUrl": "https://github.com/preettrank53/RAGOps.git",
@@ -27,10 +27,10 @@
     "body": "Built a multi-agent job application assistant for federal jobs using 5 CrewAI agents to analyze listings, tailor resumes, prepare interviews, and identify skill gaps. Integrated USAJobs API to fetch live job listings, supporting resume upload, application tracking, and one-click materials generation.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "CREWAI",
-      "LANGCHAIN",
-      "STREAMLIT"
+      "Python",
+      "Crewai",
+      "Langchain",
+      "Streamlit"
     ],
     "liveUrl": "https://jobcrew.streamlit.app/",
     "codeUrl": "https://github.com/preettrank53/JobCrew",
@@ -46,16 +46,16 @@
     "id": "proj-mailpilot-mcp",
     "isPinned": false,
     "date": "JAN 2026",
-    "category": "@GENAI",
+    "category": "@Genai",
     "title": "MailPilot MCP",
     "body": "Built an AI Gmail assistant using MCP client-server architecture for natural language email search and summarization. Implemented Google OAuth authentication, secure token handling, and a ReAct reasoning loop with human approval before creating Gmail drafts, along with multi-turn conversational memory.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
+      "Python",
       "MCP",
-      "STREAMLIT",
-      "GROQ",
-      "GMAIL-API"
+      "Streamlit",
+      "Groq",
+      "Gmail-api"
     ],
     "liveUrl": "https://mailpilot-mcp.streamlit.app/",
     "codeUrl": "https://github.com/preettrank53/MailPilot-MCP",
@@ -76,11 +76,11 @@
     "body": "Built a deep learning model to classify real and fake Indian currency notes using MobileNetV2 transfer learning and CBAM attention. Achieved precision, recall, and ROC-AUC of 0.9986, combining currency images with precomputed feature embeddings, preprocessed using OpenCV.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "TENSORFLOW",
-      "MOBILENETV2",
-      "OPENCV",
-      "SCIKIT-LEARN"
+      "Python",
+      "Tensorflow",
+      "Mobilenetv2",
+      "Opencv",
+      "Scikit-learn"
     ],
     "liveUrl": null,
     "codeUrl": "https://github.com/preettrank53/ML-Fun",
@@ -95,9 +95,9 @@
     "body": "A minimal, character-level Generative Transformer model built step-by-step in PyTorch. Implemented tokenization, encoding/decoding, train/val split, and random batch generation with autoregressive target shift verification, building towards queries, keys, values, self-attention, and full Transformer blocks.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "PYTORCH",
-      "CUDA"
+      "Python",
+      "Pytorch",
+      "Cuda"
     ],
     "liveUrl": null,
     "codeUrl": "https://github.com/preettrank53/Micro-Transformer-from-Scratch.git",
@@ -112,11 +112,11 @@
     "body": "A production-grade AI ranking pipeline identifying the Top 100 candidates from 100,000 synthetic profiles for a Senior AI Engineer role at Redrob AI, featuring honeypot fake detection (catching 58% of synthetic fakes), hybrid BM25 + semantic retrieval with RRF fusion, and LightGBM re-ranking.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "STREAMLIT",
-      "LIGHTGBM",
-      "BM25",
-      "RRF"
+      "Python",
+      "Streamlit",
+      "Lightgbm",
+      "Bm25",
+      "Rrf"
     ],
     "liveUrl": null,
     "codeUrl": "https://github.com/preettrank53/TalentRank-AI.git",
@@ -137,12 +137,12 @@
     "body": "An intelligent, multi-tenant AI support assistant designed to automate parcel policy searches, order tracking, and ticket investigations with secure tenant-isolated data access. Implemented precedence-aware RAG, outdated policy protection, and human-in-the-loop approval actions.",
     "codeSnippet": null,
     "tags": [
-      "PYTHON",
-      "STREAMLIT",
-      "LANGGRAPH",
-      "GROQ",
-      "OPENAI",
-      "PANDAS"
+      "Python",
+      "Streamlit",
+      "Langgraph",
+      "Groq",
+      "Openai",
+      "Pandas"
     ],
     "liveUrl": "https://parcelpilot-agent.streamlit.app/",
     "codeUrl": "https://github.com/preettrank53/ParcelPilot.git",

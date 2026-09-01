@@ -13,9 +13,9 @@
       "Contributing to production-grade software development through Git, GitHub workflows, code reviews, and collaborative engineering practices."
     ],
     "tags": [
-      "OPEN SOURCE",
-      "GIT",
-      "GITHUB"
+      "Open Source",
+      "Git",
+      "Github"
     ]
   },
   {
@@ -33,10 +33,10 @@
       "Trained and optimized Machine Learning models using Python and scikit-learn through model evaluation and hyperparameter tuning, improving prediction accuracy by 15%."
     ],
     "tags": [
-      "PYTHON",
-      "SCIKIT-LEARN",
-      "KNN",
-      "MACHINE LEARNING"
+      "Python",
+      "Scikit-learn",
+      "kNN",
+      "Machine Learning"
     ]
   }
 ]

@@ -4,7 +4,6 @@ import React from "react";
 import { GithubIcon, LinkedinIcon, InstagramIcon, SiX, SiMedium } from "@/components/shared/icons";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { SidebarSkeleton } from "@/components/ui/page-skeletons";
-import { PRLogo } from "@/components/identity/PRLogo";
 
 export function IdentityPane({ loading }: { loading: boolean }) {
   return (
@@ -34,12 +33,9 @@ export function IdentityPane({ loading }: { loading: boolean }) {
               </div>
 
               <div className="flex flex-col">
-                <div className="flex items-center gap-4">
-                  <PRLogo className="w-10 h-auto text-zinc-50" />
-                  <h1 className="font-sans font-extrabold tracking-tighter uppercase text-zinc-50 whitespace-nowrap text-3xl md:text-3xl">
-                    PREET RANK
-                  </h1>
-                </div>
+                <h1 className="font-sans font-extrabold tracking-tighter text-zinc-50 whitespace-nowrap text-3xl md:text-3xl">
+                  Preet Rank
+                </h1>
                 <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest mt-1">
                   @preettrank
                 </span>
