@@ -66,25 +66,25 @@ export default function WallGrid({ initialSignatures, initialTotal }: WallGridPr
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
+    <div className="w-full flex flex-col">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t-0">
         {signatures.map((sig) => (
-          <div key={sig.id} className="border border-[var(--border)] bg-[var(--surface)] p-4 flex flex-col gap-3 group relative overflow-hidden backdrop-blur-sm">
-            <div className="w-full aspect-[16/7] relative overflow-hidden border border-white/5">
-              <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full text-[var(--text)] opacity-80">
+          <div key={sig.id} className="border-b border-r border-[var(--theme-border)] p-6 flex flex-col aspect-square justify-between hover:bg-[var(--theme-hover)] transition-colors relative overflow-hidden group">
+            <div className="w-full aspect-[16/7] relative overflow-hidden">
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full text-[var(--theme-text)] opacity-80 group-hover:opacity-100 transition-opacity">
                 {sig.strokes.map(renderStroke)}
               </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-xs uppercase tracking-widest text-purewhite truncate">
+            <div className="flex flex-col mt-4">
+              <span className="font-sans font-bold text-xs uppercase tracking-widest text-[var(--theme-text)] truncate">
                 {sig.name} {getFlagEmoji(sig.country)}
               </span>
               {sig.note && (
-                <span className="font-mono text-[9px] text-ash tracking-wide mt-1 line-clamp-2">
+                <span className="font-mono text-[9px] text-[var(--theme-muted)] tracking-wide mt-2 line-clamp-2">
                   {sig.note}
                 </span>
               )}
-              <span className="font-mono text-[8px] uppercase tracking-widest text-ash/50 mt-2 block">
+              <span className="font-mono text-[8px] uppercase tracking-widest text-[var(--theme-muted)]/50 mt-3 block">
                 {formatRelativeTime(sig.createdAt)}
               </span>
             </div>
@@ -96,7 +96,7 @@ export default function WallGrid({ initialSignatures, initialTotal }: WallGridPr
         <button
           onClick={handleLoadMore}
           disabled={isLoading}
-          className="w-full max-w-sm text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 disabled:opacity-50"
+          className="w-full text-center py-6 border-b border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-[var(--theme-hover)] transition-all duration-300 disabled:opacity-50"
         >
           {isLoading ? "LOADING..." : "LOAD MORE"}
         </button>

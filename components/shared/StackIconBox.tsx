@@ -19,14 +19,14 @@ export const StackIconBox = ({ name, iconName, color }: { name: string; iconName
   }, []);
 
   const isWhite = color && color.toUpperCase() === "#FFFFFF";
-  const displayColor = isWhite ? "var(--text)" : color;
+  const displayColor = isWhite ? "var(--theme-text)" : color;
 
   if (!IconComponent) {
     return (
       <div 
-        className="flex w-12 h-12 shrink-0 items-center justify-center border border-[var(--border)] bg-[var(--surface)] rounded-none select-none text-center"
+        className="flex w-12 h-12 shrink-0 items-center justify-center border border-[var(--theme-border)] bg-[var(--surface)] rounded-none select-none text-center"
       >
-        <span className="text-[11px] font-mono font-bold text-[var(--text)] tracking-wider" style={{ color: displayColor }}>
+        <span className="text-[11px] font-mono font-bold text-[var(--theme-text)] tracking-wider" style={{ color: displayColor }}>
           {name.substring(0, 3).toUpperCase()}
         </span>
       </div>
@@ -36,7 +36,7 @@ export const StackIconBox = ({ name, iconName, color }: { name: string; iconName
   return (
     <div 
       onClick={() => !hasHover && setClickedExpanded(!clickedExpanded)}
-      className={`group relative flex h-11 items-center overflow-hidden border border-[var(--border)] bg-[var(--surface)] hover:border-[var(--text)] rounded-none cursor-pointer z-10 hover:z-20 select-none min-w-[44px] min-h-[44px] ${
+      className={`group relative flex h-11 items-center overflow-hidden border border-[var(--theme-border)] bg-[var(--surface)] hover:border-[var(--theme-text)] rounded-none cursor-pointer z-10 hover:z-20 select-none min-w-[44px] min-h-[44px] ${
         hasHover 
           ? "w-11 md:w-auto max-w-[44px] md:max-w-[56px] md:hover:max-w-[200px] transition-[max-width] duration-300 ease-out md:h-14"
           : clickedExpanded 
@@ -48,12 +48,12 @@ export const StackIconBox = ({ name, iconName, color }: { name: string; iconName
         <IconComponent className="text-xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color: displayColor }} />
       </div>
       {hasHover ? (
-        <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
+        <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--theme-text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
           {name}
         </span>
       ) : (
         clickedExpanded && (
-          <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--text)] ml-1 pr-2">
+          <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--theme-text)] ml-1 pr-2">
             {name}
           </span>
         )

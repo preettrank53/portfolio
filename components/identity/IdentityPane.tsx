@@ -8,7 +8,7 @@ import { SidebarSkeleton } from "@/components/ui/page-skeletons";
 export function IdentityPane({ loading }: { loading: boolean }) {
   return (
     <ErrorBoundary title="HERO PANE">
-      <section className="w-full border-b border-zinc-800 bg-zinc-950">
+      <section className="w-full border-b border-[var(--theme-border)] bg-transparent">
         {loading ? (
           <div className="p-6 md:p-10">
             <SidebarSkeleton />
@@ -16,8 +16,8 @@ export function IdentityPane({ loading }: { loading: boolean }) {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left Column: Profile & Bio */}
-            <div className="p-6 md:p-10 md:border-r border-zinc-800 flex flex-col gap-6">
-              <div className="w-20 h-20 md:w-24 md:h-24 border border-zinc-800 bg-zinc-900 p-1 flex-shrink-0 select-none overflow-hidden">
+            <div className="p-6 md:p-10 md:border-r border-[var(--theme-border)] flex flex-col gap-6">
+              <div className="w-20 h-20 md:w-24 md:h-24 border border-[var(--theme-border)] bg-[var(--theme-hover)] p-1 flex-shrink-0 select-none overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/profile.png"
@@ -33,25 +33,25 @@ export function IdentityPane({ loading }: { loading: boolean }) {
               </div>
 
               <div className="flex flex-col">
-                <h1 className="font-sans font-extrabold tracking-tighter text-zinc-50 whitespace-nowrap text-3xl md:text-3xl">
+                <h1 className="font-sans font-extrabold tracking-tighter text-[var(--theme-text)] whitespace-nowrap text-3xl md:text-3xl">
                   Preet Rank
                 </h1>
-                <span className="font-mono text-xs text-zinc-400 tracking-widest mt-1">
+                <span className="font-mono text-xs text-[var(--theme-muted)] tracking-widest mt-1">
                   @preetrank
                 </span>
               </div>
 
-              <p className="text-sm leading-relaxed text-zinc-400 font-sans font-medium max-w-sm">
+              <p className="text-sm leading-relaxed text-[var(--theme-muted)] font-sans font-medium max-w-sm">
                 AI/ML Engineer focused on LLM inference and agentic workflows.
               </p>
             </div>
 
             {/* Right Column: Actions & Links */}
-            <div className="p-6 md:p-10 flex flex-col justify-between gap-8 border-t border-zinc-800 md:border-t-0">
+            <div className="p-6 md:p-10 flex flex-col justify-between gap-8 border-t border-[var(--theme-border)] md:border-t-0">
               <div className="flex flex-col gap-3">
                 <a
                   href="mailto:preetrank53@gmail.com"
-                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center relative z-20"
+                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-hover)] transition-colors duration-200 flex items-center justify-center relative z-20"
                 >
                   Email Me
                 </a>
@@ -62,7 +62,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                   href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center"
+                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-hover)] transition-colors duration-200 flex items-center justify-center"
                 >
                   View Resume
                 </a>

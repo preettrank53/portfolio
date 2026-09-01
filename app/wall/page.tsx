@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Redis } from "@upstash/redis";
 import WallGrid from "./WallGrid";
 import type { Signature } from "@/types/signature";
+import { PRLogo } from "@/components/identity/PRLogo";
 
 export const revalidate = 0; // Dynamic rendering to always show fresh signatures
 
@@ -38,35 +39,34 @@ export default async function WallPage() {
   const { signatures, total } = await getInitialSignatures();
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] text-purewhite p-6 sm:p-8 flex flex-col items-center">
-      <div className="w-full max-w-[1200px] flex flex-col items-center">
+    <main className="max-w-4xl mx-auto border-x border-[var(--theme-border)] min-h-screen flex flex-col pb-24 text-[var(--theme-text)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10 bg-[var(--theme-bg)]">
+      
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 bg-[var(--theme-bg-alpha)] backdrop-blur-md border-b border-[var(--theme-border)] h-16 px-4 md:px-6 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3 hover:text-zinc-400 transition-colors">
+          <PRLogo className="w-8 h-auto text-[var(--theme-text)]" />
+        </Link>
         
-        {/* Header Section */}
-        <div className="w-full flex justify-between items-center mb-12">
-          <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300 shrink-0 mr-4">
-            ← BACK TO HOME
-          </Link>
-          
-          <div className="relative inline-block overflow-visible flex-shrink-0 mt-8 md:mt-0">
-            <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto relative z-20">
-              ADD YOUR SIGN
-            </Link>
-            </div>
-        </div>
+        <Link href="/sign" className="border border-[var(--theme-border)] hover:bg-[var(--theme-hover)] px-4 py-2 text-xs font-mono text-[var(--theme-text)] transition-colors">
+          Add Your Sign
+        </Link>
+      </header>
 
-        <div className="flex flex-col items-center text-center mb-16">
-          <h1 className="font-sans font-extrabold tracking-tighter uppercase text-purewhite text-4xl md:text-6xl mb-4">
-            THE WALL
-          </h1>
-          <span className="font-mono text-xs md:text-sm text-ash tracking-wide uppercase">
-            {total.toLocaleString()} people have left their mark
-          </span>
-        </div>
-
-        {/* The Grid */}
-        <WallGrid initialSignatures={signatures} initialTotal={total} />
-
+      {/* Page Title */}
+      <div className="border-b border-[var(--theme-border)] p-6 md:p-10 flex flex-col gap-4">
+        <h1 className="font-mono text-sm tracking-widest text-[var(--theme-muted)]">
+          01 // Signature Logbook
+        </h1>
+        <p className="font-sans text-xl md:text-3xl font-extrabold tracking-tighter text-[var(--theme-text)]">
+          A permanent record of visitors. ({total.toLocaleString()})
+        </p>
       </div>
+
+      {/* The Grid */}
+      <div className="w-full flex flex-col">
+        <WallGrid initialSignatures={signatures} initialTotal={total} />
+      </div>
+
     </main>
   );
 }

@@ -47,7 +47,7 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-[var(--border)] hover:bg-zinc-900/20 transition-colors group relative overflow-hidden rounded-none"
+      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-[var(--theme-border)] hover:bg-[var(--theme-hover)] transition-colors group relative overflow-hidden rounded-none"
     >
       <SpotlightOverlay />
       
@@ -59,7 +59,7 @@ export function ProjectCard({
             className={`border px-2.5 py-1 transition-all duration-150 rounded-none flex items-center justify-center min-h-[30px] ${
               post.isPinned 
                 ? "border-zinc-50 bg-zinc-50 text-zinc-950" 
-                : "border-zinc-700 bg-[var(--background)] text-[var(--muted)] hover:border-zinc-50 hover:text-[var(--foreground)]"
+                : "border-zinc-700 bg-[var(--theme-bg)] text-[var(--theme-muted)] hover:border-zinc-50 hover:text-[var(--theme-text)]"
             }`}
             title={post.isPinned ? "Unpin item" : "Pin item to top"}
           >
@@ -67,7 +67,7 @@ export function ProjectCard({
           </button>
           <button
             onClick={() => handleStartEdit(post)}
-            className="border border-zinc-50 bg-[var(--background)] px-3 py-1 font-mono text-[9px] text-[var(--foreground)] hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 tracking-widest rounded-none min-h-[30px]"
+            className="border border-zinc-50 bg-[var(--theme-bg)] px-3 py-1 font-mono text-[9px] text-[var(--theme-text)] hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 tracking-widest rounded-none min-h-[30px]"
           >
             Edit
           </button>
@@ -76,12 +76,12 @@ export function ProjectCard({
 
       {/* LEFT COLUMN: Metadata (Date) */}
       <div className="md:col-span-1">
-        <span className="text-xs text-[var(--foreground)]0 font-mono tracking-wider block mt-1">
+        <span className="text-xs text-[var(--theme-text)]0 font-mono tracking-wider block mt-1">
           {post.date}
         </span>
         {post.isPinned && (
-          <div className="flex items-center gap-1.5 text-[var(--foreground)]0 font-mono text-[9px] tracking-widest mt-2">
-            <Pin className="w-3 h-3 text-[var(--foreground)] fill-current rotate-[45deg]" />
+          <div className="flex items-center gap-1.5 text-[var(--theme-text)]0 font-mono text-[9px] tracking-widest mt-2">
+            <Pin className="w-3 h-3 text-[var(--theme-text)] fill-current rotate-[45deg]" />
             <span>Pinned Flagship</span>
           </div>
         )}
@@ -93,19 +93,19 @@ export function ProjectCard({
         {/* Title & Category Row */}
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
           <h3 
-            className="font-sans font-extrabold text-xl md:text-2xl text-[var(--foreground)] tracking-tight leading-tight line-clamp-2"
+            className="font-sans font-extrabold text-xl md:text-2xl text-[var(--theme-text)] tracking-tight leading-tight line-clamp-2"
             title={post.title || "Untitled"}
           >
             {post.title || "Untitled"}
           </h3>
-          <span className="font-mono text-[10px] text-[var(--foreground)]0 tracking-widest">
+          <span className="font-mono text-[10px] text-[var(--theme-text)]0 tracking-widest">
             {post.category}
           </span>
         </div>
 
         {/* Description */}
         <div className="relative">
-          <p className={`text-[13px] sm:text-[14px] text-[var(--muted)] leading-relaxed mb-1 whitespace-pre-line font-sans font-medium ${
+          <p className={`text-[13px] sm:text-[14px] text-[var(--theme-muted)] leading-relaxed mb-1 whitespace-pre-line font-sans font-medium ${
             isExpanded ? "" : "line-clamp-4"
           }`}>
             {post.body || "No description provided"}
@@ -113,7 +113,7 @@ export function ProjectCard({
           {shouldTruncate && (
             <button
               onClick={() => setExpandedCards(prev => ({ ...prev, [post.id]: !isExpanded }))}
-              className="text-[9px] font-mono text-[var(--foreground)]0 hover:text-[var(--foreground)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
+              className="text-[9px] font-mono text-[var(--theme-text)]0 hover:text-[var(--theme-text)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
             >
               {isExpanded ? "Read Less ▲" : "Read More ▼"}
             </button>
@@ -122,7 +122,7 @@ export function ProjectCard({
 
         {/* Screenshots grid / carousel */}
         {post.screenshots && post.screenshots.length > 0 && (
-          <div className="mt-4 mb-4 overflow-hidden select-none border border-[var(--border)] rounded-sm opacity-90 hover:opacity-100 transition-opacity">
+          <div className="mt-4 mb-4 overflow-hidden select-none border border-[var(--theme-border)] rounded-sm opacity-90 hover:opacity-100 transition-opacity">
             {post.screenshots.length === 1 ? (
               <AdaptiveSingleImage
                 src={post.screenshots[0].src}
@@ -143,7 +143,7 @@ export function ProjectCard({
                       setScreenshotIndex(idx);
                       setSelectedScreenshot(img);
                     }}
-                    className="relative aspect-[4/3] cursor-zoom-in group overflow-hidden bg-[var(--background)]"
+                    className="relative aspect-[4/3] cursor-zoom-in group overflow-hidden bg-[var(--theme-bg)]"
                   >
                     <ImageWithFallback 
                       src={img.src} 
@@ -165,7 +165,7 @@ export function ProjectCard({
                       setScreenshotIndex(idx);
                       setSelectedScreenshot(img);
                     }}
-                    className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden bg-[var(--background)]"
+                    className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden bg-[var(--theme-bg)]"
                   >
                     <ImageWithFallback 
                       src={img.src} 
@@ -179,7 +179,7 @@ export function ProjectCard({
               </div>
             )}
             {post.screenshots.length === 1 && post.screenshots[0].caption && (
-              <div className="border-t border-[var(--border)] bg-[var(--background)] px-3 py-1.5 font-mono text-[9px] text-[var(--muted)]">
+              <div className="border-t border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-1.5 font-mono text-[9px] text-[var(--theme-muted)]">
                 {post.screenshots[0].caption}
               </div>
             )}
@@ -188,12 +188,12 @@ export function ProjectCard({
 
         {/* Embedded Code Snippet */}
         {post.codeSnippet && post.codeSnippet.content && post.codeSnippet.content.trim() !== "" && (
-          <div className="border border-[var(--border)] bg-[var(--background)] rounded-sm mb-4 overflow-hidden font-mono text-[11px] transition-colors duration-150">
-            <div className="border-b border-[var(--border)] bg-zinc-900 px-3 py-1.5 flex justify-between items-center text-[9px] text-[var(--muted)] tracking-wider">
+          <div className="border border-[var(--theme-border)] bg-[var(--theme-bg)] rounded-sm mb-4 overflow-hidden font-mono text-[11px] transition-colors duration-150">
+            <div className="border-b border-[var(--theme-border)] bg-zinc-900 px-3 py-1.5 flex justify-between items-center text-[9px] text-[var(--theme-muted)] tracking-wider">
               <span>{post.codeSnippet.title}</span>
               <span>{post.codeSnippet.lang}</span>
             </div>
-            <pre className="p-3 overflow-x-auto"><code className="text-[var(--foreground)]">{post.codeSnippet.content}</code></pre>
+            <pre className="p-3 overflow-x-auto"><code className="text-[var(--theme-text)]">{post.codeSnippet.content}</code></pre>
           </div>
         )}
 
@@ -203,7 +203,7 @@ export function ProjectCard({
             {post.tags.map(tag => (
               <span 
                 key={tag} 
-                className="flex-none font-mono text-[10px] tracking-wider border border-[var(--border)] px-2 py-1 text-[var(--muted)] rounded-sm bg-transparent hover:border-zinc-500 hover:text-[var(--foreground)] transition-colors duration-150"
+                className="flex-none font-mono text-[10px] tracking-wider border border-[var(--theme-border)] px-2 py-1 text-[var(--theme-muted)] rounded-sm bg-transparent hover:border-zinc-500 hover:text-[var(--theme-text)] transition-colors duration-150"
               >
                 {tag}
               </span>
@@ -212,14 +212,14 @@ export function ProjectCard({
         )}
 
         {/* Footer Links & Stars */}
-        <div className="flex items-center justify-between pt-2 text-[var(--muted)]">
+        <div className="flex items-center justify-between pt-2 text-[var(--theme-muted)]">
           <div className="flex gap-4">
             {post.liveUrl && post.liveUrl.trim() !== "" && (
               <a 
                 href={post.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--foreground)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Live →</span>
               </a>
@@ -229,7 +229,7 @@ export function ProjectCard({
                 href={post.codeUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--foreground)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Code ↗</span>
               </a>
@@ -243,7 +243,7 @@ export function ProjectCard({
               onClick={() => handleAppreciate(post.id)}
               disabled={hasUserAppreciated}
               className={`flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[30px] ${
-                hasUserAppreciated ? "text-[var(--foreground)] cursor-not-allowed" : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                hasUserAppreciated ? "text-[var(--theme-text)] cursor-not-allowed" : "text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
               }`}
             >
               <Heart className={`w-3.5 h-3.5 ${hasUserAppreciated ? "fill-current" : ""}`} strokeWidth={1.5} />

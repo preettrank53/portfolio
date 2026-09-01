@@ -58,8 +58,8 @@ export default function SignPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--bg)] text-purewhite flex items-center justify-center p-6 sm:p-8">
-      <div className="w-full max-w-2xl border border-[var(--border)] bg-[var(--surface)] p-6 md:p-10 relative overflow-hidden backdrop-blur-md">
+    <main className="min-h-screen bg-[var(--theme-bg)] text-purewhite flex items-center justify-center p-6 sm:p-8">
+      <div className="w-full max-w-2xl border border-[var(--theme-border)] bg-[var(--surface)] p-6 md:p-10 relative overflow-hidden backdrop-blur-md">
         
         {/* Header Links */}
         <div className="flex justify-between items-center mb-8">
@@ -91,7 +91,7 @@ export default function SignPage() {
             maxLength={40}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full bg-transparent border border-[var(--border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
+            className="w-full bg-transparent border border-[var(--theme-border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
           />
           <input
             type="text"
@@ -99,7 +99,7 @@ export default function SignPage() {
             maxLength={80}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="w-full bg-transparent border border-[var(--border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
+            className="w-full bg-transparent border border-[var(--theme-border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
           />
         </div>
 
@@ -113,7 +113,7 @@ export default function SignPage() {
           <button
             onClick={handleClear}
             disabled={isSubmitting}
-            className="w-full sm:w-1/3 text-center py-4 md:py-3 bg-transparent border border-[var(--border)] text-ash font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-[var(--border)] hover:text-purewhite transition-all duration-300 disabled:opacity-50"
+            className="w-full sm:w-1/3 text-center py-4 md:py-3 bg-transparent border border-[var(--theme-border)] text-ash font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-[var(--theme-border)] hover:text-purewhite transition-all duration-300 disabled:opacity-50"
           >
             CLEAR
           </button>

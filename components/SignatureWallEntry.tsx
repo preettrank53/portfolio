@@ -23,10 +23,10 @@ export function SignatureWallEntry() {
   };
 
   return (
-    <div className="border-b border-zinc-800 p-10 flex flex-col items-center justify-center text-center space-y-6 bg-zinc-900/10 w-full">
-      <h2 className="text-2xl font-bold text-zinc-50">Leave your mark.</h2>
+    <div className="border-b border-[var(--theme-border)] p-10 flex flex-col items-center justify-center text-center space-y-6 bg-[var(--theme-hover)] w-full">
+      <h2 className="text-2xl font-bold text-[var(--theme-text)]">Leave your mark.</h2>
       {count !== null && (
-        <p className="text-zinc-400 font-mono text-sm">
+        <p className="text-[var(--theme-muted)] font-mono text-sm">
           Join the {count} people who have signed the wall.
         </p>
       )}
@@ -35,7 +35,7 @@ export function SignatureWallEntry() {
         <a
           href="/wall"
           onClick={handleClick}
-          className="block border border-zinc-50 text-zinc-50 px-8 py-3 hover:bg-zinc-50 hover:text-zinc-950 transition-colors tracking-widest text-sm font-bold relative overflow-hidden"
+          className="block border border-[var(--theme-border)] text-[var(--theme-text)] px-8 py-3 hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors tracking-widest text-sm font-bold relative overflow-hidden"
         >
           <span className={`${isPending ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
             See the Wall

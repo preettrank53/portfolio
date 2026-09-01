@@ -199,7 +199,7 @@ function ScreenshotCard({
         {replacing || !hasImage ? (
           <DropZoneSlot onFiles={handleReplace} compact={hasImage} />
         ) : (
-          <div className="relative w-full border border-charcoal/40 overflow-hidden bg-black/20 flex items-center justify-center rounded-none group">
+          <div className="relative w-full border border-charcoal/40 overflow-hidden bg-[var(--theme-hover)] flex items-center justify-center rounded-none group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={img.src}

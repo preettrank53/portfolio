@@ -54,7 +54,7 @@ export function FeedHeaderSkeleton() {
 
 export function ExperienceCardSkeleton() {
   return (
-    <div className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
+    <div className="border-b border-[var(--theme-border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
       <Skeleton className="h-2 w-32 mb-4" />
       
       <div className="flex flex-row gap-4 items-start mb-4">
@@ -82,7 +82,7 @@ export function ExperienceCardSkeleton() {
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
+    <div className="border-b border-[var(--theme-border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden" aria-busy="true">
       <Skeleton className="h-2 w-32 mb-4" />
       
       <div className="flex flex-col gap-3 mb-6">
@@ -105,7 +105,7 @@ export function SkillsSkeleton() {
   return (
     <div className="flex flex-col w-full" aria-busy="true">
       {[1, 2].map((group) => (
-        <div key={group} className="border-b border-[var(--border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden">
+        <div key={group} className="border-b border-[var(--theme-border)] py-6 md:py-10 flex flex-col rounded-none group relative overflow-hidden">
           <Skeleton className="h-6 md:h-8 w-2/3 md:w-1/2 mb-3" />
           <Skeleton className="h-4 w-3/4 md:w-1/3 mb-6" />
           
@@ -140,7 +140,7 @@ export function PrListSkeleton() {
   return (
     <div className="flex flex-col gap-2 mt-2" aria-busy="true">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border border-[var(--border)] p-2.5 bg-[var(--surface)]/30">
+        <div key={i} className="border border-[var(--theme-border)] p-2.5 bg-[var(--surface)]/30">
           <Skeleton className="h-2 w-24 mb-1.5" />
           <Skeleton className="h-3 w-3/4" />
         </div>

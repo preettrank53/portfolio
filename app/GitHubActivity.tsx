@@ -104,12 +104,12 @@ export function GitHubActivity() {
   // Dynamic Theme Styling (Keeping exact greens but adapting 0-commits, container, border, text)
   const isLight = mounted && theme === "light";
   const containerBg = isLight ? "bg-transparent" : "bg-[#0d1117]";
-  const containerBorder = isLight ? "border-[var(--border)]" : "border-[#30363d]";
+  const containerBorder = isLight ? "border-[var(--theme-border)]" : "border-[#30363d]";
   const gridContainerBg = isLight ? "bg-transparent" : "bg-[#090d16]";
-  const gridContainerBorder = isLight ? "border-[var(--border)]" : "border-[#30363d]";
+  const gridContainerBorder = isLight ? "border-[var(--theme-border)]" : "border-[#30363d]";
   const textMuted = isLight ? "text-ash/70" : "text-[#8b949e]";
   const tooltipBg = isLight ? "bg-white" : "bg-[#161b22]";
-  const tooltipBorder = isLight ? "border-[var(--border)]" : "border-[#30363d]";
+  const tooltipBorder = isLight ? "border-[var(--theme-border)]" : "border-[#30363d]";
   const tooltipText = isLight ? "text-black" : "text-white font-medium";
 
   const getCellBgColor = (level: number) => {

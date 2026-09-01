@@ -582,26 +582,25 @@ export default function PortfolioSplitPane() {
   };
 
   return (
-    <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-[var(--border)] flex flex-col pb-24 text-[var(--foreground)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
+    <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-[var(--theme-border)] flex flex-col pb-24 text-[var(--theme-text)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
       
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-[var(--background)]/80 backdrop-blur-md border-b border-[var(--border)] px-4 md:px-6 flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 bg-[var(--theme-bg-alpha)] backdrop-blur-md border-b border-[var(--theme-border)] px-4 md:px-6 flex items-center justify-between h-16">
         {/* Left (Identity) */}
         <a href="#" className="flex items-center">
-          <PRLogo className="w-8 h-auto text-[var(--foreground)]" />
+          <PRLogo className="w-8 h-auto text-[var(--theme-text)]" />
         </a>
 
         {/* Center (Links) */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-mono text-[var(--muted)]">
-          <a href="#experience" className="hover:text-[var(--foreground)] transition-colors">Experience</a>
-          <a href="#projects" className="hover:text-[var(--foreground)] transition-colors">Projects</a>
-          <a href="#skills" className="hover:text-[var(--foreground)] transition-colors">Skills</a>
-          <a href="/wall" className="hover:text-[var(--foreground)] transition-colors">Wall</a>
+        <nav className="hidden md:flex items-center gap-6 text-sm font-mono text-[var(--theme-muted)]">
+          <a href="#experience" className="hover:text-[var(--theme-text)] transition-colors">Experience</a>
+          <a href="#projects" className="hover:text-[var(--theme-text)] transition-colors">Projects</a>
+          <a href="#skills" className="hover:text-[var(--theme-text)] transition-colors">Skills</a>
         </nav>
 
         {/* Right (Utilities) */}
         <div className="flex items-center gap-4">
-          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors">
+          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"></path></svg>
           </a>
           <ThemeToggle />
@@ -614,16 +613,16 @@ export default function PortfolioSplitPane() {
         <IdentityPane loading={loading} />
 
         {/* PROOF STRIP */}
-        <div className="grid grid-cols-1 md:grid-cols-2 border-b border-[var(--border)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 border-b border-[var(--theme-border)]">
           
           {/* GitHub Activity */}
-          <div className="px-4 md:px-6 py-6 border-b border-[var(--border)] md:border-b-0 md:border-r">
+          <div className="px-4 md:px-6 py-6 border-b border-[var(--theme-border)] md:border-b-0 md:border-r">
             <GitHubActivity />
           </div>
 
           {/* Open Source PRs */}
           <div className="px-4 md:px-6 py-6">
-            <span className="block font-mono text-[9px] tracking-[0.2em] text-[var(--foreground)]0 mb-4">
+            <span className="block font-mono text-[9px] tracking-[0.2em] text-[var(--theme-text)]0 mb-4">
               Recent Open Source PRs
             </span>
             {!prsError && (prsLoading || prs.length > 0) && (
@@ -639,9 +638,9 @@ export default function PortfolioSplitPane() {
                         href={pr.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex flex-col gap-1 py-2 border-b border-[var(--border)]/50 last:border-0 hover:bg-zinc-900/50 transition-colors px-2 -mx-2 rounded"
+                        className="group flex flex-col gap-1 py-2 border-b border-[var(--theme-border)]/50 last:border-0 hover:bg-zinc-900/50 transition-colors px-2 -mx-2 rounded"
                       >
-                        <div className="text-[10px] text-[var(--muted)] font-mono tracking-wider group-hover:text-[var(--foreground)] transition-colors duration-150">
+                        <div className="text-[10px] text-[var(--theme-muted)] font-mono tracking-wider group-hover:text-[var(--theme-text)] transition-colors duration-150">
                           {repoName}
                         </div>
                         <div className="text-xs text-zinc-100 font-sans font-medium line-clamp-1 group-hover:text-white transition-colors duration-150">
@@ -714,7 +713,7 @@ export default function PortfolioSplitPane() {
                 
                 {/* EXPERIENCE SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="experience" className="border-b border-[var(--border)] bg-[var(--background)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--foreground)] sticky top-16 z-40">Experience</h2>
+                  <h2 id="experience" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Experience</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -760,7 +759,7 @@ export default function PortfolioSplitPane() {
 
                 {/* PROJECTS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="projects" className="border-b border-[var(--border)] bg-[var(--background)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--foreground)] sticky top-16 z-40">Projects</h2>
+                  <h2 id="projects" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Projects</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -813,7 +812,7 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="skills" className="border-b border-[var(--border)] bg-[var(--background)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--foreground)] sticky top-16 z-40">Skills</h2>
+                  <h2 id="skills" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Skills</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
@@ -858,18 +857,18 @@ export default function PortfolioSplitPane() {
       <SignatureWallEntry />
       
       {/* Engineer's Metadata Footer */}
-      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[var(--border)] text-xs font-mono text-[var(--foreground)]0">
-        <div className="border-r border-[var(--border)] border-b md:border-b-0 p-6 flex flex-col gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[var(--theme-border)] text-xs font-mono text-[var(--theme-text)]0">
+        <div className="border-r border-[var(--theme-border)] border-b md:border-b-0 p-6 flex flex-col gap-2">
           <span className="text-zinc-600">Crafted By</span>
           <span className="text-zinc-300">@preetrank</span>
         </div>
-        <div className="border-[var(--border)] md:border-r border-b md:border-b-0 p-6 flex flex-col gap-2">
+        <div className="border-[var(--theme-border)] md:border-r border-b md:border-b-0 p-6 flex flex-col gap-2">
           <span className="text-zinc-600">Built With</span>
           <span className="text-zinc-300">Next.js 14, Tailwind, Upstash</span>
         </div>
-        <div className="border-r border-[var(--border)] p-6 flex flex-col gap-2">
+        <div className="border-r border-[var(--theme-border)] p-6 flex flex-col gap-2">
           <span className="text-zinc-600">License</span>
-          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-[var(--foreground)] transition-colors">
+          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-[var(--theme-text)] transition-colors">
             MIT License
           </a>
         </div>

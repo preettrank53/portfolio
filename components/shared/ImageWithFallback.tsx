@@ -41,7 +41,7 @@ export const AdaptiveSingleImage = ({ src, alt, onClick }: { src: string; alt: s
   return (
     <div
       onClick={onClick}
-      className="relative w-full cursor-zoom-in group overflow-hidden border border-[var(--border)] bg-black/20 flex items-center justify-center rounded-none"
+      className="relative w-full cursor-zoom-in group overflow-hidden border border-[var(--theme-border)] bg-[var(--theme-hover)] flex items-center justify-center rounded-none"
     >
       <ImageWithFallback
         src={src}

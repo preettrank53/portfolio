@@ -174,7 +174,7 @@ const SignatureCanvas = forwardRef<SignatureCanvasRef, React.HTMLAttributes<HTML
   return (
     <div 
       ref={containerRef}
-      className="w-full aspect-[16/7] md:aspect-[21/9] border border-[var(--border)] bg-[var(--surface)] relative overflow-hidden touch-none"
+      className="w-full aspect-[16/7] md:aspect-[21/9] border border-[var(--theme-border)] bg-[var(--surface)] relative overflow-hidden touch-none"
     >
       <canvas
         ref={canvasRef}

@@ -52,7 +52,7 @@ export function LogoUploader({
       <label className="block font-mono text-[9px] text-ash uppercase tracking-widest">COMPANY LOGO</label>
       <div className="w-full">
         {logoUrl ? (
-          <div className="w-full max-w-[200px] h-32 bg-white border border-[var(--border)] rounded-none relative flex items-center justify-center p-1 group">
+          <div className="w-full max-w-[200px] h-32 bg-white border border-[var(--theme-border)] rounded-none relative flex items-center justify-center p-1 group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={logoUrl} 
@@ -75,7 +75,7 @@ export function LogoUploader({
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
             className={`w-full min-h-[140px] border border-dashed flex flex-col items-center justify-center cursor-pointer transition-colors duration-150 select-none bg-canvas/30 rounded-none gap-2 p-4
-              ${dragging ? "border-accent bg-canvas/60" : "border-[var(--border)] hover:border-accent"}`}
+              ${dragging ? "border-accent bg-canvas/60" : "border-[var(--theme-border)] hover:border-accent"}`}
           >
             <input 
               type="file" 
