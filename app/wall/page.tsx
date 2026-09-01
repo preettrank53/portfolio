@@ -51,13 +51,7 @@ export default async function WallPage() {
             <Link href="/sign" className="bg-[var(--text)] border border-[var(--text)] text-[var(--bg)] px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-[0.15em] hover:bg-transparent hover:text-[var(--text)] transition-colors duration-300 rounded-none inline-block w-auto relative z-20">
               ADD YOUR SIGN
             </Link>
-            {/* Annotation: text-only below button */}
-            <div className="absolute top-full right-0 mt-2 pointer-events-none select-none">
-              <span className="font-handwritten font-semibold text-base text-[var(--text)] opacity-55 inline-block rotate-[-2deg]">
-                {total === 0 ? "be the first" : `go on, make it ${total + 1}`}
-              </span>
             </div>
-          </div>
         </div>
 
         <div className="flex flex-col items-center text-center mb-16">

@@ -31,12 +31,7 @@ export function SignatureWallEntry() {
         </p>
       )}
       <div className="relative">
-        <div className="absolute -top-12 -right-12 hidden md:flex flex-col items-start pointer-events-none opacity-70 rotate-[6deg]">
-          <span className="font-handwritten text-xl text-zinc-400">add yours</span>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-500 ml-2 mt-1">
-            <path d="M19 5l-7 7-7-7"/>
-          </svg>
-        </div>
+        
         <a
           href="/wall"
           onClick={handleClick}

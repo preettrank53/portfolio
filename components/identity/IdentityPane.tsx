@@ -57,12 +57,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                 </a>
 
                 <div className="relative w-full">
-                <div className="absolute -left-32 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-end pointer-events-none opacity-70 rotate-[-4deg]">
-                  <span className="font-handwritten text-lg text-zinc-400">takes 30 seconds</span>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-500 mt-1 mr-2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </div>
+                
                 <a
                   href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                   target="_blank"
@@ -75,7 +70,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
               </div>
 
               <div className="w-full">
-                <span className="hidden md:block font-handwritten text-zinc-500 text-sm mb-2 opacity-60">connect</span>
+                
                 <div className="flex justify-between w-full max-w-xs">
                   <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
                     <GithubIcon className="w-full h-full" />
