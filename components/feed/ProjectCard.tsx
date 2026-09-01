@@ -47,7 +47,7 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative overflow-hidden rounded-none"
+      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative overflow-hidden rounded-none"
     >
       <SpotlightOverlay />
       

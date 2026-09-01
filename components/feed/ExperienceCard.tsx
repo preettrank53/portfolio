@@ -41,7 +41,7 @@ export function ExperienceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative overflow-hidden rounded-none"
+      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative overflow-hidden rounded-none"
     >
       <SpotlightOverlay />
       
@@ -70,9 +70,16 @@ export function ExperienceCard({
 
       {/* LEFT COLUMN: Metadata (Dates) */}
       <div className="md:col-span-1">
-        <span className="text-xs text-zinc-500 font-mono uppercase tracking-wider mt-1 block">
-          {post.date}{post.duration ? ` · ${post.duration}` : ""}
-        </span>
+        <div className="flex flex-col gap-1 mt-1">
+          <span className="text-xs text-zinc-400 font-mono uppercase tracking-wider block">
+            {post.date}
+          </span>
+          {post.duration && (
+            <span className="text-xs text-zinc-600 font-mono uppercase tracking-wider block">
+              {post.duration}
+            </span>
+          )}
+        </div>
         {post.isPinned && (
           <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[9px] uppercase tracking-widest mt-2">
             <Pin className="w-3 h-3 text-zinc-50 fill-current rotate-[45deg]" />

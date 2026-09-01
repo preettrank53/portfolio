@@ -25,7 +25,7 @@ export function StackSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative rounded-none"
+      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-zinc-800 hover:bg-zinc-900/20 transition-colors group relative rounded-none items-center"
     >
       {/* Inline Admin Edit Button */}
       {adminMode && (
@@ -49,7 +49,7 @@ export function StackSection({
 
       {/* RIGHT COLUMN: Stack Icons */}
       <div className="md:col-span-3">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
           {(post.tools || []).map((tool) => (
             <StackIconBox 
               key={tool.name} 

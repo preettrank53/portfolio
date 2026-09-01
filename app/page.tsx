@@ -583,7 +583,7 @@ export default function PortfolioSplitPane() {
     <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-zinc-800 flex flex-col pb-24 text-zinc-50 selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
       
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 p-4 flex justify-between items-center">
+      <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 px-4 md:px-6 flex justify-between items-center h-16">
         <div className="font-mono font-bold text-zinc-50 tracking-widest uppercase">PREET RANK</div>
         <nav className="flex items-center gap-4 text-xs font-mono text-zinc-400">
           <a href="#experience" className="hover:text-zinc-50 transition-colors">EXPERIENCE</a>
@@ -602,12 +602,12 @@ export default function PortfolioSplitPane() {
         <div className="grid grid-cols-1 md:grid-cols-2 border-b border-zinc-800">
           
           {/* GitHub Activity */}
-          <div className="p-6 border-b border-zinc-800 md:border-b-0 md:border-r">
+          <div className="px-4 md:px-6 py-6 border-b border-zinc-800 md:border-b-0 md:border-r">
             <GitHubActivity />
           </div>
 
           {/* Open Source PRs */}
-          <div className="p-6">
+          <div className="px-4 md:px-6 py-6">
             <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500 mb-4">
               RECENT OPEN SOURCE PRs
             </span>
@@ -699,7 +699,7 @@ export default function PortfolioSplitPane() {
                 
                 {/* EXPERIENCE SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="experience" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">EXPERIENCE</h2>
+                  <h2 id="experience" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">EXPERIENCE</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -745,7 +745,7 @@ export default function PortfolioSplitPane() {
 
                 {/* PROJECTS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="projects" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">PROJECTS</h2>
+                  <h2 id="projects" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">PROJECTS</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -798,7 +798,7 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="skills" className="border-b border-zinc-800 bg-zinc-950 px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-[73px] z-40">SKILLS</h2>
+                  <h2 id="skills" className="border-b border-zinc-800 bg-zinc-950 px-4 md:px-6 py-3 text-sm font-mono text-zinc-50 uppercase sticky top-16 z-40">SKILLS</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
