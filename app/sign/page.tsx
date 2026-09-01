@@ -4,6 +4,8 @@ import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import SignatureCanvas, { SignatureCanvasRef } from "@/components/SignatureCanvas";
+import { PRLogo } from "@/components/identity/PRLogo";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function SignPage() {
   const router = useRouter();
@@ -58,40 +60,48 @@ export default function SignPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--theme-bg)] text-purewhite flex items-center justify-center p-6 sm:p-8">
-      <div className="w-full max-w-2xl border border-[var(--theme-border)] bg-[var(--surface)] p-6 md:p-10 relative overflow-hidden backdrop-blur-md">
+    <main className="max-w-4xl mx-auto border-x border-[var(--theme-border)] min-h-screen flex flex-col pb-24 text-[var(--theme-text)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10 bg-[var(--theme-bg)]">
+      
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 bg-[var(--theme-bg)] border-b border-[var(--theme-border)] h-16 px-4 md:px-6 flex items-center justify-between">
+        {/* Left (Identity) */}
+        <Link href="/" className="flex items-center gap-3 hover:text-zinc-400 transition-colors">
+          <PRLogo className="w-8 h-auto text-[var(--theme-text)]" />
+        </Link>
         
-        {/* Header Links */}
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
-            ← BACK TO HOME
-          </Link>
-          <Link href="/wall" className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b949e] hover:text-purewhite transition-colors duration-300">
-            VIEW THE WALL →
-          </Link>
-        </div>
+        {/* Center (Empty) */}
+        <div className="flex-1"></div>
 
-        <div className="flex flex-col mb-8">
-          <h1 className="font-sans font-extrabold tracking-tighter uppercase text-purewhite whitespace-nowrap text-3xl md:text-4xl mb-2">
-            SIGN THE WALL
-          </h1>
-          <span className="font-mono text-xs text-ash tracking-wide uppercase">
-            Leave your mark - visible to everyone who visits.
-          </span>
+        {/* Right (Utilities) */}
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
         </div>
+      </header>
 
-        <div className="mb-6">
+      {/* Page Title */}
+      <div className="border-b border-[var(--theme-border)] p-6 md:p-10 flex flex-col gap-4">
+        <h1 className="font-mono text-sm tracking-widest text-[var(--theme-muted)]">
+          02 // Sign The Wall
+        </h1>
+        <p className="font-sans text-xl md:text-3xl font-extrabold tracking-tighter text-[var(--theme-text)]">
+          Leave your mark.
+        </p>
+      </div>
+
+      <div className="p-6 md:p-10 flex flex-col gap-8">
+        
+        <div className="w-full">
           <SignatureCanvas ref={canvasRef} />
         </div>
 
-        <div className="flex flex-col gap-4 mb-8">
+        <div className="flex flex-col gap-4">
           <input
             type="text"
             placeholder="Your name (optional)"
             maxLength={40}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full bg-transparent border border-[var(--theme-border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
+            className="w-full bg-transparent border border-[var(--theme-border)] p-4 text-[var(--theme-text)] placeholder-[var(--theme-muted)] focus:outline-none focus:border-[var(--theme-text)] transition-colors rounded-none"
           />
           <input
             type="text"
@@ -99,30 +109,30 @@ export default function SignPage() {
             maxLength={80}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="w-full bg-transparent border border-[var(--theme-border)] text-purewhite font-sans text-sm p-3 focus:outline-none focus:border-accent transition-colors duration-300"
+            className="w-full bg-transparent border border-[var(--theme-border)] p-4 text-[var(--theme-text)] placeholder-[var(--theme-muted)] focus:outline-none focus:border-[var(--theme-text)] transition-colors rounded-none"
           />
         </div>
 
         {error && (
-          <div className="mb-6 font-mono text-[10px] uppercase tracking-wider text-red-500 bg-red-500/10 p-3 border border-red-500/20">
+          <div className="font-mono text-[10px] tracking-wider text-red-500 bg-red-500/10 p-4 border border-red-500/20 rounded-none">
             {error}
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full">
+        <div className="flex flex-col sm:flex-row gap-4 w-full">
           <button
             onClick={handleClear}
             disabled={isSubmitting}
-            className="w-full sm:w-1/3 text-center py-4 md:py-3 bg-transparent border border-[var(--theme-border)] text-ash font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-[var(--theme-border)] hover:text-purewhite transition-all duration-300 disabled:opacity-50"
+            className="w-full sm:w-1/3 text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-muted)] font-sans font-bold text-sm tracking-widest rounded-none hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)] transition-all duration-300 disabled:opacity-50"
           >
-            CLEAR
+            Clear
           </button>
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="w-full sm:w-2/3 text-center py-4 md:py-3 bg-transparent border border-accent text-purewhite font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-accent hover:text-canvas transition-all duration-300 disabled:opacity-50"
+            className="w-full sm:w-2/3 border border-[var(--theme-text)] bg-[var(--theme-text)] text-[var(--theme-bg)] py-4 font-bold hover:opacity-90 transition-opacity rounded-none text-sm tracking-widest"
           >
-            {isSubmitting ? "SUBMITTING..." : "SUBMIT SIGNATURE"}
+            {isSubmitting ? "Submitting..." : "Submit Signature"}
           </button>
         </div>
 

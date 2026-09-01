@@ -113,7 +113,7 @@ export function ProjectCard({
           {shouldTruncate && (
             <button
               onClick={() => setExpandedCards(prev => ({ ...prev, [post.id]: !isExpanded }))}
-              className="text-[9px] font-mono text-[var(--theme-text)]0 hover:text-[var(--theme-text)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
+              className="relative z-50 text-[9px] font-mono text-[var(--theme-text)]0 hover:text-[var(--theme-text)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
             >
               {isExpanded ? "Read Less ▲" : "Read More ▼"}
             </button>
@@ -219,7 +219,7 @@ export function ProjectCard({
                 href={post.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="relative z-50 flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Live →</span>
               </a>
@@ -229,7 +229,7 @@ export function ProjectCard({
                 href={post.codeUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="relative z-50 flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Code ↗</span>
               </a>
@@ -242,7 +242,7 @@ export function ProjectCard({
             <button 
               onClick={() => handleAppreciate(post.id)}
               disabled={hasUserAppreciated}
-              className={`flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[30px] ${
+              className={`relative z-50 flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[30px] ${
                 hasUserAppreciated ? "text-[var(--theme-text)] cursor-not-allowed" : "text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
               }`}
             >

@@ -83,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased relative bg-canvas transition-colors duration-500`}
+        className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} bg-[var(--theme-bg)] text-[var(--theme-text)] antialiased`}
         suppressHydrationWarning
       >
         <Providers>

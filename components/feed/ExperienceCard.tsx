@@ -223,7 +223,7 @@ export function ExperienceCard({
             <button 
               onClick={() => handleAppreciate(post.id)}
               disabled={hasUserAppreciated}
-              className={`flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[44px] ${
+              className={`relative z-50 flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[44px] ${
                 hasUserAppreciated ? "text-[var(--theme-text)] cursor-not-allowed" : "text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
               }`}
             >

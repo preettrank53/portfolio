@@ -585,7 +585,7 @@ export default function PortfolioSplitPane() {
     <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-[var(--theme-border)] flex flex-col pb-24 text-[var(--theme-text)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
       
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-[var(--theme-bg-alpha)] backdrop-blur-md border-b border-[var(--theme-border)] px-4 md:px-6 flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 bg-[var(--theme-bg)] border-b border-[var(--theme-border)] px-4 md:px-6 flex items-center justify-between h-16">
         {/* Left (Identity) */}
         <a href="#" className="flex items-center">
           <PRLogo className="w-8 h-auto text-[var(--theme-text)]" />
@@ -713,7 +713,7 @@ export default function PortfolioSplitPane() {
                 
                 {/* EXPERIENCE SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="experience" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Experience</h2>
+                  <h2 id="experience" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Experience</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -759,7 +759,7 @@ export default function PortfolioSplitPane() {
 
                 {/* PROJECTS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="projects" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Projects</h2>
+                  <h2 id="projects" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Projects</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -812,7 +812,7 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div className="flex flex-col">
-                  <h2 id="skills" className="border-b border-[var(--theme-border)] bg-[var(--theme-bg-alpha)] backdrop-blur-md px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)] sticky top-16 z-40">Skills</h2>
+                  <h2 id="skills" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Skills</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
