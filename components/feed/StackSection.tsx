@@ -32,9 +32,9 @@ export function StackSection({
         <div className="absolute top-4 right-4 hidden group-hover:flex items-center gap-1.5 z-10">
           <button
             onClick={() => handleStartEdit(post)}
-            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 uppercase tracking-widest rounded-none min-h-[30px]"
+            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 tracking-widest rounded-none min-h-[30px]"
           >
-            EDIT
+            Edit
           </button>
         </div>
       )}

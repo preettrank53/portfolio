@@ -61,9 +61,9 @@ export function ExperienceCard({
           </button>
           <button
             onClick={() => handleStartEdit(post)}
-            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 uppercase tracking-widest rounded-none min-h-[30px]"
+            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 tracking-widest rounded-none min-h-[30px]"
           >
-            EDIT
+            Edit
           </button>
         </div>
       )}
@@ -71,19 +71,19 @@ export function ExperienceCard({
       {/* LEFT COLUMN: Metadata (Dates) */}
       <div className="md:col-span-1">
         <div className="flex flex-col gap-1 mt-1">
-          <span className="text-xs text-zinc-400 font-mono uppercase tracking-wider block">
+          <span className="text-xs text-zinc-400 font-mono tracking-wider block">
             {post.date}
           </span>
           {post.duration && (
-            <span className="text-xs text-zinc-600 font-mono uppercase tracking-wider block">
+            <span className="text-xs text-zinc-600 font-mono tracking-wider block">
               {post.duration}
             </span>
           )}
         </div>
         {post.isPinned && (
-          <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[9px] uppercase tracking-widest mt-2">
+          <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[9px] tracking-widest mt-2">
             <Pin className="w-3 h-3 text-zinc-50 fill-current rotate-[45deg]" />
-            <span>PINNED FLAGSHIP</span>
+            <span>Pinned Flagship</span>
           </div>
         )}
       </div>
@@ -104,7 +104,7 @@ export function ExperienceCard({
                 className="object-contain p-1 bg-white"
               />
             ) : (
-              <div className="w-full h-full bg-zinc-900 flex items-center justify-center font-bold text-zinc-500 text-lg uppercase font-sans">
+              <div className="w-full h-full bg-zinc-900 flex items-center justify-center font-bold text-zinc-500 text-lg font-sans">
                 {post.company?.charAt(0) || "E"}
               </div>
             )}
@@ -112,7 +112,7 @@ export function ExperienceCard({
 
           {/* Job Details */}
           <div className="flex-1 flex flex-col min-w-0">
-            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-zinc-50 leading-snug">
+            <h3 className="text-xl md:text-2xl font-bold tracking-tight text-zinc-50 leading-snug">
               {post.title}
             </h3>
             <div className="text-sm text-zinc-400 mt-0.5">
@@ -209,7 +209,7 @@ export function ExperienceCard({
             {post.tags.map(tag => (
               <span 
                 key={tag} 
-                className="flex-none font-mono text-[10px] tracking-wider uppercase border border-zinc-800 px-2 py-1 text-zinc-400 rounded-sm bg-transparent hover:border-zinc-500 hover:text-zinc-50 transition-colors duration-150"
+                className="flex-none font-mono text-[10px] tracking-wider border border-zinc-800 px-2 py-1 text-zinc-400 rounded-sm bg-transparent hover:border-zinc-500 hover:text-zinc-50 transition-colors duration-150"
               >
                 {tag}
               </span>

@@ -35,14 +35,14 @@ export function SignatureWallEntry() {
         <a
           href="/wall"
           onClick={handleClick}
-          className="block border border-zinc-50 text-zinc-50 px-8 py-3 hover:bg-zinc-50 hover:text-zinc-950 transition-colors uppercase tracking-widest text-sm font-bold relative overflow-hidden"
+          className="block border border-zinc-50 text-zinc-50 px-8 py-3 hover:bg-zinc-50 hover:text-zinc-950 transition-colors tracking-widest text-sm font-bold relative overflow-hidden"
         >
           <span className={`${isPending ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
-            SEE THE WALL
+            See the Wall
           </span>
           {isPending && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="animate-pulse">LOADING...</span>
+              <span className="animate-pulse">Loading...</span>
             </div>
           )}
         </a>

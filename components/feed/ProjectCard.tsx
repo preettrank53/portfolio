@@ -67,22 +67,22 @@ export function ProjectCard({
           </button>
           <button
             onClick={() => handleStartEdit(post)}
-            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 uppercase tracking-widest rounded-none min-h-[30px]"
+            className="border border-zinc-50 bg-zinc-950 px-3 py-1 font-mono text-[9px] text-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 tracking-widest rounded-none min-h-[30px]"
           >
-            EDIT
+            Edit
           </button>
         </div>
       )}
 
       {/* LEFT COLUMN: Metadata (Date) */}
       <div className="md:col-span-1">
-        <span className="text-xs text-zinc-500 font-mono uppercase tracking-wider block mt-1">
+        <span className="text-xs text-zinc-500 font-mono tracking-wider block mt-1">
           {post.date}
         </span>
         {post.isPinned && (
-          <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[9px] uppercase tracking-widest mt-2">
+          <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[9px] tracking-widest mt-2">
             <Pin className="w-3 h-3 text-zinc-50 fill-current rotate-[45deg]" />
-            <span>PINNED FLAGSHIP</span>
+            <span>Pinned Flagship</span>
           </div>
         )}
       </div>
@@ -93,12 +93,12 @@ export function ProjectCard({
         {/* Title & Category Row */}
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
           <h3 
-            className="font-sans font-extrabold text-xl md:text-2xl text-zinc-50 uppercase tracking-tight leading-tight line-clamp-2"
-            title={post.title || "UNTITLED"}
+            className="font-sans font-extrabold text-xl md:text-2xl text-zinc-50 tracking-tight leading-tight line-clamp-2"
+            title={post.title || "Untitled"}
           >
-            {post.title || "UNTITLED"}
+            {post.title || "Untitled"}
           </h3>
-          <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
+          <span className="font-mono text-[10px] text-zinc-500 tracking-widest">
             {post.category}
           </span>
         </div>
@@ -108,14 +108,14 @@ export function ProjectCard({
           <p className={`text-[13px] sm:text-[14px] text-zinc-400 leading-relaxed mb-1 whitespace-pre-line font-sans font-medium ${
             isExpanded ? "" : "line-clamp-4"
           }`}>
-            {post.body || "NO DESCRIPTION PROVIDED"}
+            {post.body || "No description provided"}
           </p>
           {shouldTruncate && (
             <button
               onClick={() => setExpandedCards(prev => ({ ...prev, [post.id]: !isExpanded }))}
-              className="text-[9px] font-mono text-zinc-500 hover:text-zinc-50 uppercase tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
+              className="text-[9px] font-mono text-zinc-500 hover:text-zinc-50 tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
             >
-              {isExpanded ? "READ LESS ▲" : "READ MORE ▼"}
+              {isExpanded ? "Read Less ▲" : "Read More ▼"}
             </button>
           )}
         </div>
@@ -189,7 +189,7 @@ export function ProjectCard({
         {/* Embedded Code Snippet */}
         {post.codeSnippet && post.codeSnippet.content && post.codeSnippet.content.trim() !== "" && (
           <div className="border border-zinc-800 bg-zinc-950 rounded-sm mb-4 overflow-hidden font-mono text-[11px] transition-colors duration-150">
-            <div className="border-b border-zinc-800 bg-zinc-900 px-3 py-1.5 flex justify-between items-center text-[9px] text-zinc-400 uppercase tracking-wider">
+            <div className="border-b border-zinc-800 bg-zinc-900 px-3 py-1.5 flex justify-between items-center text-[9px] text-zinc-400 tracking-wider">
               <span>{post.codeSnippet.title}</span>
               <span>{post.codeSnippet.lang}</span>
             </div>
@@ -203,7 +203,7 @@ export function ProjectCard({
             {post.tags.map(tag => (
               <span 
                 key={tag} 
-                className="flex-none font-mono text-[10px] tracking-wider uppercase border border-zinc-800 px-2 py-1 text-zinc-400 rounded-sm bg-transparent hover:border-zinc-500 hover:text-zinc-50 transition-colors duration-150"
+                className="flex-none font-mono text-[10px] tracking-wider border border-zinc-800 px-2 py-1 text-zinc-400 rounded-sm bg-transparent hover:border-zinc-500 hover:text-zinc-50 transition-colors duration-150"
               >
                 {tag}
               </span>
@@ -219,7 +219,7 @@ export function ProjectCard({
                 href={post.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-zinc-50 transition-colors duration-150 uppercase tracking-widest min-h-[30px]"
+                className="flex items-center gap-1 text-[11px] font-mono hover:text-zinc-50 transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Live →</span>
               </a>
@@ -229,7 +229,7 @@ export function ProjectCard({
                 href={post.codeUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-1 text-[11px] font-mono hover:text-zinc-50 transition-colors duration-150 uppercase tracking-widest min-h-[30px]"
+                className="flex items-center gap-1 text-[11px] font-mono hover:text-zinc-50 transition-colors duration-150 tracking-widest min-h-[30px]"
               >
                 <span>Code ↗</span>
               </a>

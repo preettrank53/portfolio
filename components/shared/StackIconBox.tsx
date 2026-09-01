@@ -48,12 +48,12 @@ export const StackIconBox = ({ name, iconName, color }: { name: string; iconName
         <IconComponent className="text-xl md:text-3xl transition-transform duration-300 group-hover:scale-105" style={{ color: displayColor }} />
       </div>
       {hasHover ? (
-        <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
+        <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--text)] opacity-0 max-w-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-w-[120px] ml-0 group-hover:ml-1 pr-0 group-hover:pr-3">
           {name}
         </span>
       ) : (
         clickedExpanded && (
-          <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[var(--text)] ml-1 pr-2">
+          <span className="whitespace-nowrap font-mono text-[10px] tracking-widest text-[var(--text)] ml-1 pr-2">
             {name}
           </span>
         )

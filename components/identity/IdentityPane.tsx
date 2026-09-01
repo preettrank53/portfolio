@@ -36,8 +36,8 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                 <h1 className="font-sans font-extrabold tracking-tighter text-zinc-50 whitespace-nowrap text-3xl md:text-3xl">
                   Preet Rank
                 </h1>
-                <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest mt-1">
-                  @preettrank
+                <span className="font-mono text-xs text-zinc-400 tracking-widest mt-1">
+                  @preetrank
                 </span>
               </div>
 
@@ -51,9 +51,9 @@ export function IdentityPane({ loading }: { loading: boolean }) {
               <div className="flex flex-col gap-3">
                 <a
                   href="mailto:preetrank53@gmail.com"
-                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs uppercase tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center relative z-20"
+                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center relative z-20"
                 >
-                  EMAIL ME
+                  Email Me
                 </a>
 
                 <div className="relative w-full">
@@ -62,9 +62,9 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                   href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs uppercase tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center"
+                  className="w-full text-center py-4 bg-transparent border border-zinc-700 text-zinc-50 font-sans font-bold text-xs tracking-[0.15em] hover:bg-zinc-900 transition-colors duration-200 flex items-center justify-center"
                 >
-                  VIEW RESUME
+                  View Resume
                 </a>
               </div>
               </div>

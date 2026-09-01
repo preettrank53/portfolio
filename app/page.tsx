@@ -611,8 +611,8 @@ export default function PortfolioSplitPane() {
 
           {/* Open Source PRs */}
           <div className="px-4 md:px-6 py-6">
-            <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500 mb-4">
-              RECENT OPEN SOURCE PRs
+            <span className="block font-mono text-[9px] tracking-[0.2em] text-zinc-500 mb-4">
+              Recent Open Source PRs
             </span>
             {!prsError && (prsLoading || prs.length > 0) && (
               prsLoading ? (
@@ -620,7 +620,7 @@ export default function PortfolioSplitPane() {
               ) : (
                 <div className="flex flex-col gap-2">
                   {prs.map(pr => {
-                    const repoName = pr.repository_url.replace("https://api.github.com/repos/", "").toUpperCase();
+                    const repoName = pr.repository_url.replace("https://api.github.com/repos/", "");
                     return (
                       <a
                         key={pr.id}
@@ -629,7 +629,7 @@ export default function PortfolioSplitPane() {
                         rel="noopener noreferrer"
                         className="group flex flex-col gap-1 py-2 border-b border-zinc-800/50 last:border-0 hover:bg-zinc-900/50 transition-colors px-2 -mx-2 rounded"
                       >
-                        <div className="text-[10px] text-zinc-400 font-mono uppercase tracking-wider group-hover:text-zinc-50 transition-colors duration-150">
+                        <div className="text-[10px] text-zinc-400 font-mono tracking-wider group-hover:text-zinc-50 transition-colors duration-150">
                           {repoName}
                         </div>
                         <div className="text-xs text-zinc-100 font-sans font-medium line-clamp-1 group-hover:text-white transition-colors duration-150">
@@ -656,24 +656,24 @@ export default function PortfolioSplitPane() {
               <div className="pt-6 flex gap-2">
                 <button 
                   onClick={() => handleStartNewEntry("experience")}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] tracking-widest rounded-none min-h-[44px]"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>ADD EXPERIENCE</span>
+                  <span>Add Experience</span>
                 </button>
                 <button 
                   onClick={() => handleStartNewEntry("projects")}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] tracking-widest rounded-none min-h-[44px]"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>ADD PROJECT</span>
+                  <span>Add Project</span>
                 </button>
                 <button 
                   onClick={() => handleStartNewEntry("stack")}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] uppercase tracking-widest rounded-none min-h-[44px]"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-transparent border border-dashed border-charcoal text-ash hover:text-accent hover:border-accent transition-colors duration-150 font-mono text-[10px] tracking-widest rounded-none min-h-[44px]"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>ADD SKILL</span>
+                  <span>Add Skill</span>
                 </button>
               </div>
             )}
@@ -848,21 +848,21 @@ export default function PortfolioSplitPane() {
       {/* Engineer's Metadata Footer */}
       <div className="grid grid-cols-2 md:grid-cols-4 border-b border-zinc-800 text-xs font-mono text-zinc-500">
         <div className="border-r border-zinc-800 border-b md:border-b-0 p-6 flex flex-col gap-2">
-          <span className="text-zinc-600 uppercase">CRAFTED BY</span>
-          <span className="text-zinc-300">@PREETTRANK</span>
+          <span className="text-zinc-600">Crafted By</span>
+          <span className="text-zinc-300">@preetrank</span>
         </div>
         <div className="border-zinc-800 md:border-r border-b md:border-b-0 p-6 flex flex-col gap-2">
-          <span className="text-zinc-600 uppercase">BUILT WITH</span>
+          <span className="text-zinc-600">Built With</span>
           <span className="text-zinc-300">Next.js 14, Tailwind, Upstash</span>
         </div>
         <div className="border-r border-zinc-800 p-6 flex flex-col gap-2">
-          <span className="text-zinc-600 uppercase">LICENSE</span>
+          <span className="text-zinc-600">License</span>
           <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-zinc-50 transition-colors">
             MIT License
           </a>
         </div>
         <div className="p-6 flex flex-col gap-2">
-          <span className="text-zinc-600 uppercase">METRICS</span>
+          <span className="text-zinc-600">Metrics</span>
           <span className="text-zinc-300">
             {!viewCountError && viewCount !== null ? `${viewCount} Total Visits` : "Loading..."}
           </span>
@@ -883,8 +883,8 @@ export default function PortfolioSplitPane() {
         <div className="fixed bottom-0 left-0 right-0 md:bottom-6 md:right-6 md:left-auto z-40 flex flex-col gap-2 items-stretch md:items-end px-4 pb-4 md:p-0">
           {hasUnsavedChanges && (
             <div className="bg-amber-500/10 border border-amber-500 p-3 font-mono text-[9px] text-amber-400 tracking-widest uppercase select-none shadow-lg text-center md:text-left leading-relaxed">
-              ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  CHANGES UNSAVED IN CLOUD<br />
-              <span className="text-amber-300">CLICK EXPORT JSON TO COMMIT</span>
+              ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  Changes Unsaved In Cloud<br />
+              <span className="text-amber-300">Click Export JSON to commit</span>
             </div>
           )}
           <button
@@ -895,10 +895,10 @@ export default function PortfolioSplitPane() {
                 : "bg-purewhite text-canvas border-purewhite hover:bg-accent hover:text-canvas"
             }`}
           >
-            EXPORT {editingSection ? editingSection.toUpperCase() : "DATA"} JSON
+            Export {editingSection ? editingSection : "Data"} JSON
           </button>
-          <div className="bg-canvas border border-purewhite p-3 font-mono text-[10px] text-purewhite tracking-widest uppercase select-none shadow-lg text-center md:text-left">
-            ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ADMIN MODE ACTIVE
+          <div className="bg-canvas border border-purewhite p-3 font-mono text-[10px] text-purewhite tracking-widest select-none shadow-lg text-center md:text-left">
+            ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Admin Mode Active
           </div>
         </div>
       )}

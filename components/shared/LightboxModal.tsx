@@ -77,7 +77,7 @@ export function LightboxModal({
               />
             </div>
             {selectedScreenshot.caption && (
-              <p className="mt-3 font-mono text-[10px] text-ash tracking-wider uppercase text-center max-w-xl">
+              <p className="mt-3 font-mono text-[10px] text-ash tracking-wider text-center max-w-xl">
                 {selectedScreenshot.caption}
               </p>
             )}
