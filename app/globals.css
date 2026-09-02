@@ -188,21 +188,18 @@ header, section, nav, div {
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-/* View Transition - circular wave animation */
-::view-transition-old(root),
-::view-transition-new(root) {
+::view-transition-old(root), ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
-::view-transition-old(root) {
-  z-index: 1;
-}
+
 ::view-transition-new(root) {
-  z-index: 9999;
+  clip-path: circle(0px at var(--x, var(--vt-x, 50%)) var(--y, var(--vt-y, 50%)));
+  animation: reveal 0.5s ease-in-out forwards;
 }
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-.dark::view-transition-new(root) {
-  z-index: 1;
+
+@keyframes reveal {
+  to {
+    clip-path: circle(var(--r, var(--vt-r, 150vmax)) at var(--x, var(--vt-x, 50%)) var(--y, var(--vt-y, 50%)));
+  }
 }

@@ -31,33 +31,22 @@ export function ThemeToggle() {
       Math.max(y, innerHeight - y)
     );
 
-    const transition = document.startViewTransition(() => {
-      setTheme(newTheme);
-    });
+    document.documentElement.style.setProperty("--x", `${x}px`);
+    document.documentElement.style.setProperty("--y", `${y}px`);
+    document.documentElement.style.setProperty("--r", `${endRadius}px`);
+    document.documentElement.style.setProperty("--vt-x", `${x}px`);
+    document.documentElement.style.setProperty("--vt-y", `${y}px`);
+    document.documentElement.style.setProperty("--vt-r", `${endRadius}px`);
 
-    transition.ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
-      ];
-      document.documentElement.animate(
-        {
-          clipPath:
-            resolvedTheme === "dark" ? clipPath : [...clipPath].reverse(),
-        },
-        {
-          duration: 500,
-          easing: "ease-out",
-          pseudoElement: "::view-transition-new(root)",
-        }
-      );
+    document.startViewTransition(() => {
+      setTheme(newTheme);
     });
   };
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 hover:bg-[var(--theme-hover)] rounded-sm transition-colors text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
+      className="p-2 hover:bg-[var(--theme-hover)] rounded-md transition-colors text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
       aria-label="Toggle theme"
     >
       {resolvedTheme === "dark" ? (

@@ -127,14 +127,14 @@ export default function SignPage() {
           <button
             onClick={handleClear}
             disabled={isSubmitting}
-            className="w-full sm:w-1/3 text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-muted)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] transition-colors duration-200 disabled:opacity-50"
+            className="w-full sm:w-1/3 px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center disabled:opacity-50"
           >
             Clear
           </button>
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="w-full sm:w-2/3 text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] transition-colors duration-200 disabled:opacity-50"
+            className="w-full sm:w-2/3 px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center disabled:opacity-50"
           >
             {isSubmitting ? "Submitting..." : "Submit Signature"}
           </button>

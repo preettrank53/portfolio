@@ -51,7 +51,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
               <div className="flex flex-col gap-3 mb-8">
                 <a
                   href="mailto:preetrank53@gmail.com"
-                  className="w-full text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-muted)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)] transition-colors duration-200 flex items-center justify-center relative z-20"
+                  className="px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center relative z-20 w-full"
                 >
                   Email Me
                 </a>
@@ -62,7 +62,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                   href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-muted)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)] transition-colors duration-200 flex items-center justify-center relative z-20"
+                  className="px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center relative z-20 w-full"
                 >
                   View Resume
                 </a>

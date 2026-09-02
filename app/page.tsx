@@ -764,54 +764,66 @@ export default function PortfolioSplitPane() {
                 {/* PROJECTS SECTION */}
                 <div id="projects" className="flex flex-col scroll-mt-[112px]">
                   <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Projects</h2>
-                  {projectsDataState.map((post, index) => {
-                    const isEditing = editingId === post.id;
-                    const hasUserAppreciated = userAppreciated[post.id] || false;
-                    const appCount = appreciations[post.id] ?? 0;
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6 border-b border-[var(--theme-border)]">
+                    {projectsDataState.map((post, index) => {
+                      const isEditing = editingId === post.id;
+                      const hasUserAppreciated = userAppreciated[post.id] || false;
+                      const appCount = appreciations[post.id] ?? 0;
 
-                    if (isEditing && editForm) {
+                      if (isEditing && editForm) {
+                        return (
+                          <AdminEditorForm
+                            key={post.id}
+                            editForm={editForm}
+                            setEditForm={setEditForm}
+                            activeTab="projects"
+                            isAddingNew={false}
+                            tagsInput={tagsInput}
+                            setTagsInput={setTagsInput}
+                            onSave={handleSaveEdit}
+                            onCancel={handleCancelEdit}
+                            onDelete={() => handleDeleteEntry(post.id)}
+                            confirmDeleteId={confirmDeleteId}
+                            setConfirmDeleteId={setConfirmDeleteId}
+                          />
+                        );
+                      }
+
+                      const isExpanded = expandedCards[post.id] || false;
+                      const bodyText = post.body || "";
+                      const shouldTruncate = bodyText.split("\n").length > 4 || bodyText.length > 300;
+
                       return (
-                        <AdminEditorForm
+                        <ProjectCard
                           key={post.id}
-                          editForm={editForm}
-                          setEditForm={setEditForm}
-                          activeTab="projects"
-                          isAddingNew={false}
-                          tagsInput={tagsInput}
-                          setTagsInput={setTagsInput}
-                          onSave={handleSaveEdit}
-                          onCancel={handleCancelEdit}
-                          onDelete={() => handleDeleteEntry(post.id)}
-                          confirmDeleteId={confirmDeleteId}
-                          setConfirmDeleteId={setConfirmDeleteId}
+                          post={post}
+                          index={index}
+                          adminMode={adminMode}
+                          hasUserAppreciated={hasUserAppreciated}
+                          appCount={appCount}
+                          isExpanded={isExpanded}
+                          shouldTruncate={shouldTruncate}
+                          setExpandedCards={setExpandedCards}
+                          handleTogglePin={handleTogglePin}
+                          handleStartEdit={(item) => { setEditingSection("projects"); handleStartEdit(item); }}
+                          handleAppreciate={handleAppreciate}
+                          setScreenshotList={setScreenshotList}
+                          setScreenshotIndex={setScreenshotIndex}
+                          setSelectedScreenshot={setSelectedScreenshot}
                         />
                       );
-                    }
-
-                    const isExpanded = expandedCards[post.id] || false;
-                    const bodyText = post.body || "";
-                    const shouldTruncate = bodyText.split("\n").length > 4 || bodyText.length > 300;
-
-                    return (
-                      <ProjectCard
-                        key={post.id}
-                        post={post}
-                        index={index}
-                        adminMode={adminMode}
-                        hasUserAppreciated={hasUserAppreciated}
-                        appCount={appCount}
-                        isExpanded={isExpanded}
-                        shouldTruncate={shouldTruncate}
-                        setExpandedCards={setExpandedCards}
-                        handleTogglePin={handleTogglePin}
-                        handleStartEdit={(item) => { setEditingSection("projects"); handleStartEdit(item); }}
-                        handleAppreciate={handleAppreciate}
-                        setScreenshotList={setScreenshotList}
-                        setScreenshotIndex={setScreenshotIndex}
-                        setSelectedScreenshot={setSelectedScreenshot}
-                      />
-                    );
-                  })}
+                    })}
+                  </div>
+                  
+                  {/* See all projects CTA */}
+                  <div className="flex justify-center py-6">
+                    <Link 
+                      href="/projects" 
+                      className="px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center"
+                    >
+                      See all projects &rarr;
+                    </Link>
+                  </div>
                 </div>
 
                 {/* SKILLS SECTION */}
