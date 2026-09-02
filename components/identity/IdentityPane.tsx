@@ -48,10 +48,10 @@ export function IdentityPane({ loading }: { loading: boolean }) {
 
             {/* Right Column: Actions & Links */}
             <div className="p-6 md:p-10 flex flex-col justify-between gap-8 border-t border-[var(--theme-border)] md:border-t-0">
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 mb-8">
                 <a
                   href="mailto:preetrank53@gmail.com"
-                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-hover)] transition-colors duration-200 flex items-center justify-center relative z-20"
+                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors duration-200 flex items-center justify-center relative z-20"
                 >
                   Email Me
                 </a>
@@ -62,7 +62,7 @@ export function IdentityPane({ loading }: { loading: boolean }) {
                   href="https://drive.google.com/file/d/1zUTtekkFg1UgHhO_-4BFfWzjUHMoBPH9/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-hover)] transition-colors duration-200 flex items-center justify-center"
+                  className="w-full text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs tracking-[0.15em] hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors duration-200 flex items-center justify-center relative z-20"
                 >
                   View Resume
                 </a>
@@ -71,20 +71,20 @@ export function IdentityPane({ loading }: { loading: boolean }) {
 
               <div className="w-full">
                 
-                <div className="flex justify-between w-full max-w-xs">
-                  <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
+                <div className="flex justify-between w-full items-center">
+                  <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
                     <GithubIcon className="w-full h-full" />
                   </a>
-                  <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
+                  <a href="https://x.com/preettrank" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
                     <SiX className="w-full h-full" />
                   </a>
-                  <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
+                  <a href="https://www.linkedin.com/in/preetrank/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
                     <LinkedinIcon className="w-full h-full" />
                   </a>
-                  <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
+                  <a href="https://www.instagram.com/preettrank/" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
                     <InstagramIcon className="w-full h-full" />
                   </a>
-                  <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-50 transition-colors">
+                  <a href="https://medium.com/@preetrank53" target="_blank" rel="noopener noreferrer" className="w-5 h-5 shrink-0 flex items-center justify-center text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
                     <SiMedium className="w-full h-full" />
                   </a>
                 </div>

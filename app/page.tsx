@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import type { DevLogItem, GitHubPR } from "@/types/portfolio";
+import Link from "next/link";
 import { LightboxModal } from "@/components/shared/LightboxModal";
 
 
@@ -585,22 +586,22 @@ export default function PortfolioSplitPane() {
     <main className="min-h-screen w-full max-w-4xl mx-auto border-x border-[var(--theme-border)] flex flex-col pb-24 text-[var(--theme-text)] selection:bg-zinc-50 selection:text-zinc-950 transition-colors duration-500 relative z-10">
       
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-[var(--theme-bg)] border-b border-[var(--theme-border)] px-4 md:px-6 flex items-center justify-between h-16">
-        {/* Left (Identity) */}
-        <a href="#" className="flex items-center">
+      <header className="sticky top-0 z-50 w-full h-16 flex items-center justify-between px-4 md:px-6 border-b border-[var(--theme-border)] bg-[var(--theme-bg)]">
+        {/* Left */}
+        <Link href="/" className="flex items-center gap-3 hover:text-zinc-400 transition-colors">
           <PRLogo className="w-8 h-auto text-[var(--theme-text)]" />
-        </a>
-
-        {/* Center (Links) */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-mono text-[var(--theme-muted)]">
-          <a href="#experience" className="hover:text-[var(--theme-text)] transition-colors">Experience</a>
-          <a href="#projects" className="hover:text-[var(--theme-text)] transition-colors">Projects</a>
-          <a href="#skills" className="hover:text-[var(--theme-text)] transition-colors">Skills</a>
+        </Link>
+        
+        {/* Center */}
+        <nav className="hidden md:flex gap-6 text-sm font-mono text-[var(--theme-muted)]">
+          <Link href="/#experience" className="hover:text-[var(--theme-text)] transition-colors">Experience</Link>
+          <Link href="/#projects" className="hover:text-[var(--theme-text)] transition-colors">Projects</Link>
+          <Link href="/#skills" className="hover:text-[var(--theme-text)] transition-colors">Skills</Link>
         </nav>
 
-        {/* Right (Utilities) */}
+        {/* Right */}
         <div className="flex items-center gap-4">
-          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
+          <a href="https://github.com/preettrank53/portfolio.git" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"></path></svg>
           </a>
           <ThemeToggle />
@@ -622,14 +623,17 @@ export default function PortfolioSplitPane() {
 
           {/* Open Source PRs */}
           <div className="px-4 md:px-6 py-6">
-            <span className="block font-mono text-[9px] tracking-[0.2em] text-[var(--theme-text)]0 mb-4">
-              Recent Open Source PRs
+            <span className="block font-mono text-[9px] tracking-[0.2em] text-[var(--theme-text)]0 mb-1">
+              Featured Open Source Contributions
             </span>
+            <p className="text-xs text-[var(--theme-muted)] mb-4 mt-1">
+              Selected architectural implementations and workflow automations.
+            </p>
             {!prsError && (prsLoading || prs.length > 0) && (
               prsLoading ? (
                 <PrListSkeleton />
               ) : (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col">
                   {prs.map(pr => {
                     const repoName = pr.repository_url.replace("https://api.github.com/repos/", "");
                     return (
@@ -638,12 +642,12 @@ export default function PortfolioSplitPane() {
                         href={pr.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex flex-col gap-1 py-2 border-b border-[var(--theme-border)]/50 last:border-0 hover:bg-zinc-900/50 transition-colors px-2 -mx-2 rounded"
+                        className="group flex flex-col gap-1 border-b border-[var(--theme-border)] pb-4 mb-4 last:mb-0 hover:bg-[var(--theme-hover)] transition-colors px-2 -mx-2 rounded"
                       >
                         <div className="text-[10px] text-[var(--theme-muted)] font-mono tracking-wider group-hover:text-[var(--theme-text)] transition-colors duration-150">
                           {repoName}
                         </div>
-                        <div className="text-xs text-zinc-100 font-sans font-medium line-clamp-1 group-hover:text-white transition-colors duration-150">
+                        <div className="text-xs text-[var(--theme-text)] font-sans font-medium line-clamp-1 transition-colors duration-150">
                           {pr.title}
                         </div>
                       </a>
@@ -712,8 +716,8 @@ export default function PortfolioSplitPane() {
               <div className="flex flex-col gap-12 mt-12">
                 
                 {/* EXPERIENCE SECTION */}
-                <div className="flex flex-col">
-                  <h2 id="experience" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Experience</h2>
+                <div id="experience" className="flex flex-col scroll-mt-32">
+                  <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Experience</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -758,8 +762,8 @@ export default function PortfolioSplitPane() {
                 </div>
 
                 {/* PROJECTS SECTION */}
-                <div className="flex flex-col">
-                  <h2 id="projects" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Projects</h2>
+                <div id="projects" className="flex flex-col scroll-mt-32">
+                  <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Projects</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
                     const hasUserAppreciated = userAppreciated[post.id] || false;
@@ -811,8 +815,8 @@ export default function PortfolioSplitPane() {
                 </div>
 
                 {/* SKILLS SECTION */}
-                <div className="flex flex-col">
-                  <h2 id="skills" className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Skills</h2>
+                <div id="skills" className="flex flex-col scroll-mt-32">
+                  <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Skills</h2>
                   {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
@@ -857,31 +861,31 @@ export default function PortfolioSplitPane() {
       <SignatureWallEntry />
       
       {/* Engineer's Metadata Footer */}
-      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[var(--theme-border)] text-xs font-mono text-[var(--theme-text)]0">
+      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-[var(--theme-border)] text-xs font-mono">
         <div className="border-r border-[var(--theme-border)] border-b md:border-b-0 p-6 flex flex-col gap-2">
-          <span className="text-zinc-600">Crafted By</span>
-          <span className="text-zinc-300">@preetrank</span>
+          <span className="text-[var(--theme-muted)]">Crafted By</span>
+          <span className="text-[var(--theme-text)]">@preetrank</span>
         </div>
         <div className="border-[var(--theme-border)] md:border-r border-b md:border-b-0 p-6 flex flex-col gap-2">
-          <span className="text-zinc-600">Built With</span>
-          <span className="text-zinc-300">Next.js 14, Tailwind, Upstash</span>
+          <span className="text-[var(--theme-muted)]">Built With</span>
+          <span className="text-[var(--theme-text)]">Next.js 14, Tailwind, Upstash</span>
         </div>
         <div className="border-r border-[var(--theme-border)] p-6 flex flex-col gap-2">
-          <span className="text-zinc-600">License</span>
-          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-zinc-300 hover:text-[var(--theme-text)] transition-colors">
+          <span className="text-[var(--theme-muted)]">License</span>
+          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-text)] hover:text-[var(--theme-hover)] transition-colors">
             MIT License
           </a>
         </div>
         <div className="p-6 flex flex-col gap-2">
-          <span className="text-zinc-600">Metrics</span>
-          <span className="text-zinc-300">
+          <span className="text-[var(--theme-muted)]">Metrics</span>
+          <span className="text-[var(--theme-text)]">
             {!viewCountError && viewCount !== null ? `${viewCount} Total Visits` : "Loading..."}
           </span>
         </div>
       </div>
 
       {/* The Bottom Cap */}
-      <div className="p-4 text-center text-zinc-700 text-xs font-mono">
+      <div className="p-4 text-center text-[var(--theme-muted)] text-xs font-mono">
         © {new Date().getFullYear()} Preet Rank. All systems operational.
       </div>
       <ScrollToTop />
