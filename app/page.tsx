@@ -88,6 +88,7 @@ export default function PortfolioSplitPane() {
 
   const [openCommandPalette, setOpenCommandPalette] = useState<boolean>(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
+  const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
   
   // Mobile Sticky Fallback
   
@@ -716,7 +717,7 @@ export default function PortfolioSplitPane() {
               <div className="flex flex-col gap-12 mt-12">
                 
                 {/* EXPERIENCE SECTION */}
-                <div id="experience" className="flex flex-col scroll-mt-32">
+                <div id="experience" className="flex flex-col scroll-mt-[112px]">
                   <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Experience</h2>
                   {experienceDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
@@ -762,7 +763,7 @@ export default function PortfolioSplitPane() {
                 </div>
 
                 {/* PROJECTS SECTION */}
-                <div id="projects" className="flex flex-col scroll-mt-32">
+                <div id="projects" className="flex flex-col scroll-mt-[112px]">
                   <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Projects</h2>
                   {projectsDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
@@ -815,9 +816,12 @@ export default function PortfolioSplitPane() {
                 </div>
 
                 {/* SKILLS SECTION */}
-                <div id="skills" className="flex flex-col scroll-mt-32">
-                  <h2 className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 text-sm font-mono text-[var(--theme-text)]">Skills</h2>
-                  {stackDataState.map((post, index) => {
+                <div id="skills" className="flex flex-col scroll-mt-[112px]">
+                  <div className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 flex items-center justify-between">
+                    <h2 className="text-sm font-mono text-[var(--theme-text)]">Skills</h2>
+                    <button onClick={() => setIsSkillsExpanded(!isSkillsExpanded)} className="text-xs text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">See {isSkillsExpanded ? 'less ∧' : 'more ∨'}</button>
+                  </div>
+                  {(isSkillsExpanded ? stackDataState : stackDataState.slice(0, 3)).map((post, index) => {
                     const isEditing = editingId === post.id;
 
                     if (isEditing && editForm) {

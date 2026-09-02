@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import type { DevLogItem } from "@/types/portfolio";
-import { StackIconBox } from "@/components/shared/StackIconBox";
+import { IconMapping } from "@/components/shared/icons";
 
 interface StackSectionProps {
   post: DevLogItem;
@@ -42,7 +42,6 @@ export function StackSection({
       {/* LEFT COLUMN: Category Title */}
       <div className="md:col-span-1">
         <h3 className="text-sm text-[var(--theme-muted)] font-mono mt-1">
-          <span className="opacity-50 mr-2">0{index + 1}</span>
           {post.title}
         </h3>
       </div>
@@ -50,14 +49,18 @@ export function StackSection({
       {/* RIGHT COLUMN: Stack Icons */}
       <div className="md:col-span-3">
         <div className="flex flex-wrap items-center gap-3">
-          {(post.tools || []).map((tool) => (
-            <StackIconBox 
-              key={tool.name} 
-              name={tool.name} 
-              iconName={tool.iconName} 
-              color={tool.color} 
-            />
-          ))}
+          {(post.tools || []).map((tool) => {
+            const IconComponent = tool.iconName && tool.iconName !== "TextFallback" ? IconMapping[tool.iconName as keyof typeof IconMapping] : undefined;
+            return (
+              <div 
+                key={tool.name}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-[var(--theme-border)] bg-transparent rounded-md text-[var(--theme-text)] hover:bg-[var(--theme-hover)] transition-colors"
+              >
+                {IconComponent && <IconComponent className="w-4 h-4" style={{ color: tool.color && tool.color.toUpperCase() === "#FFFFFF" ? "var(--theme-text)" : tool.color }} />}
+                <span>{tool.name}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
