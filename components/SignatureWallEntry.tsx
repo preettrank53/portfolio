@@ -35,7 +35,7 @@ export function SignatureWallEntry() {
         <a
           href="/wall"
           onClick={handleClick}
-          className="px-6 py-2 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-sm rounded-md hover:bg-[var(--theme-hover)] transition-colors inline-flex justify-center items-center relative overflow-hidden"
+          className="block border border-[var(--theme-border)] text-[var(--theme-muted)] px-6 py-2.5 hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)] transition-colors tracking-wide text-sm relative overflow-hidden"
         >
           <span className={`${isPending ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
             See the Wall
