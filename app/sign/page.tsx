@@ -65,7 +65,7 @@ export default function SignPage() {
       <header className="sticky top-0 z-50 w-full h-16 flex items-center justify-between px-4 md:px-6 border-b border-[var(--theme-border)] bg-[var(--theme-bg)]">
         {/* Left */}
         <Link href="/" className="flex items-center gap-2 text-xs font-mono text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">
-          &larr; BACK TO HOME
+          ← Back to home
         </Link>
         
         {/* Center */}
@@ -77,6 +77,7 @@ export default function SignPage() {
 
         {/* Right */}
         <div className="flex items-center gap-4">
+          <Link href="/wall" className="text-xs font-mono text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">← Back to wall</Link>
           <ThemeToggle />
         </div>
       </header>
@@ -93,7 +94,7 @@ export default function SignPage() {
 
       <div className="p-6 md:p-10 flex flex-col gap-8">
         
-        <div className="w-full">
+        <div className="max-w-xl mx-auto w-full h-56">
           <SignatureCanvas ref={canvasRef} />
         </div>
 
@@ -126,14 +127,14 @@ export default function SignPage() {
           <button
             onClick={handleClear}
             disabled={isSubmitting}
-            className="w-full sm:w-1/3 text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-sm tracking-widest rounded-none hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors duration-200 disabled:opacity-50"
+            className="w-full sm:w-1/3 text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-muted)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] transition-colors duration-200 disabled:opacity-50"
           >
             Clear
           </button>
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="w-full sm:w-2/3 text-center py-4 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-sm tracking-widest rounded-none hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors duration-200 disabled:opacity-50"
+            className="w-full sm:w-2/3 text-center py-3 bg-transparent border border-[var(--theme-border)] text-[var(--theme-text)] font-sans text-sm rounded-none hover:bg-[var(--theme-hover)] transition-colors duration-200 disabled:opacity-50"
           >
             {isSubmitting ? "Submitting..." : "Submit Signature"}
           </button>

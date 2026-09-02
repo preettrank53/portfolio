@@ -1,172 +1,64 @@
 [
   {
     "id": "skill-1",
-    "title": "Programming & Databases",
+    "title": "Programming Languages & Databases",
     "description": "Core languages and relational datastores.",
     "tools": [
-      {
-        "name": "Java",
-        "iconName": "SiJava",
-        "color": "#ED8B00"
-      },
-      {
-        "name": "Python",
-        "iconName": "SiPython",
-        "color": "#3776AB"
-      },
-      {
-        "name": "Postgresql",
-        "iconName": "SiPostgresql",
-        "color": "#4169E1"
-      },
-      {
-        "name": "Mysql",
-        "iconName": "SiMysql",
-        "color": "#4479A1"
-      }
+      { "name": "Java", "iconName": "SiJava", "color": "#ED8B00" },
+      { "name": "Python", "iconName": "SiPython", "color": "#3776AB" },
+      { "name": "SQL", "iconName": "TextFallback", "color": "#var(--theme-muted)" },
+      { "name": "PostgreSQL", "iconName": "SiPostgresql", "color": "#4169E1" },
+      { "name": "MySQL", "iconName": "SiMysql", "color": "#4479A1" }
     ]
   },
   {
     "id": "skill-2",
-    "title": "Machine Learning & Deep Learning",
-    "description": "Data processing, statistical modeling, and neural networks.",
+    "title": "Generative AI & Agentic AI",
+    "description": "LLM orchestration and multi-agent systems.",
     "tools": [
-      {
-        "name": "Scikit-learn",
-        "iconName": "SiScikitlearn",
-        "color": "#F7931E"
-      },
-      {
-        "name": "Tensorflow",
-        "iconName": "SiTensorflow",
-        "color": "#FF6F00"
-      },
-      {
-        "name": "Pandas",
-        "iconName": "SiPandas",
-        "color": "#150458"
-      },
-      {
-        "name": "Numpy",
-        "iconName": "SiNumpy",
-        "color": "#013243"
-      },
-      {
-        "name": "Scipy",
-        "iconName": "SiScipy",
-        "color": "#8CAAEE"
-      },
-      {
-        "name": "CNNs",
-        "iconName": "TextFallback",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "RNNs",
-        "iconName": "TextFallback",
-        "color": "#FFFFFF"
-      }
+      { "name": "Multi-Agent Systems", "iconName": "TextFallback", "color": "" },
+      { "name": "LangChain", "iconName": "TextFallback", "color": "" },
+      { "name": "LangGraph", "iconName": "TextFallback", "color": "" },
+      { "name": "CrewAI", "iconName": "TextFallback", "color": "" },
+      { "name": "RAG", "iconName": "TextFallback", "color": "" },
+      { "name": "Vector Databases", "iconName": "TextFallback", "color": "" },
+      { "name": "MCP (Model Context Protocol)", "iconName": "TextFallback", "color": "" },
+      { "name": "LLM Orchestration", "iconName": "TextFallback", "color": "" }
     ]
   },
   {
     "id": "skill-3",
-    "title": "AI & Generative Frameworks",
-    "description": "LLM orchestration, agents, and retrieval architectures.",
+    "title": "AI, Machine Learning & Deep Learning",
+    "description": "Classical ML and modern deep learning architectures.",
     "tools": [
-      {
-        "name": "Langchain",
-        "iconName": "SiLangchain",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "Langgraph",
-        "iconName": "SiLanggraph",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "Crewai",
-        "iconName": "SiCrewai",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "RAG",
-        "iconName": "",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "Multi-agent",
-        "iconName": "TextFallback",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "MCP",
-        "iconName": "SiMcp",
-        "color": "#FFFFFF"
-      }
+      { "name": "Supervised Learning", "iconName": "TextFallback", "color": "" },
+      { "name": "Unsupervised Learning", "iconName": "TextFallback", "color": "" },
+      { "name": "CNNs", "iconName": "TextFallback", "color": "" },
+      { "name": "RNNs", "iconName": "TextFallback", "color": "" },
+      { "name": "Transformers", "iconName": "TextFallback", "color": "" },
+      { "name": "Attention Mechanisms", "iconName": "TextFallback", "color": "" },
+      { "name": "Embeddings", "iconName": "TextFallback", "color": "" }
     ]
   },
   {
     "id": "skill-4",
-    "title": "Backend & Core Concepts",
-    "description": "API development, caching, and fundamental computer science.",
+    "title": "Core Engineering Concepts",
+    "description": "Foundational engineering and system design principles.",
     "tools": [
-      {
-        "name": "Fastapi",
-        "iconName": "SiFastapi",
-        "color": "#009688"
-      },
-      {
-        "name": "Flask",
-        "iconName": "SiFlask",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "Redis",
-        "iconName": "SiRedis",
-        "color": "#DC382D"
-      },
-      {
-        "name": "DSA",
-        "iconName": "SiDsa",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "OOPs",
-        "iconName": "",
-        "color": "#FFFFFF"
-      }
+      { "name": "Data Structures & Algorithms", "iconName": "TextFallback", "color": "" },
+      { "name": "Object-Oriented Programming", "iconName": "TextFallback", "color": "" }
     ]
   },
   {
     "id": "skill-5",
-    "title": "Tools & Platforms",
-    "description": "Version control, containerization, and interactive notebooks.",
+    "title": "Tools, Platforms & Orchestration",
+    "description": "Developer tooling and deployment platforms.",
     "tools": [
-      {
-        "name": "Git",
-        "iconName": "SiGit",
-        "color": "#F05032"
-      },
-      {
-        "name": "Github",
-        "iconName": "SiGithub",
-        "color": "#FFFFFF"
-      },
-      {
-        "name": "Streamlit",
-        "iconName": "SiStreamlit",
-        "color": "#FF4B4B"
-      },
-      {
-        "name": "Jupyter",
-        "iconName": "SiJupyter",
-        "color": "#F37626"
-      },
-      {
-        "name": "Colab",
-        "iconName": "SiGooglecolab",
-        "color": "#F9AB00"
-      }
+      { "name": "Streamlit", "iconName": "SiStreamlit", "color": "#FF4B4B" },
+      { "name": "Git", "iconName": "SiGit", "color": "#F05032" },
+      { "name": "GitHub Actions", "iconName": "SiGithubactions", "color": "#2088FF" },
+      { "name": "Jupyter Notebook", "iconName": "SiJupyter", "color": "#F37626" },
+      { "name": "Google Colab", "iconName": "TextFallback", "color": "" }
     ]
   }
 ]

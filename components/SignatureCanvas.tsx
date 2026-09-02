@@ -84,8 +84,9 @@ const SignatureCanvas = forwardRef<SignatureCanvasRef, React.HTMLAttributes<HTML
 
     if (strokes.length === 0 && currentStroke.length === 0 && !hasStarted) return;
 
-    const computedColor = getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
-    ctx.strokeStyle = computedColor || "#ffffff";
+    const isDark = document.documentElement.classList.contains('dark');
+    const strokeColor = isDark ? '#fafafa' : '#09090b';
+    ctx.strokeStyle = strokeColor;
     ctx.lineWidth = 3;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";

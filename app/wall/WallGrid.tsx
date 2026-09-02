@@ -76,7 +76,7 @@ export default function WallGrid({ initialSignatures, initialTotal }: WallGridPr
               </svg>
             </div>
             <div className="flex flex-col mt-4">
-              <span className="font-sans font-bold text-xs uppercase tracking-widest text-[var(--theme-text)] truncate">
+              <span className="font-sans font-medium text-xs text-[var(--theme-text)] truncate">
                 {sig.name} {getFlagEmoji(sig.country)}
               </span>
               {sig.note && (
@@ -84,7 +84,7 @@ export default function WallGrid({ initialSignatures, initialTotal }: WallGridPr
                   {sig.note}
                 </span>
               )}
-              <span className="font-mono text-[8px] uppercase tracking-widest text-[var(--theme-muted)]/50 mt-3 block">
+              <span className="font-mono text-[8px] tracking-wider text-[var(--theme-muted)]/60 mt-3 block">
                 {formatRelativeTime(sig.createdAt)}
               </span>
             </div>
@@ -96,9 +96,9 @@ export default function WallGrid({ initialSignatures, initialTotal }: WallGridPr
         <button
           onClick={handleLoadMore}
           disabled={isLoading}
-          className="w-full text-center py-6 border-b border-[var(--theme-border)] text-[var(--theme-text)] font-sans font-bold text-xs uppercase tracking-[0.15em] rounded-none hover:bg-[var(--theme-hover)] transition-all duration-300 disabled:opacity-50"
+          className="w-full text-center py-4 border-b border-[var(--theme-border)] text-[var(--theme-muted)] font-sans text-xs rounded-none hover:bg-[var(--theme-hover)] transition-colors disabled:opacity-50"
         >
-          {isLoading ? "LOADING..." : "LOAD MORE"}
+          {isLoading ? "Loading..." : "Load more"}
         </button>
       )}
     </div>

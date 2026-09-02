@@ -58,7 +58,7 @@ export default async function WallPage() {
 
         {/* Right */}
         <div className="flex items-center gap-4">
-          <Link href="/sign" className="border border-[var(--theme-border)] px-4 py-2 text-xs font-bold hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)] transition-colors">ADD YOUR SIGN</Link>
+          <Link href="/sign" className="border border-[var(--theme-border)] px-3 py-1.5 text-xs font-medium text-[var(--theme-muted)] hover:bg-[var(--theme-hover)] hover:text-[var(--theme-text)] transition-colors">Add your sign</Link>
           <ThemeToggle />
         </div>
       </header>

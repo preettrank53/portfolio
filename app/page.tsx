@@ -88,7 +88,6 @@ export default function PortfolioSplitPane() {
 
   const [openCommandPalette, setOpenCommandPalette] = useState<boolean>(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
-  const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
   
   // Mobile Sticky Fallback
   
@@ -817,11 +816,10 @@ export default function PortfolioSplitPane() {
 
                 {/* SKILLS SECTION */}
                 <div id="skills" className="flex flex-col scroll-mt-[112px]">
-                  <div className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3 flex items-center justify-between">
+                  <div className="sticky top-16 z-40 w-full border-b border-[var(--theme-border)] bg-[var(--theme-bg)] px-4 md:px-6 py-3">
                     <h2 className="text-sm font-mono text-[var(--theme-text)]">Skills</h2>
-                    <button onClick={() => setIsSkillsExpanded(!isSkillsExpanded)} className="text-xs text-[var(--theme-muted)] hover:text-[var(--theme-text)] transition-colors">See {isSkillsExpanded ? 'less ∧' : 'more ∨'}</button>
                   </div>
-                  {(isSkillsExpanded ? stackDataState : stackDataState.slice(0, 3)).map((post, index) => {
+                  {stackDataState.map((post, index) => {
                     const isEditing = editingId === post.id;
 
                     if (isEditing && editForm) {
@@ -876,9 +874,7 @@ export default function PortfolioSplitPane() {
         </div>
         <div className="border-r border-[var(--theme-border)] p-6 flex flex-col gap-2">
           <span className="text-[var(--theme-muted)]">License</span>
-          <a href="https://github.com/preettrank53" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-text)] hover:text-[var(--theme-hover)] transition-colors">
-            MIT License
-          </a>
+          <span className="text-[var(--theme-text)]">MIT License</span>
         </div>
         <div className="p-6 flex flex-col gap-2">
           <span className="text-[var(--theme-muted)]">Metrics</span>
