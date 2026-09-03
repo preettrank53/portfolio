@@ -206,3 +206,25 @@ header, section, nav, div {
 .dark::view-transition-new(root) {
   z-index: 1;
 }
+::view-transition-new(root) {
+  animation: clip-reveal 0.6s ease-in-out forwards;
+}
+.dark::view-transition-old(root) {
+  animation: clip-hide 0.6s ease-in-out forwards;
+}
+@keyframes clip-reveal {
+  0% {
+    clip-path: circle(0px at var(--x) var(--y));
+  }
+  100% {
+    clip-path: circle(var(--r) at var(--x) var(--y));
+  }
+}
+@keyframes clip-hide {
+  0% {
+    clip-path: circle(var(--r) at var(--x) var(--y));
+  }
+  100% {
+    clip-path: circle(0px at var(--x) var(--y));
+  }
+}

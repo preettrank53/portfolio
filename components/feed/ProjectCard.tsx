@@ -47,7 +47,7 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-6 py-6 border-b border-[var(--theme-border)] hover:bg-[var(--theme-hover)] transition-colors group relative overflow-hidden rounded-none"
+      className="flex flex-col gap-4 p-4 border border-[var(--theme-border)] hover:bg-[var(--theme-hover)] transition-colors group relative overflow-hidden rounded-md bg-[var(--theme-bg)]"
     >
       <SpotlightOverlay />
       
@@ -74,55 +74,42 @@ export function ProjectCard({
         </div>
       )}
 
-      {/* LEFT COLUMN: Metadata (Date) */}
-      <div className="md:col-span-1">
-        <span className="text-xs text-[var(--theme-text)]0 font-mono tracking-wider block mt-1">
-          {post.date}
-        </span>
-        {post.isPinned && (
-          <div className="flex items-center gap-1.5 text-[var(--theme-text)]0 font-mono text-[9px] tracking-widest mt-2">
-            <Pin className="w-3 h-3 text-[var(--theme-text)] fill-current rotate-[45deg]" />
-            <span>Pinned Flagship</span>
-          </div>
-        )}
-      </div>
-
-      {/* RIGHT COLUMN: Content */}
-      <div className="md:col-span-3 flex flex-col min-w-0">
-        
-        {/* Title & Category Row */}
-        <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
-          <h3 
-            className="font-sans font-extrabold text-xl md:text-2xl text-[var(--theme-text)] tracking-tight leading-tight line-clamp-2"
-            title={post.title || "Untitled"}
-          >
-            {post.title || "Untitled"}
-          </h3>
-          <span className="font-mono text-[10px] text-[var(--theme-text)]0 tracking-widest">
+      {/* Header */}
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-[var(--theme-muted)] font-mono tracking-wider">
+            {post.date}
+          </span>
+          <span className="font-mono text-[10px] text-[var(--theme-text)] border border-[var(--theme-border)] px-2 py-0.5 rounded-sm tracking-widest uppercase">
             {post.category}
           </span>
         </div>
+        <h3 className="font-sans font-bold text-lg md:text-xl text-[var(--theme-text)] tracking-tight leading-tight mt-2 line-clamp-1">
+          {post.title || "Untitled"}
+        </h3>
+      </div>
 
-        {/* Description */}
-        <div className="relative">
-          <p className={`text-[13px] sm:text-[14px] text-[var(--theme-muted)] leading-relaxed mb-1 whitespace-pre-line font-sans font-medium ${
-            isExpanded ? "" : "line-clamp-4"
-          }`}>
-            {post.body || "No description provided"}
-          </p>
+      {/* Description */}
+      <div className="relative flex-1">
+        <p className={`text-sm text-[var(--theme-muted)] leading-relaxed mb-1 whitespace-pre-line font-sans font-medium ${
+          isExpanded ? "" : "line-clamp-3"
+        }`}>
+          {post.body || "No description provided"}
+        </p>
           {shouldTruncate && (
             <button
               onClick={() => setExpandedCards(prev => ({ ...prev, [post.id]: !isExpanded }))}
-              className="relative z-50 text-[9px] font-mono text-[var(--theme-text)]0 hover:text-[var(--theme-text)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
+              className="relative z-10 text-[9px] font-mono text-[var(--theme-text)]0 hover:text-[var(--theme-text)] tracking-widest mt-1 mb-3 block min-h-[24px] transition-colors"
             >
               {isExpanded ? "Read Less ▲" : "Read More ▼"}
             </button>
           )}
         </div>
 
-        {/* Screenshots grid / carousel */}
-        {post.screenshots && post.screenshots.length > 0 && (
-          <div className="mt-4 mb-4 overflow-hidden select-none border border-[var(--theme-border)] rounded-sm opacity-90 hover:opacity-100 transition-opacity">
+      {/* Screenshots or Fallback block */}
+      <div className="w-full">
+        {post.screenshots && post.screenshots.length > 0 ? (
+          <div className="overflow-hidden select-none border border-[var(--theme-border)] rounded-md opacity-90 hover:opacity-100 transition-opacity">
             {post.screenshots.length === 1 ? (
               <AdaptiveSingleImage
                 src={post.screenshots[0].src}
@@ -134,7 +121,7 @@ export function ProjectCard({
                 }}
               />
             ) : post.screenshots.length === 2 ? (
-              <div className="grid grid-cols-2 gap-1 bg-zinc-800">
+              <div className="grid grid-cols-2 gap-1 bg-[var(--theme-border)]">
                 {post.screenshots.map((img, idx) => (
                   <div 
                     key={img.src}
@@ -156,7 +143,7 @@ export function ProjectCard({
                 ))}
               </div>
             ) : (
-              <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gap-1 bg-zinc-800">
+              <div className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden gap-1 bg-[var(--theme-border)]">
                 {post.screenshots.map((img, idx) => (
                   <div 
                     key={img.src}
@@ -165,7 +152,7 @@ export function ProjectCard({
                       setScreenshotIndex(idx);
                       setSelectedScreenshot(img);
                     }}
-                    className="relative flex-none w-[80%] md:w-[70%] aspect-video snap-center cursor-zoom-in group overflow-hidden bg-[var(--theme-bg)]"
+                    className="relative flex-none w-[80%] aspect-video snap-center cursor-zoom-in group overflow-hidden bg-[var(--theme-bg)]"
                   >
                     <ImageWithFallback 
                       src={img.src} 
@@ -178,13 +165,15 @@ export function ProjectCard({
                 ))}
               </div>
             )}
-            {post.screenshots.length === 1 && post.screenshots[0].caption && (
-              <div className="border-t border-[var(--theme-border)] bg-[var(--theme-bg)] px-3 py-1.5 font-mono text-[9px] text-[var(--theme-muted)]">
-                {post.screenshots[0].caption}
-              </div>
-            )}
+          </div>
+        ) : (
+          <div className="w-full aspect-[16/9] border border-[var(--theme-border)] rounded-md flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[var(--theme-bg)] to-[var(--theme-hover)] text-center relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[var(--theme-text)] opacity-0 group-hover:opacity-[0.02] transition-opacity duration-300 pointer-events-none"></div>
+            <span className="font-mono text-xs tracking-widest text-[var(--theme-muted)] mb-2 uppercase">Core Engineering</span>
+            <span className="font-bold text-[var(--theme-text)] text-lg line-clamp-2 leading-tight">Backend Architecture</span>
           </div>
         )}
+      </div>
 
         {/* Embedded Code Snippet */}
         {post.codeSnippet && post.codeSnippet.content && post.codeSnippet.content.trim() !== "" && (
@@ -199,27 +188,32 @@ export function ProjectCard({
 
         {/* Tags Row (Micro Labels) */}
         {post.tags && post.tags.length > 0 && (
-          <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mb-4 py-1 select-none">
-            {post.tags.map(tag => (
+          <div className="flex flex-wrap gap-2 py-1 select-none">
+            {post.tags.slice(0, 4).map(tag => (
               <span 
                 key={tag} 
-                className="flex-none font-mono text-[10px] tracking-wider border border-[var(--theme-border)] px-2 py-1 text-[var(--theme-muted)] rounded-sm bg-transparent hover:border-zinc-500 hover:text-[var(--theme-text)] transition-colors duration-150"
+                className="flex-none font-mono text-[10px] tracking-wider border border-[var(--theme-border)] px-2 py-1 text-[var(--theme-muted)] rounded-md bg-[var(--theme-bg)]"
               >
                 {tag}
               </span>
             ))}
+            {post.tags.length > 4 && (
+              <span className="flex-none font-mono text-[10px] tracking-wider border border-[var(--theme-border)] px-2 py-1 text-[var(--theme-muted)] rounded-md bg-[var(--theme-bg)]">
+                +{post.tags.length - 4}
+              </span>
+            )}
           </div>
         )}
 
         {/* Footer Links & Stars */}
-        <div className="flex items-center justify-between pt-2 text-[var(--theme-muted)]">
-          <div className="flex gap-4">
+        <div className="flex items-center justify-between pt-4 mt-auto border-t border-[var(--theme-border)]">
+          <div className="flex gap-2">
             {post.liveUrl && post.liveUrl.trim() !== "" && (
               <a 
                 href={post.liveUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative z-50 flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="relative z-10 flex items-center justify-center px-4 py-1.5 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-xs rounded-md hover:bg-[var(--theme-hover)] transition-colors"
               >
                 <span>Live →</span>
               </a>
@@ -229,7 +223,7 @@ export function ProjectCard({
                 href={post.codeUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative z-50 flex items-center gap-1 text-[11px] font-mono hover:text-[var(--theme-text)] transition-colors duration-150 tracking-widest min-h-[30px]"
+                className="relative z-10 flex items-center justify-center px-4 py-1.5 border border-[var(--theme-border)] text-[var(--theme-text)] font-medium text-xs rounded-md hover:bg-[var(--theme-hover)] transition-colors"
               >
                 <span>Code ↗</span>
               </a>
@@ -242,7 +236,7 @@ export function ProjectCard({
             <button 
               onClick={() => handleAppreciate(post.id)}
               disabled={hasUserAppreciated}
-              className={`relative z-50 flex items-center gap-1.5 font-mono text-xs tracking-wider transition-all duration-150 hover:scale-105 min-h-[30px] ${
+              className={`relative z-10 flex items-center gap-1.5 font-medium text-xs transition-all duration-150 hover:scale-105 min-h-[30px] ${
                 hasUserAppreciated ? "text-[var(--theme-text)] cursor-not-allowed" : "text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
               }`}
             >
@@ -251,7 +245,6 @@ export function ProjectCard({
             </button>
           </div>
         </div>
-      </div>
     </motion.article>
   );
 }

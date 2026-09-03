@@ -36,21 +36,9 @@ export function ThemeToggle() {
     });
 
     transition.ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
-      ];
-      document.documentElement.animate(
-        {
-          clipPath:
-            resolvedTheme === "dark" ? clipPath : [...clipPath].reverse(),
-        },
-        {
-          duration: 500,
-          easing: "ease-out",
-          pseudoElement: "::view-transition-new(root)",
-        }
-      );
+      document.documentElement.style.setProperty("--x", `${x}px`);
+      document.documentElement.style.setProperty("--y", `${y}px`);
+      document.documentElement.style.setProperty("--r", `${endRadius}px`);
     });
   };
 
