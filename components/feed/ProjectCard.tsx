@@ -106,9 +106,7 @@ export function ProjectCard({
           )}
         </div>
 
-      {/* Screenshots or Fallback block */}
-      <div className="w-full">
-        {post.screenshots && post.screenshots.length > 0 ? (
+        {post.screenshots && post.screenshots.length > 0 && (
           <div className="overflow-hidden select-none border border-[var(--theme-border)] rounded-md opacity-90 hover:opacity-100 transition-opacity">
             {post.screenshots.length === 1 ? (
               <AdaptiveSingleImage
@@ -166,14 +164,7 @@ export function ProjectCard({
               </div>
             )}
           </div>
-        ) : (
-          <div className="w-full aspect-[16/9] border border-[var(--theme-border)] rounded-md flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[var(--theme-bg)] to-[var(--theme-hover)] text-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-[var(--theme-text)] opacity-0 group-hover:opacity-[0.02] transition-opacity duration-300 pointer-events-none"></div>
-            <span className="font-mono text-xs tracking-widest text-[var(--theme-muted)] mb-2 uppercase">Core Engineering</span>
-            <span className="font-bold text-[var(--theme-text)] text-lg line-clamp-2 leading-tight">Backend Architecture</span>
-          </div>
         )}
-      </div>
 
         {/* Embedded Code Snippet */}
         {post.codeSnippet && post.codeSnippet.content && post.codeSnippet.content.trim() !== "" && (

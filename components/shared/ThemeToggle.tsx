@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -24,8 +24,10 @@ export function ThemeToggle() {
       return;
     }
 
-    const x = e.clientX;
-    const y = e.clientY;
+    const button = e.currentTarget as HTMLButtonElement;
+    const rect = button.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
     const endRadius = Math.hypot(
       Math.max(x, innerWidth - x),
       Math.max(y, innerHeight - y)
@@ -45,7 +47,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 hover:bg-[var(--theme-hover)] rounded-sm transition-colors text-[var(--theme-muted)] hover:text-[var(--theme-text)]"
+      className={`flex items-center justify-center p-2 hover:bg-[var(--theme-hover)] rounded-sm transition-colors text-[var(--theme-muted)] hover:text-[var(--theme-text)] ${className || ""}`}
       aria-label="Toggle theme"
     >
       {resolvedTheme === "dark" ? (

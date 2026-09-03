@@ -63,7 +63,7 @@ export function ExperienceCard({
       )}
 
       {/* Logo */}
-      <span className="flex w-10 h-10 md:w-12 md:h-12 shrink-0 items-center justify-center select-none bg-[var(--theme-hover)] rounded-md border border-[var(--theme-border)] overflow-hidden">
+      <span className="relative flex w-10 h-10 md:w-12 md:h-12 shrink-0 items-center justify-center select-none bg-[var(--theme-hover)] rounded-md border border-[var(--theme-border)] overflow-hidden">
         {post.logoUrl ? (
           <ImageWithFallback 
             src={post.logoUrl} 
